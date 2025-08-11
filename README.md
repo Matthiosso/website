@@ -1,3 +1,3 @@
 # Website 
 
-This is a simple website using Vue.js.
+This is a simple website using Vue.js and Docker.
