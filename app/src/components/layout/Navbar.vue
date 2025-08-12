@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20">
-            <div class="text-3xl font-bold dark:text-white">LOGO</div>
+            <div class="text-3xl font-bold dark:text-white">Hello! I'm Matthieu CLEMENT. My portfolio site is coming soon.</div>
 
             <!-- Mobile Toggle Button -->
              <div class="md:hidden z-30">
@@ -40,13 +40,15 @@
 
 <script setup>
 import { ref } from 'vue';
+import config from '@/config';
 
 const isMenuOpen = ref(false);
 
 const Menu = ref([
-    {name: 'Skills', href:'#skills'},
-    {name: 'Why me', href:'#whyme'},
-    {name: 'Contact', href:'#contact'},
+    // {name: 'Skills', href:'#skills'},
+    // {name: 'Why me', href:'#whyme'},
+    // {name: 'Contact', href:'#contact'},
+    {name: 'Contact', href:config.linkedInUrl, external: true},
 ]);
 
 const scrollToSection = (href) => {
