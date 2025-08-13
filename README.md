@@ -17,13 +17,13 @@ npm run dev
 2. With docker
 
 ```bash
-docker build -t app .
+docker build -f Dockerfile.dev -t app .
 docker run --rm -p 8080:8080 app
 ```
 
 3. With docker (prod version)
 
 ```bash
-docker build -f Dockerfile.prod -t app .
+docker build -t app .
 docker run --rm -p 8080:8080 app
 ```
