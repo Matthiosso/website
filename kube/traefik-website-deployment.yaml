@@ -2,13 +2,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: website
+  name: website-traefik
   annotations:
-    kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/redirect-regex: "^https?://(?:www\\.)?(.+)"
     traefik.ingress.kubernetes.io/redirect-replacement: "https://www.${1}"
     traefik.ingress.kubernetes.io/redirect-permanent: "true"
 spec:
+  ingressClassName: traefik
   rules:
   - host: "www.matthieuclement.com"
     http:
@@ -40,22 +40,22 @@ spec:
     - port: 80
       protocol: TCP
   selector:
-    app: website
+    app: website-app
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: website-nginx
+  name: website-app
 spec:
   selector:
     matchLabels:
-      app: website
+      app: website-app
   replicas: 2
   template:
     metadata:
       labels:
-        app: website
+        app: website-app
     spec:
       containers:
       - name: website
