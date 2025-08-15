@@ -11,14 +11,22 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
     <script>
-      const theme = localStorage.getItem('theme');
-      if (!theme) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      } else if (theme === 'dark') {
-        document.documentElement.classList.add('dark')
+      const theme = localStorage.getItem('theme');      
+      const htmlElement = document.documentElement;
+
+      if (theme === 'dark') {
+        htmlElement.classList.add('dark')
       } else if (theme === 'light') {
-        document.documentElement.classList.remove('dark')
+        htmlElement.classList.remove('dark')
+      } else {
+        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          htmlElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+        } else {
+          // Default to dark theme
+          htmlElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
       }
     </script>
   </body>

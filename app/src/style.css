@@ -3,6 +3,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --color-primary: #000957; /* Primary text color, use https://colorhunt.co to change theme */
-    --color-secondary: #FFEB00; /* Secondary text color */
+    --color-primary: #080326; /* Primary text color, use https://colorhunt.co to change theme */
+    --color-secondary: #B13BFF; /* Secondary text color */
+}
+
+@layer theme {
+  :root, :host {
+    @variant dark {
+        --color-primary: white; /* Primary text color, use https://colorhunt.co to change theme */
+        --color-secondary: #FFEB00; /* Secondary text color */
+    }
+  }
+}
+
+
+:root {
+    @apply bg-white dark:bg-[#080326];
 }
