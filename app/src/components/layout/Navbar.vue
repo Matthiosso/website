@@ -34,8 +34,6 @@
                     <Icon v-else icon="line-md:sunny-outline" class="text-5xl dark:text-secondary"/>
                 </button>
              </nav>
-
-             <div>This website was deployed using k3s (light kubernetes).</div>
         </div>
     </header>
 </template>
