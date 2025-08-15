@@ -6,10 +6,10 @@
             <!-- Mobile Toggle Button -->
              <div class="md:hidden z-30">
                 <button class="block focus:outline-none" @click="isMenuOpen = !isMenuOpen">
-                    <span v-if="isMenuOpen" class="text-5xl md:text-primary text-primary dark:text-primary">
+                    <span v-if="isMenuOpen" class="text-5xl md:text-gray-500 text-gray-500 dark:text-gray-500">
                         <Icon icon="material-symbols:close"/>
                     </span>
-                    <span v-else class="text-5xl md:text-primary text-primary dark:text-primary">
+                    <span v-else class="text-5xl md:text-gray-500 text-gray-500 dark:text-gray-500">
                         <Icon icon="material-symbols:menu"/>
                     </span>
                 </button>
@@ -17,7 +17,7 @@
 
             <!-- Navbar Link -->
              <nav :class="[
-                `fixed inset-0 z-20 flex flex-col items-center justify-center bg-primary md:relative 
+                `fixed inset-0 z-20 flex flex-col items-center justify-center md:relative 
                 md:bg-transparent md:flex md:justify-between md:flex-row ${isMenuOpen ? 'block' : 'hidden'}`,
                 ``
              ]">
@@ -28,7 +28,7 @@
                         </a>
                     </li>
                 </ul>
-                <button @click="toggleDarkMode" class="text-white ml-20 z-10 hidden md:block">
+                <button @click="toggleDarkMode" class="text-gray-500 ml-20 z-10 hidden md:block">
                     <!-- Show moon icon if dark mode is off, otherwise show sun icon -->
                     <Icon v-if="!isDarkMode" icon="line-md:moon-filled" class="text-5xl text-primary"/>
                     <Icon v-else icon="line-md:sunny-outline" class="text-5xl dark:text-secondary"/>
