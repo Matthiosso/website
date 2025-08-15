@@ -29,6 +29,7 @@ spec:
       protocol: TCP
   selector:
     app: website
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,5 +48,6 @@ spec:
       containers:
       - name: website
         image: ghcr.io/matthiosso/website:main
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
