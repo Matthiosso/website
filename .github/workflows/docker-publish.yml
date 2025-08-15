@@ -101,24 +101,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SERVER_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SERVER_HOST }}
 
-    - name: SSH into server and deploy application
-      run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
-        #### If : Error loading key "(stdin)": invalid format --> Your branch must be Protected
-        mkdir -p ~/.ssh
-        chmod 700 ~/.ssh
-        ssh-keyscan ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-        chmod 644 ~/.ssh/known_hosts
-        ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << EOF
-          cd ~/code/website
-
-          # Pull the latest code from the repository
-          git pull origin main
-
-          # Rollout the deployment
-          kubectl rollout restart deployment website
-        EOF
-  
+      - name: Rollout the deployed website
+        run: kubectl rollout restart deployment website
