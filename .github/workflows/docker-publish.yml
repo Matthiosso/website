@@ -119,4 +119,4 @@ jobs:
           SSH_HOST: ${{ secrets.SERVER_HOST }}
 
       - name: Rollout the deployed website
-        run: kubectl rollout restart deployment website
+        run: ssh staging 'kubectl rollout restart deployment website'
