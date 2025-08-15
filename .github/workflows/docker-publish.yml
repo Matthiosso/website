@@ -106,7 +106,6 @@ jobs:
 
     - name: SSH into server and deploy application
       run: |
-        eval $(ssh-agent -s)
         echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
         #### If : Error loading key "(stdin)": invalid format --> Your branch must be Protected
         mkdir -p ~/.ssh
