@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: Test build
 
 on:
   push:
@@ -10,9 +7,9 @@ on:
     branches: [ "**" ]
 
 
-
 jobs:
-  build:
+
+  build-node:
 
     runs-on: ubuntu-latest
 
@@ -37,4 +34,11 @@ jobs:
     - run: npm run build --if-present
     #- run: npm test
 
-    
+  build-docker-image:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --tag matthiosso/website:$(date +%s)
