@@ -29,6 +29,7 @@ kubectl apply -f kube/nginx-website-deployment.yaml
 ### Update deployment
 
 To make sure the old pod is killed only when the new one is up :
+
 ```bash
 kubectl rollout restart deployment website
 ```

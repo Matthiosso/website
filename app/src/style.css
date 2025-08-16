@@ -5,6 +5,8 @@
 @theme {
     --color-primary: #080326; /* Primary text color, use https://colorhunt.co to change theme */
     --color-secondary: #B13BFF; /* Secondary text color */
+    --color-accent: darkblue;
+    --font-display: "Arial", sans-serif; 
 }
 
 @layer theme {
@@ -12,11 +14,27 @@
     @variant dark {
         --color-primary: white; /* Primary text color, use https://colorhunt.co to change theme */
         --color-secondary: #FFEB00; /* Secondary text color */
+        --color-accent: #33A1E0;
     }
+
+     @apply bg-white dark:bg-[#080326];
   }
 }
 
+@layer utilities {
+  .stroke-text {
+    --tw-text-opacity: 1;
+    -webkit-text-stroke-width: 1.4px;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-color: var(--color-secondary);
+  }
 
-:root {
-    @apply bg-white dark:bg-[#080326];
+  a {
+    @apply md:text-accent text-accent hover:text-secondary;
+  }
+
+  button {
+    cursor: pointer;
+  }
 }
+

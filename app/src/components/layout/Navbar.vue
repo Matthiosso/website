@@ -1,15 +1,15 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20">
-            <div class="text-3xl font-bold text-primary dark:text-primary">Hello! I'm Matthieu CLEMENT. My portfolio site is coming soon.</div>
+            <div class="text-3xl font-bold "><a href="#">MC</a></div>
 
             <!-- Mobile Toggle Button -->
              <div class="md:hidden z-30">
                 <button class="block focus:outline-none" @click="isMenuOpen = !isMenuOpen">
-                    <span v-if="isMenuOpen" class="text-5xl md:text-gray-500 text-gray-500 dark:text-gray-500">
+                    <span v-if="isMenuOpen" class="text-5xl md:text-gray-500 text-gray-500">
                         <Icon icon="material-symbols:close"/>
                     </span>
-                    <span v-else class="text-5xl md:text-gray-500 text-gray-500 dark:text-gray-500">
+                    <span v-else class="text-5xl md:text-gray-500 text-gray-500">
                         <Icon icon="material-symbols:menu"/>
                     </span>
                 </button>
@@ -23,7 +23,7 @@
              ]">
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
                     <li v-for="item in Menu" key="item.name">
-                        <a :href="item.href" @click="scrollToSection(item.href)" class="block transition ease-linear md:text-lg lg:text-xl font-bold text-primary md:text-primary hover:text-secondary dark:text-primary dark:hover:text-secondary">
+                        <a :href="item.href" @click="scrollToSection(item.href)" class="block transition ease-linear md:text-lg lg:text-xl font-bold text-primary">
                             {{ item.name }}
                         </a>
                     </li>
@@ -31,7 +31,7 @@
                 <button @click="toggleDarkMode" class="text-gray-500 ml-20 z-10 hidden md:block">
                     <!-- Show moon icon if dark mode is off, otherwise show sun icon -->
                     <Icon v-if="!isDarkMode" icon="line-md:moon-filled" class="text-5xl text-primary"/>
-                    <Icon v-else icon="line-md:sunny-outline" class="text-5xl dark:text-secondary"/>
+                    <Icon v-else icon="line-md:sunny-outline" class="text-5xl text-secondary"/>
                 </button>
              </nav>
         </div>
