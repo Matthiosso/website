@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
-        <Navbar />
-        <HeroSection />
+    <Navbar />
+    <HeroSection />
   </div>
 </template>
 
