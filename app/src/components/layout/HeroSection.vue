@@ -11,9 +11,23 @@
                 <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
-                <p class="text-lg max-w-xl mx-auto lg:mx-0 font-semibold">
-                    My portfolio site is coming soon.
-                </p>
+                <div class="flex flex-row">
+                    <p class="basis-[50%] text-lg mx-auto font-semibold">
+                        Thriving beyond comfort zones defines my approach to engineering and life. My journey evolved
+                        from full-stack development to strategic
+                        defense operations, driven by curiosity to understand the human stories behind technical
+                        requirements. Whether coordinating crisis teams, managing international partnerships, or
+                        debugging complex systems, I excel where pressure meets precision.
+                        <br />My adaptability isn't just a
+                        skill—it's a philosophy. Just as I conquered my fear of heights through rock climbing, I embrace
+                        challenges that drive growth. Now, preparing for fatherhood and relocation to Phoenix, I'm
+                        seeking a company that values what I bring: technical expertise, strategic vision, and the
+                        commitment to build bridges between what is and what could be.
+                    </p>
+                    <img src="@/assets/images/matthieu.png" alt="Matthieu Clement"
+                        class="basis-[50%] w-120 h-120 rounded-full" loading="lazy" />
+                </div>
+
                 <div class="mt-6 flex justify-center lg:justify-start">
                     <Button :label="HireMe" :onClick="openLinkedIn" />
                     <a href=""
@@ -27,23 +41,8 @@
                     </a>
                 </div>
             </header>
-            <!-- <aside class="container flex justify-center lg:justify-end mt-20 lg:mt-0 items-center flex-wrap">
-                <figure
-                    class="card relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[350px] before:w-[300px] before:h-[300px] before:border-[25px] before:border-bg-gray-400 before:shadow-[7px_7px_21px_bg-gray-700,_-7px_-7px_21px_bg-gray-700]">
-                    <div class="relative w-full h-full bg-cover transform translate-x-[10px] translate-y-[10px]">
-                        <img src="@/assets/images/matthieu.png" alt="Matthieu Clement" class="max-w-1/2"
-                            loading="lazy" />
-                    </div>
-                </figure>
-            </aside> -->
-        </main>
 
-        <!-- <svg class="hidden">
-            <filter id="wavy1">
-                <feTurbulence x="0" y="0" base-frequency="0.2" num-octaves="5" seed="1" />
-                <feDisplacementMap in="SourceGraphic" scale="30" />
-            </filter>
-        </svg> -->
+        </main>
     </section>
 </template>
 <script setup>
@@ -60,18 +59,3 @@ function openLinkedIn() {
 }
 
 </script>
-
-<style scoped>
-/* .container .card:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background: transparent
-}
-
-.container .card:nth-of-type(1)::before {
-    filter: url(#wavy1);
-} */
-</style>

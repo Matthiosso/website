@@ -18,7 +18,7 @@
             <!-- Navbar Link -->
             <nav :class="[
                 `fixed inset-0 z-20 flex flex-col items-center justify-center md:relative 
-                md:bg-transparent md:flex md:justify-between md:flex-row ${isMenuOpen ? 'block' : 'hidden'}`,
+                md:bg-transparent md:flex md:justify-between md:flex-row ${isMenuOpen ? 'block' : 'hidden'} bg-background`,
                 ``
             ]">
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
