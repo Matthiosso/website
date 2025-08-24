@@ -1,5 +1,5 @@
 <template>
-    <section class="flex justify-center items-center min-h-screen dark:text-primary mt-20 lg:mt-0">
+    <section data-aos="zoom-in" class="flex justify-center items-center min-h-screen dark:text-primary mt-20 lg:mt-0">
         <header
             class="absolute w-1/2 aspect-[16/5] -skew-x-12 rounded-full bg-gradient-to-r from-[#00C6CC] via-[#785ae4] to-secondary opacity-30 dark:opacity-20 blur-[100px] left-10 top-0 hidden md:block">
         </header>
@@ -39,12 +39,11 @@
             </header>
             <aside class="container flex justify-center lg:justify-end mt-20 lg:mt-0 items-center flex-wrap">
                 <figure
-                    class="card relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[350px] before:w-[300px] before:h-[300px]">
+                    class="card relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[280px] before:w-[300px] before:h-[300px]">
                     <div
                         class="w-full h-full bg-cover rounded-full overflow-hidden dark:mask-radial-at-center dark:mask-radial-from-30% border-[10px] border-secondary">
                         <img src="@/assets/images/matthieu.png" alt="Matthieu Clement" class="max-w" loading="lazy" />
                     </div>
-                    <div class="bg-[url(/images/matthieu.png)]"></div>
                 </figure>
             </aside>
         </main>
