@@ -11,22 +11,18 @@
                 <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
-                <div class="flex flex-row">
-                    <p class="basis-[50%] text-lg mx-auto font-semibold">
-                        Thriving beyond comfort zones defines my approach to engineering and life. My journey evolved
-                        from full-stack development to strategic
-                        defense operations, driven by curiosity to understand the human stories behind technical
-                        requirements. Whether coordinating crisis teams, managing international partnerships, or
-                        debugging complex systems, I excel where pressure meets precision.
-                        <br />My adaptability isn't just a
-                        skill—it's a philosophy. Just as I conquered my fear of heights through rock climbing, I embrace
-                        challenges that drive growth. Now, preparing for fatherhood and relocation to Phoenix, I'm
-                        seeking a company that values what I bring: technical expertise, strategic vision, and the
-                        commitment to build bridges between what is and what could be.
-                    </p>
-                    <img src="@/assets/images/matthieu.png" alt="Matthieu Clement"
-                        class="basis-[50%] w-120 h-120 rounded-full" loading="lazy" />
-                </div>
+                <p class="text-lg max-w-xl mx-auto lg:mx-0 font-semibold italic">
+                    Thriving beyond comfort zones defines my approach to engineering and life. My journey evolved
+                    from full-stack development to strategic
+                    defense operations, driven by curiosity to understand the human stories behind technical
+                    requirements. Whether coordinating crisis teams, managing international partnerships, or
+                    debugging complex systems, I excel where pressure meets precision.
+                    <br />My adaptability isn't just a
+                    skill—it's a philosophy. Just as I conquered my fear of heights through rock climbing, I embrace
+                    challenges that drive growth. Now, preparing for fatherhood and relocation to the United States, I'm
+                    seeking a company that values what I bring: technical expertise, strategic vision, and the
+                    commitment to build bridges between what is and what could be.
+                </p>
 
                 <div class="mt-6 flex justify-center lg:justify-start">
                     <Button :label="HireMe" :onClick="openLinkedIn" />
@@ -41,7 +37,16 @@
                     </a>
                 </div>
             </header>
-
+            <aside class="container flex justify-center lg:justify-end mt-20 lg:mt-0 items-center flex-wrap">
+                <figure
+                    class="card relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[350px] before:w-[300px] before:h-[300px]">
+                    <div
+                        class="w-full h-full bg-cover rounded-full overflow-hidden dark:mask-radial-at-center dark:mask-radial-from-30% border-[10px] border-secondary">
+                        <img src="@/assets/images/matthieu.png" alt="Matthieu Clement" class="max-w" loading="lazy" />
+                    </div>
+                    <div class="bg-[url(/images/matthieu.png)]"></div>
+                </figure>
+            </aside>
         </main>
     </section>
 </template>
@@ -51,7 +56,6 @@ import { ref } from 'vue';
 import config from '@/config';
 const HireMe = ref('Hire me');
 const LinkedInUrl = ref(config.linkedInUrl);
-console.log('LinkedIn URL:', config.linkedInUrl);
 
 
 function openLinkedIn() {
@@ -59,3 +63,14 @@ function openLinkedIn() {
 }
 
 </script>
+
+
+<style scoped>
+.container .card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+</style>
