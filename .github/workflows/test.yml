@@ -40,5 +40,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --tag matthiosso/website-frontend:$(date +%s)
+    - name: Build the Frontend Docker image
+      run: cd frontend && docker build . --tag matthiosso/website-frontend:$(date +%s)
+
+    - uses: actions/checkout@v4
+    - name: Build the Backend Docker image
+      run: cd backend && docker build . --tag matthiosso/website-backend:$(date +%s)
