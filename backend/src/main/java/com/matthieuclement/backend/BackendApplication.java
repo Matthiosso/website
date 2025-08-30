@@ -5,10 +5,16 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import com.matthieuclement.backend.property.FileDownloadProperties;
+
 @SpringBootApplication
+@EnableConfigurationProperties({
+	FileDownloadProperties.class
+})
 public class BackendApplication {
 
 	public static void main(String[] args) {
