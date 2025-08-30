@@ -7,7 +7,7 @@
     --color-background: white; /* Background color */
     --color-primary: #080326; /* Primary text color, use https://colorhunt.co to change theme */
     --color-secondary: #B13BFF; /* Secondary text color */
-    --color-accent: darkblue;
+    --color-accent: black; /* Text color for links */
     --font-display: "Roboto", "Arial", sans-serif; 
 }
 
@@ -17,7 +17,7 @@
         --color-background: #080326; /* Background color */
         --color-primary: white; /* Primary text color, use https://colorhunt.co to change theme */
         --color-secondary: #FFEB00; /* Secondary text color */
-        --color-accent: #33A1E0;
+        --color-accent: white; /* Text color for links */
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="flex justify-between items-center p-8 lg:px-12 relative z-20">
+        <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
             <div class="text-3xl font-bold "><a href="#">MC</a></div>
 
             <!-- Mobile Toggle Button -->
@@ -24,12 +24,12 @@
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
                     <li v-for="item in Menu" key="item.name">
                         <a :href="item.href" @click="scrollToSection(item.href)"
-                            class="block transition ease-linear md:text-lg lg:text-xl font-bold text-primary">
+                            class="block transition ease-linear text-2xl md:text-lg lg:text-xl font-bold">
                             {{ item.name }}
                         </a>
                     </li>
                 </ul>
-                <button @click="toggleDarkMode" class="text-gray-500 ml-20 z-10 hidden md:block">
+                <button @click="toggleDarkMode" :class="(isMenuOpen ? 'mt-20' : 'ml-20') + ' z-10 md:block'">
                     <!-- Show moon icon if dark mode is off, otherwise show sun icon -->
                     <Icon v-if="!isDarkMode" icon="line-md:moon-filled" class="text-5xl text-primary" />
                     <Icon v-else icon="line-md:sunny-outline" class="text-5xl text-secondary" />
@@ -46,9 +46,8 @@ import config from '@/config';
 const isMenuOpen = ref(false);
 
 const Menu = ref([
-    // {name: 'Skills', href:'#skills'},
-    // {name: 'Why me', href:'#whyme'},
-    // {name: 'Contact', href:'#contact'},
+    { name: 'Who am I ?', href: '#whoami' },
+    { name: 'My Services', href: '#services' },
     { name: 'Contact', href: config.linkedInUrl, external: true },
 ]);
 

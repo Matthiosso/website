@@ -1,5 +1,6 @@
 <template>
-    <section data-aos="zoom-in" class="flex justify-center items-center min-h-screen dark:text-primary mt-20 lg:mt-0">
+    <section id="whoami" data-aos="zoom-in"
+        class="flex justify-center items-center min-h-screen dark:text-primary mt-20 lg:mt-0 mb-50 md:mb-0 lg:mb-0">
         <SectionHeader />
         <main class="absolute grid lg:grid-cols-2 grid-cols-1 items-center p-2 lg:p-8">
             <header class="font-display text-center lg:text-left">
