@@ -1,11 +1,6 @@
 <template>
     <section data-aos="zoom-in" class="flex justify-center items-center min-h-screen dark:text-primary mt-20 lg:mt-0">
-        <header
-            class="absolute w-1/2 aspect-[16/5] -skew-x-12 rounded-full bg-gradient-to-r from-[#00C6CC] via-[#785ae4] to-secondary opacity-30 dark:opacity-20 blur-[100px] left-10 top-0 hidden md:block">
-        </header>
-        <header
-            class="absolute w-1/2 aspect-[16/5] -skew-x-12 rounded-full bg-gradient-to-r from-[#00C6CC] via-[#785ae4] to-secondary opacity-30 dark:opacity-20 blur-[100px] right-10 bottom-0 hidden md:block">
-        </header>
+        <SectionHeader />
         <main class="absolute grid lg:grid-cols-2 grid-cols-1 items-center p-2 lg:p-8">
             <header class="font-display text-center lg:text-left">
                 <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold">
@@ -19,7 +14,8 @@
                     debugging complex systems, I excel where pressure meets precision.
                     <br />My adaptability isn't just a
                     skill—it's a philosophy. Just as I conquered my fear of heights through rock climbing, I embrace
-                    challenges that drive growth. Now, preparing for fatherhood and relocation to the United States, I'm
+                    challenges that drive growth. Now, preparing for fatherhood and relocation to the United States,
+                    I'm
                     seeking a company that values what I bring: technical expertise, strategic vision, and the
                     commitment to build bridges between what is and what could be.
                 </p>
@@ -53,6 +49,7 @@
 import Button from '@/components/UI/Button.vue';
 import { ref } from 'vue';
 import config from '@/config';
+import SectionHeader from '../UI/SectionHeader.vue';
 const HireMe = ref('Hire me');
 const LinkedInUrl = ref(config.linkedInUrl);
 

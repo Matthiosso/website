@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=TASA+Explorer:wght@400..800&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -7,7 +8,7 @@
     --color-primary: #080326; /* Primary text color, use https://colorhunt.co to change theme */
     --color-secondary: #B13BFF; /* Secondary text color */
     --color-accent: darkblue;
-    --font-display: "Arial", sans-serif; 
+    --font-display: "Roboto", "Arial", sans-serif; 
 }
 
 @layer theme {
@@ -18,19 +19,10 @@
         --color-secondary: #FFEB00; /* Secondary text color */
         --color-accent: #33A1E0;
     }
-
-     @apply bg-background;
   }
 }
 
-@layer utilities {
-  .stroke-text {
-    --tw-text-opacity: 1;
-    -webkit-text-stroke-width: 1.4px;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-color: var(--color-secondary);
-  }
-
+@layer base {
   a {
     @apply md:text-accent text-accent hover:text-secondary;
   }
@@ -38,5 +30,16 @@
   button {
     cursor: pointer;
   }
+}
+
+@layer components {
+  .stroke-text {
+    color: var(--color-background);
+    filter: drop-shadow(-2px 0 0 var(--color-secondary))
+            drop-shadow(2px 0 0 var(--color-secondary))
+            drop-shadow(0 -2px 0 var(--color-secondary))
+            drop-shadow(0 2px 0 var(--color-secondary));
+  }
+
 }
 
