@@ -36,7 +36,7 @@ jobs:
           SSH_HOST: ${{ secrets.SERVER_HOST }}
       
       - name: Git pull and build docker image
-        run: ssh staging 'cd code/website && git pull && docker build -f Dockerfile.dev -t app:dev . && docker save app:dev | sudo k3s ctr images import -'
+        run: ssh staging 'cd code/website && git pull && git checkout dev && docker build -f Dockerfile.dev -t app:dev . && docker save app:dev | sudo k3s ctr images import -'
 
       - name: Rollout the deployed website
         run: ssh staging 'sudo kubectl -n dev rollout restart deployment website'
