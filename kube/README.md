@@ -37,7 +37,7 @@ kubectl rollout restart deployment website
 ## Dev (with locally built docker image)
 
 ```bash
-docker build -f Dockerfile.dev -t frontend:dev .
+docker build -f Dockerfile -t frontend:dev .
 docker save frontend:dev | sudo k3s ctr images import -
 kubectl apply -f kube/dev-website-deployment.yaml
 ```

@@ -6,7 +6,7 @@ metadata:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: website-nginx
+  name: website-frontend-nginx
   namespace: dev
 spec:
   ingressClassName: nginx
@@ -18,44 +18,53 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: website-service
+              name: website-frontend-service
               port:
-                number: 8080
+                number: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: website-service
+  name: website-frontend-service
   namespace: dev
 spec:
   ports:
-    - port: 8080
+    - port: 80
       protocol: TCP
   selector:
-    app: website
+    app: website-frontend
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: website
+  name: website-frontend
   namespace: dev
 spec:
   selector:
     matchLabels:
-      app: website
+      app: website-frontend
   replicas: 2
   template:
     metadata:
       labels:
-        app: website
+        app: website-frontend
     spec:
       containers:
-      - name: website
-        image: frontend:dev
+      - name: website-frontend
+        image: website-frontend:dev
+        env:
+        - name: ASSET_DIR
+          value: /usr/share/nginx/html
+        - name: APP_PREFIX
+          value: ENV_
+        - name: ENV_RESUME_URL
+          value: https://backend.matthieuclement.com/download/resume
+        - name: ENV_LINKEDIN_URL
+          value: https://www.linkedin.com/in/matthieuclement2012/
         #image: hashicorp/http-echo
           #args:
           #- "-text=Hello Kubernetes!"
           #- "-listen=:80"
         ports:
-        - containerPort: 8080
+        - containerPort: 80

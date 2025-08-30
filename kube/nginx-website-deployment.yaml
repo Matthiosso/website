@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: website-nginx
+  name: website-frontend-nginx
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
@@ -15,14 +15,14 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: website-service
+              name: website-frontend-service
               port:
                 number: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: website-service
+  name: website-frontend-service
 spec:
   ports:
     - port: 80
@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: website
-        image: ghcr.io/matthiosso/website:main
+        image: ghcr.io/matthiosso/website-frontend:main
         imagePullPolicy: Always
         ports:
         - containerPort: 80
