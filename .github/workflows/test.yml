@@ -13,10 +13,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # Custom add for ./app
+    # Custom add for ./frontend
     defaults:
       run:
-        working-directory: 'app'
+        working-directory: 'frontend'
 
     strategy:
       matrix:

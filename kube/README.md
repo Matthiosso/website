@@ -1,4 +1,4 @@
-# Install app on server with Kube and nginx
+# Install frontend on server with Kube and nginx
 
 ## Setup
 
@@ -37,8 +37,8 @@ kubectl rollout restart deployment website
 ## Dev (with locally built docker image)
 
 ```bash
-docker build -f Dockerfile.dev -t app:dev .
-docker save app:dev | sudo k3s ctr images import -
+docker build -f Dockerfile.dev -t frontend:dev .
+docker save frontend:dev | sudo k3s ctr images import -
 kubectl apply -f kube/dev-website-deployment.yaml
 ```
 
