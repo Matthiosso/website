@@ -23,11 +23,12 @@
 
                 <div class="mt-6 flex justify-center lg:justify-start">
                     <Button :label="HireMe" :onClick="openLinkedIn" />
-                    <a href=""
-                        class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                    <button :onClick="downloadResume"
+                        class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2
+                        border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="line-md:download-loop" class="text-3xl" />
                         <span class="ml-1">Resume</span>
-                    </a>
+                    </button>
                     <a :href="LinkedInUrl"
                         class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:linkedin" class="text-3xl" />
@@ -54,6 +55,9 @@ import SectionHeader from '../UI/SectionHeader.vue';
 const HireMe = ref('Hire me');
 const LinkedInUrl = ref(config.linkedInUrl);
 
+function downloadResume() {
+    window.open(config.downloadResumeUrl, '_blank');
+}
 
 function openLinkedIn() {
     window.open(config.linkedInUrl, '_blank');

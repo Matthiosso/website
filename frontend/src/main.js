@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { Icon } from '@iconify/vue' // to find icons, visit https://icon-sets.iconify.design
 import Countup from 'vue-countup-v3';
-import AOS from 'aos';
+import AOS from 'aos'; // for nice css animations
 import 'aos/dist/aos.css';
 AOS.init({duration: 1000});
 
