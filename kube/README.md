@@ -41,3 +41,9 @@ docker build -f Dockerfile.dev -t app:dev .
 docker save app:dev | sudo k3s ctr images import -
 kubectl apply -f kube/dev-website-deployment.yaml
 ```
+
+### Update dev deployment
+
+```bash
+kubectl -n dev rollout restart deployment website
+```
