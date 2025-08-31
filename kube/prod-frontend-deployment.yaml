@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
       - name: website-frontend
-        image: ghcr.io/matthiosso/website-frontend:main
+        image: ghcr.io/matthiosso/website/frontend:main
         imagePullPolicy: Always
         env:
         - name: APP_PREFIX
