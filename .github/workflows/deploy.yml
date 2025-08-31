@@ -32,10 +32,10 @@ jobs:
         include:
           - dockerfile: ./frontend/Dockerfile
             context: ./frontend
-            image: ghcr.io/website/website-frontend
+            image: ghcr.io/website-frontend
           - dockerfile: ./backend/Dockerfile
             context: ./backend
-            image: ghcr.io/website/website-backend
+            image: ghcr.io/website-backend
     permissions:
       contents: read
       packages: write
