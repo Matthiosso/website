@@ -52,6 +52,9 @@ spec:
       containers:
       - name: website-backend
         image: website-backend:dev
+        # livenessProbe:
+        #   httpGet:
+        #     path: /api/health
         volumeMounts:
         - name: data
           mountPath: /data

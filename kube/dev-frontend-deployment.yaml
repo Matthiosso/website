@@ -57,7 +57,7 @@ spec:
         - name: APP_PREFIX
           value: ENV_
         - name: ENV_RESUME_URL
-          value: https://backend.matthieuclement.com/download/resume
+          value: https://dev.matthieuclement.com/api/download/resume
         - name: ENV_LINKEDIN_URL
           value: https://www.linkedin.com/in/matthieuclement2012/
         #image: hashicorp/http-echo
