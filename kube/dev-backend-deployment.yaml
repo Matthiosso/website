@@ -55,7 +55,6 @@ spec:
         volumeMounts:
           - name: data
           - mountPath: /data
-          - readonly: true
         env:
         - name: PREFIX_PATH
           value: /api
