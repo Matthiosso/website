@@ -109,6 +109,7 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
   deploy:
+    if: ${{ github.event_name != 'pull_request' }}
     needs: build-and-push-image
     runs-on: ubuntu-latest
 
