@@ -41,6 +41,7 @@ metadata:
   name: website-frontend
   namespace: dev
 spec:
+  revisionHistoryLimit: 1 # Default is 10, 1 allows to only keep one previous replicaset in case of need to rollback dev
   selector:
     matchLabels:
       app: website-frontend
