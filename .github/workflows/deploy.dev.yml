@@ -35,8 +35,14 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SERVER_HOST }}
       
-      - name: Git pull and build docker image
-        run: ssh staging 'cd code/website/frontend && git pull && git checkout dev && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml && docker build -f Dockerfile -t website-frontend:dev . && docker save website-frontend:dev | sudo k3s ctr images import -'
+      - name: Git pull and checkout dev
+        run: ssh staging 'cd code/website && git pull && git checkout dev'
+
+      - name: Frontend / deploy new config
+        run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml && docker build -f Dockerfile -t website-frontend:dev . && docker save website-frontend:dev | sudo k3s ctr images import -'
+
+      - name: Backend / deploy new config
+        run: ssh staging 'cd code/website/backend && sudo kubectl apply -f ../kube/dev-backend-deployment.yaml && docker build -f Dockerfile -t website-backend:dev . && docker save website-backend:dev | sudo k3s ctr images import -'
 
       - name: Rollout the deployed website
-        run: ssh staging 'sudo kubectl -n dev rollout restart deployment website-frontend'
+        run: ssh staging 'sudo kubectl -n dev rollout restart deployment website-frontend && sudo kubectl -n dev rollout restart deployment website-backend'
