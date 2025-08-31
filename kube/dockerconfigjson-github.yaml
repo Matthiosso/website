@@ -3,6 +3,7 @@ type: kubernetes.io/dockerconfigjson
 apiVersion: v1
 metadata:
   name: dockerconfigjson-github-com
+  namespace: prod
   labels:
     app: website
 data:
