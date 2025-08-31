@@ -17,26 +17,61 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      TMP_FOLDER: /tmp/github/${{ github.sha }}
+
     steps:
-      - name: Multiple commands
+      - name: Create temp folder for deploying
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            whoami
-            ls -al
-      
-      # - name: Git pull and checkout dev
-      #   run: ssh staging 'cd code/website && 
-      #   git checkout dev && git pull'
+            mkdir -p 
+            cd ${{ env.TMP_FOLDER}}
+            git init
+            git remote add -f origin ${{ github.repositoryUrl }}
+            git config core.sparseCheckout true
+            echo "kube" >> .git/info/sparse-checkout
+            echo "frontend" >> .git/info/sparse-checkout
+            echo "backend" >> .git/info/sparse-checkout
+            git pull origin ${{ github.ref_name }}
 
-      # - name: Frontend / deploy new config
-      #   run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml && docker build -f Dockerfile -t website-frontend:dev . && docker save website-frontend:dev | sudo k3s ctr images import -'
+      - name: Build frontend
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ env.TMP_FOLDER}}/frontend
+            docker build -f Dockerfile -t website-frontend:dev .
+            docker save website-frontend:dev | sudo k3s ctr images import -
 
-      # - name: Backend / deploy new config
-      #   run: ssh staging 'cd code/website/backend && sudo kubectl apply -f ../kube/dev-backend-deployment.yaml && docker build -f Dockerfile -t website-backend:dev . && docker save website-backend:dev | sudo k3s ctr images import -'
+      - name: Deploy backend
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ env.TMP_FOLDER}}/backend
+            docker build -f Dockerfile -t website-backend:dev .
+            docker save website-backend:dev | sudo k3s ctr images import -
 
-      # - name: Rollout the deployed website
-      #   run: ssh staging 'sudo kubectl -n dev rollout restart deployment website-frontend && sudo kubectl -n dev rollout restart deployment website-backend'
+      - name: Clean up and deploy
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ env.TMP_FOLDER}}
+            sudo kubectl apply -f ./kube/dev-frontend-deployment.yaml
+            sudo kubectl apply -f ./kube/dev-backend-deployment.yaml
+            
+            rm -rf /tmp/github/${{ job.container.id }}
+
+            sudo kubectl -n dev rollout restart deployment website-frontend
+            sudo kubectl -n dev rollout restart deployment website-backend
