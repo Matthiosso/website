@@ -28,25 +28,25 @@ spec:
     - port: 80
       protocol: TCP
   selector:
-    app: website
+    app: website-frontend
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: website
+  name: website-frontend
 spec:
   selector:
     matchLabels:
-      app: website
+      app: website-frontend
   replicas: 2
   template:
     metadata:
       labels:
-        app: website
+        app: website-frontend
     spec:
       containers:
-      - name: website
+      - name: website-frontend
         image: ghcr.io/matthiosso/website-frontend:main
         imagePullPolicy: Always
         ports:
