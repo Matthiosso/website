@@ -36,7 +36,7 @@ jobs:
           SSH_HOST: ${{ secrets.SERVER_HOST }}
       
       - name: Git pull and checkout dev
-        run: ssh staging 'cd code/website && git pull && git checkout dev'
+        run: ssh staging 'cd code/website && git checkout dev && git pull'
 
       - name: Frontend / deploy new config
         run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml && docker build -f Dockerfile -t website-frontend:dev . && docker save website-frontend:dev | sudo k3s ctr images import -'
