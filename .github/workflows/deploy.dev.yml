@@ -18,31 +18,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          Host staging
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/staging.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.SERVER_USER }}
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SERVER_HOST }}
+      - name: Multiple commands
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            whoami
+            ls -al
       
-      - name: Git pull and checkout dev
-        run: ssh staging 'cd code/website && git checkout dev && git pull'
+      # - name: Git pull and checkout dev
+      #   run: ssh staging 'cd code/website && 
+      #   git checkout dev && git pull'
 
-      - name: Frontend / deploy new config
-        run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml && docker build -f Dockerfile -t website-frontend:dev . && docker save website-frontend:dev | sudo k3s ctr images import -'
+      # - name: Frontend / deploy new config
+      #   run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml && docker build -f Dockerfile -t website-frontend:dev . && docker save website-frontend:dev | sudo k3s ctr images import -'
 
-      - name: Backend / deploy new config
-        run: ssh staging 'cd code/website/backend && sudo kubectl apply -f ../kube/dev-backend-deployment.yaml && docker build -f Dockerfile -t website-backend:dev . && docker save website-backend:dev | sudo k3s ctr images import -'
+      # - name: Backend / deploy new config
+      #   run: ssh staging 'cd code/website/backend && sudo kubectl apply -f ../kube/dev-backend-deployment.yaml && docker build -f Dockerfile -t website-backend:dev . && docker save website-backend:dev | sudo k3s ctr images import -'
 
-      - name: Rollout the deployed website
-        run: ssh staging 'sudo kubectl -n dev rollout restart deployment website-frontend && sudo kubectl -n dev rollout restart deployment website-backend'
+      # - name: Rollout the deployed website
+      #   run: ssh staging 'sudo kubectl -n dev rollout restart deployment website-frontend && sudo kubectl -n dev rollout restart deployment website-backend'
