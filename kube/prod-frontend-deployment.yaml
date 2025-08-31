@@ -60,3 +60,5 @@ spec:
           value: https://github.com/Matthiosso/website
         ports:
         - containerPort: 80
+      imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb
+      - name: dockerconfigjson-github-com

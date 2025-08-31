@@ -65,3 +65,5 @@ spec:
           value: "8080"
         ports:
         - containerPort: 8080
+      imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb
+      - name: dockerconfigjson-github-com
