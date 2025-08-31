@@ -30,7 +30,7 @@ jobs:
             mkdir -p ${{ env.TMP_FOLDER}}
             cd ${{ env.TMP_FOLDER}}
             git init project && cd project
-            git remote add -f origin ${{ github.repositoryUrl }}
+            git remote add -f origin git@github.com:${{ github.repository }}.git
             git config core.sparseCheckout true
             echo "kube" >> .git/info/sparse-checkout
             echo "frontend" >> .git/info/sparse-checkout
