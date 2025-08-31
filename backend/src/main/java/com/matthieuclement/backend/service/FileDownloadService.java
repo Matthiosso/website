@@ -30,13 +30,17 @@ public class FileDownloadService {
 
     public Resource loadFileAsResource() throws FileDownloadException {
         try {
+            logger.info("Loading file {} as Resource", resumeFileLocationPath.toString());
             Resource resource = new UrlResource(resumeFileLocationPath.toUri());
             if (resource.exists()) {
+                logger.info("The Resource has been sucessfully loaded");
                 return resource;
             } else {
+                logger.error("Error while trying to load resource");
                 throw new FileDownloadException("File not found " + resumeFileLocationPath);
             }
         } catch (MalformedURLException ex) {
+            logger.error("Error while trying to load resource, the URL is malformed : {}", ex.getMessage());
             throw new FileDownloadException("File not found " + resumeFileLocationPath, ex);
         }
     }
