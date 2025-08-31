@@ -1,10 +1,5 @@
 name: Docker Deployment
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   schedule:
     - cron: '37 16 * * *'
@@ -28,7 +23,6 @@ env:
 
 jobs:
   build-and-push-image:
-    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -120,6 +114,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
             mkdir -p ${{ env.TMP_FOLDER}}
             cd ${{ env.TMP_FOLDER}}
             git init
@@ -140,6 +135,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
             cd ${{ env.TMP_FOLDER}}
             sudo kubectl apply -f ./kube/${{ env.DEPLOY }}-frontend-deployment.yaml
             sudo kubectl apply -f ./kube/${{ env.DEPLOY }}-backend-deployment.yaml
