@@ -1,4 +1,4 @@
-# Install app on server with Kube and nginx
+# Install frontend on server with Kube and nginx
 
 ## Setup
 
@@ -23,7 +23,8 @@ cd website
 ## Prod (with remote docker image from github)
 
 ```bash
-kubectl apply -f kube/nginx-website-deployment.yaml
+kubectl apply -f kube/prod-frontend-deployment.yaml
+kubectl apply -f kube/prod-backend-deployment.yaml
 ```
 
 ### Update deployment
@@ -31,19 +32,25 @@ kubectl apply -f kube/nginx-website-deployment.yaml
 To make sure the old pod is killed only when the new one is up :
 
 ```bash
-kubectl rollout restart deployment website
+kubectl rollout restart deployment website-frontend
+kubectl rollout restart deployment website-backend
 ```
 
 ## Dev (with locally built docker image)
 
 ```bash
-docker build -f Dockerfile.dev -t app:dev .
-docker save app:dev | sudo k3s ctr images import -
-kubectl apply -f kube/dev-website-deployment.yaml
+docker build -f ./frontend/Dockerfile -t website-frontend:dev ./frontend
+docker save website-frontend:dev | sudo k3s ctr images import -
+kubectl apply -f kube/dev-frontend-deployment.yaml
+
+docker build -f ./backend/Dockerfile -t website-backend:dev ./backend
+docker save website-backend:dev | sudo k3s ctr images import -
+kubectl apply -f kube/dev-backend-deployment.yaml
 ```
 
 ### Update dev deployment
 
 ```bash
-kubectl -n dev rollout restart deployment website
+kubectl -n dev rollout restart deployment website-frontend
+kubectl -n dev rollout restart deployment website-backend
 ```

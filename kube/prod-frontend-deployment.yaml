@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-frontend-nginx
+  namespace: prod
+  annotations:
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: www.matthieuclement.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: website-frontend-service
+              port:
+                number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-frontend-service
+  namespace: prod
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: website-frontend
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-frontend
+  namespace: prod
+spec:
+  selector:
+    matchLabels:
+      app: website-frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: website-frontend
+    spec:
+      containers:
+      - name: website-frontend
+        image: ghcr.io/matthiosso/website-frontend:main
+        imagePullPolicy: Always
+        env:
+        - name: APP_PREFIX
+          value: ENV_
+        - name: ENV_RESUME_URL
+          value: https://www.matthieuclement.com/api/download/resume
+        - name: ENV_LINKEDIN_URL
+          value: https://www.linkedin.com/in/matthieuclement2012/
+        - name: ENV_GITHUB_URL
+          value: https://github.com/Matthiosso/website
+        ports:
+        - containerPort: 80
+      imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb
+      - name: dockerconfigjson-github-com

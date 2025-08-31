@@ -1,29 +1,24 @@
 # Website
 
-This is a simple website using Vue.js and Docker ([Live demo](https://matthieuclement.com)).
+This is a simple website using Vue.js (frontend), Java Spring (backend) and Kubernetes (deployment).
+
+You can check out the [live demo here](https://matthieuclement.com)).
 
 ## Setup
 
-### Dev
+[Setup frontend](./frontend/README.md)
 
-1. With npm
+[Setup backend](./backend/README.md)
 
-```bash
-cd app
-npm install
-npm run dev
-```
-
-2. With docker
+## Run
 
 ```bash
-docker build -f Dockerfile.dev -t app:dev .
-docker run --rm -p 8080:8080 --name app_dev -d app:dev
+docker-compose down
+docker-compose build --no-cache
+docker-compose up --force-recreate --no-deps
 ```
 
-3. With docker (prod version)
+Then go to :
 
-```bash
-docker build -t app:prod .
-docker run --rm -p 8080:80 --name app_prod -d app:prod
-```
+* [Backend](http://localhost:8081/health)
+* [Frontend](http://localhost:8080)

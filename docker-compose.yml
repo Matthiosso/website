@@ -1,0 +1,35 @@
+services:
+
+  backend:
+    image: backend:0.0.1-SNAPSHOT
+    container_name: website-backend_container
+    build: ./backend
+    environment:
+      PREFIX_PATH: /api
+      RESUME_FILEPATH: /data/resume.pdf
+      SERVER_PORT: 8080
+    volumes:
+      - ./data:/data
+    ports:
+      - 8081:8080
+    networks:
+      - mynetwork
+
+  frontend:
+    image: frontend:0.0.1-SNAPSHOT
+    build: ./frontend
+    environment:
+      APP_PREFIX: ENV_
+      ENV_RESUME_URL: http://localhost:8081/api/download/resume
+      ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
+      ENV_GITHUB_URL: https://github.com/Matthiosso/website
+    ports:
+      - 8080:80
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+
+networks:
+  mynetwork:

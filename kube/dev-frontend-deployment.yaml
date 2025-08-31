@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-frontend-nginx
+  namespace: dev
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: dev.matthieuclement.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: website-frontend-service
+              port:
+                number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-frontend-service
+  namespace: dev
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+  selector:
+    app: website-frontend
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-frontend
+  namespace: dev
+spec:
+  revisionHistoryLimit: 1 # Default is 10, 1 allows to only keep one previous replicaset in case of need to rollback dev
+  selector:
+    matchLabels:
+      app: website-frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: website-frontend
+    spec:
+      containers:
+      - name: website-frontend
+        image: website-frontend:dev
+        env:
+        - name: APP_PREFIX
+          value: ENV_
+        - name: ENV_RESUME_URL
+          value: https://dev.matthieuclement.com/api/download/resume
+        - name: ENV_LINKEDIN_URL
+          value: https://www.linkedin.com/in/matthieuclement2012/
+        - name: ENV_GITHUB_URL
+          value: https://github.com/Matthiosso/website
+        #image: hashicorp/http-echo
+          #args:
+          #- "-text=Hello Kubernetes!"
+          #- "-listen=:80"
+        ports:
+        - containerPort: 80
