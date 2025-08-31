@@ -5,6 +5,7 @@ services:
     container_name: website-backend_container
     build: ./backend
     environment:
+      PREFIX_PATH: /api
       RESUME_FILEPATH: /data/resume.pdf
       SERVER_PORT: 8080
     volumes:
@@ -19,7 +20,7 @@ services:
     build: ./frontend
     environment:
       APP_PREFIX: ENV_
-      ENV_RESUME_URL: http://localhost:8081/download/resume
+      ENV_RESUME_URL: http://localhost:8081/api/download/resume
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
     ports:
       - 8080:80

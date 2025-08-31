@@ -13,7 +13,7 @@ public class SupervisionController {
 
     @GetMapping("/health")
     public ResponseEntity<String> healthCheck() {
-		logger.info("Checking health");
+        logger.info("Checking health");
         return ResponseEntity.ok("OK");
     }
 }
