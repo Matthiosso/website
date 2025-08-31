@@ -1,0 +1,9 @@
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+apiVersion: v1
+metadata:
+  name: dockerconfigjson-github-com
+  labels:
+    app: website
+data:
+  .dockerconfigjson: # Put here the result of `echo -n "<GITHUB_USERNAME>:<GITHUB_TOKEN>" | base64 | { echo_out=$(< /dev/stdin); echo -n '{"auths":{"ghcr.io":{"auth":"'${echo_out}'"}}}'; } | base64`

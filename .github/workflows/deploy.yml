@@ -128,14 +128,14 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SERVER_HOST }}
 
-      # - name: Git pull and checkout main
-      #   run: ssh staging 'cd code/website && git pull && git checkout main'
+      - name: Git pull and checkout main
+        run: ssh staging 'cd code/website && git pull && git checkout main'
 
-      # - name: Frontend / deploy new config
-      #   run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml'
+      - name: Frontend / deploy new config
+        run: ssh staging 'cd code/website/frontend && sudo kubectl apply -f ../kube/dev-frontend-deployment.yaml'
 
-      # - name: Backend / deploy new config
-      #   run: ssh staging 'cd code/website/backend && sudo kubectl apply -f ../kube/dev-backend-deployment.yaml'
+      - name: Backend / deploy new config
+        run: ssh staging 'cd code/website/backend && sudo kubectl apply -f ../kube/dev-backend-deployment.yaml'
 
       - name: Rollout the deployed website
         run: ssh staging 'sudo kubectl rollout restart deployment website-frontend && sudo kubectl -n dev rollout restart deployment website-backend'

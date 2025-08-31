@@ -1,8 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: website-frontend-nginx
+  namespace: prod
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 spec:
@@ -23,6 +28,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: website-frontend-service
+  namespace: prod
 spec:
   ports:
     - port: 80
@@ -35,6 +41,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: website-frontend
+  namespace: prod
 spec:
   selector:
     matchLabels:
