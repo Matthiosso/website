@@ -60,6 +60,8 @@ spec:
           value: https://dev.matthieuclement.com/api/download/resume
         - name: ENV_LINKEDIN_URL
           value: https://www.linkedin.com/in/matthieuclement2012/
+        - name: ENV_GITHUB_URL
+          value: https://github.com/Matthiosso/website
         #image: hashicorp/http-echo
           #args:
           #- "-text=Hello Kubernetes!"

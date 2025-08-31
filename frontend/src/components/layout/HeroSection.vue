@@ -30,8 +30,12 @@
                         <span class="ml-1">Resume</span>
                     </button>
                     <a :href="LinkedInUrl"
-                        class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:linkedin" class="text-3xl" />
+                    </a>
+                    <a :href="GithubUrl"
+                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                        <Icon icon="mdi:github" class="text-3xl" />
                     </a>
                 </div>
             </header>
@@ -54,6 +58,7 @@ import config from '@/config';
 import SectionHeader from '../UI/SectionHeader.vue';
 const HireMe = ref('Hire me');
 const LinkedInUrl = ref(config.linkedInUrl);
+const GithubUrl = ref(config.githubUrl);
 
 function downloadResume() {
     window.open(config.downloadResumeUrl, '_blank');

@@ -22,6 +22,7 @@ services:
       APP_PREFIX: ENV_
       ENV_RESUME_URL: http://localhost:8081/api/download/resume
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
+      ENV_GITHUB_URL: https://github.com/Matthiosso/website
     ports:
       - 8080:80
     depends_on:

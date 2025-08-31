@@ -49,5 +49,14 @@ spec:
       - name: website-frontend
         image: ghcr.io/matthiosso/website-frontend:main
         imagePullPolicy: Always
+        env:
+        - name: APP_PREFIX
+          value: ENV_
+        - name: ENV_RESUME_URL
+          value: https://www.matthieuclement.com/api/download/resume
+        - name: ENV_LINKEDIN_URL
+          value: https://www.linkedin.com/in/matthieuclement2012/
+        - name: ENV_GITHUB_URL
+          value: https://github.com/Matthiosso/website
         ports:
         - containerPort: 80
