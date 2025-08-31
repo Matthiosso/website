@@ -2,7 +2,7 @@
 
 This is a simple website using Vue.js (frontend), Java Spring (backend) and Kubernetes (deployment).
 
-You can check out the [live demo here](https://matthieuclement.com)).
+You can check out the [live demo here](https://matthieuclement.com).
 
 ## Setup
 
