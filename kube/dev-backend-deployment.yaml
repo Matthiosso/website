@@ -53,8 +53,8 @@ spec:
       - name: website-backend
         image: website-backend:dev
         volumeMounts:
-          - name: data
-          - mountPath: /data
+        - name: data
+          mountPath: /data
         env:
         - name: PREFIX_PATH
           value: /api
