@@ -32,7 +32,7 @@ jobs:
   prepare-work-folder:
     runs-on: ubuntu-latest
     needs: try-build-images
-    if: success()
+    if: ${{ github.event_name != 'pull_request' }} && success()
 
     steps:
       - name: Create temp folder for deploying
@@ -55,7 +55,7 @@ jobs:
   build-and-save-image:
     runs-on: ubuntu-latest
     needs: prepare-work-folder
-    if: success()
+    if: ${{ github.event_name != 'pull_request' }} && success()
     strategy:
       fail-fast: false
       matrix:
@@ -78,7 +78,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build-and-save-image
-    if: success()
+    if: ${{ github.event_name != 'pull_request' }} && success()
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@v1
@@ -95,7 +95,7 @@ jobs:
             sudo kubectl -n dev rollout restart deployment website-backend
 
   cleanup:
-    if: always()
+    if: ${{ github.event_name != 'pull_request' }} && always()
     runs-on: ubuntu-latest
     needs: [prepare-work-folder, build-and-save-image, deploy]
     steps:
