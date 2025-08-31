@@ -18,7 +18,6 @@ services:
     image: frontend:0.0.1-SNAPSHOT
     build: ./frontend
     environment:
-      ASSET_DIR: /usr/share/nginx/html
       APP_PREFIX: ENV_
       ENV_RESUME_URL: http://localhost:8081/download/resume
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/

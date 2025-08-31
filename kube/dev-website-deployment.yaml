@@ -54,8 +54,6 @@ spec:
       - name: website-frontend
         image: website-frontend:dev
         env:
-        - name: ASSET_DIR
-          value: /usr/share/nginx/html
         - name: APP_PREFIX
           value: ENV_
         - name: ENV_RESUME_URL
