@@ -48,7 +48,7 @@ spec:
           path: /home/debian/data
       containers:
       - name: website-backend
-        image: website-backend:main
+        image: ghcr.io/matthiosso/website-backend:main
         livenessProbe:
           httpGet:
             path: /api/health
