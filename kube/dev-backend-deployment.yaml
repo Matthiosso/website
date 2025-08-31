@@ -52,9 +52,9 @@ spec:
       containers:
       - name: website-backend
         image: website-backend:dev
-        # livenessProbe:
-        #   httpGet:
-        #     path: /api/health
+        livenessProbe:
+          httpGet:
+            path: /api/health
         volumeMounts:
         - name: data
           mountPath: /data
@@ -62,7 +62,7 @@ spec:
         - name: PREFIX_PATH
           value: /api
         - name: RESUME_FILEPATH
-          value: /data/resume.pdf
+          value: /data/CV_Matthieu_CLEMENT_English.pdf
         - name: SERVER_PORT
           value: "8080"
         ports:
