@@ -13,11 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SupervisionControllerTest {
 
-	@Autowired
-	private TestRestTemplate template;
+    @Autowired
+    private TestRestTemplate template;
 
     @Test
-    public void getHealth() throws Exception {
+    public void testGetHealth() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/health", String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
         assertThat(response.getBody()).isEqualTo("OK");
