@@ -9,6 +9,7 @@
     --color-secondary: #f93838; /* Secondary text color */
     --color-accent: black; /* Text color for links */
     --color-block: #474747b2; /*  Background color for blocks */
+    --color-middle-secondary: #FB9A45; /* middle of secondary and dark secondary according to https://meyerweb.com/eric/tools/color-blend/#F93838:FDFB52:1:hex */
     --font-display: "Roboto", "Arial", sans-serif; 
 }
 

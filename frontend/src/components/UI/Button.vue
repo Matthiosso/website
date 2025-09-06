@@ -1,9 +1,9 @@
 <template>
-    <button @click="onClick" class="relative overflow-hidden rounded-full bg-gray-700 dark:bg-white text-white w-[180px] 
+    <button @click="onClick" class="relative overflow-hidden rounded-full bg-gray-700 w-[180px] 
     h-[60px] text-lg font-semibold flex justify-center items-center transition-all duration-300">
         <div class="absolute inset-0 scale-[1.06] blur-lg transition-transform duration-300">
             <div
-                class="absolute top-1/2 left-1/2 transform -translate-x -translate-y w-[110%] h-[110%] rounded-full bg-gradient-to-r from-[#00C6CC] via-[#785ae4] to-secondary animate-rotate">
+                class="absolute top-1/2 left-1/2 transform -translate-x -translate-y w-[110%] h-[110%] rounded-full bg-gradient-to-r from-secondary via-middle-secondary to-primary animate-rotate">
             </div>
         </div>
         <div class="relative w-[156px] h-[45px] flex justify-center items-center rounded-full 
