@@ -1,9 +1,7 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <div class="text-3xl font-bold "><a href="#">
-                    <video src="/MC.mp4" width="200px" type="video/mp4" autoplay muted></video>
-                </a>
+            <div class="text-3xl font-bold w-[200px]"><a href="#"><img src="/MC.gif" alt="logo"></img></a>
             </div>
 
             <!-- Mobile Toggle Button -->
