@@ -4,7 +4,7 @@
         <div
             class="mt-20 py-8 xl:px-16 px-4 sm:py-16 grid grid-cols-1 gap-6 pt-10 sm:grid-cols-2 md:gap-10 md:pt-12 lg:grid-cols-3">
             <article class="px-[12px] mb-[24px]" v-for="element in services" :key="element.id">
-                <div class="mt-[30px] relative flex flex-col justify-center text-center rounder-[30px] border border-secondary dark:bg-[#ffffff29] bg-primary"
+                <div class="mt-[30px] relative flex flex-col justify-center text-center rounder-[30px] border border-secondary bg-block"
                     data-aos="fade-up" :data-aos-delay="element.id * 100">
                     <div class="mt-[-30px] flex justify-center relative">
                         <div class="mt-[-7px] p-[20px] relative rounded-[50%]">
@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="p-[30px]">
-                        <h3 class="uppercase font-semibold text-secondary text-base">
+                        <h3 class="uppercase text-base light-stroke-text">
                             {{ element.name }}
                         </h3>
                         <p class="text-[14px] leading-[20px] text-white tracking-[0.03.rem]">
@@ -50,14 +50,14 @@ const services = ref([
         icon: 'majesticons:server-line',
         name: 'Backend Web development',
         description: 'Spring Framework (Java), Django (Python)',
-        icons: ['devicon:spring', 'devicon:java', 'logos:django-icon', 'devicon:python']
+        icons: ['devicon:spring', 'devicon:java', 'simple-icons:django', 'devicon:python']
     },
     {
         id: uid(),
         icon: 'majesticons:box-line',
         name: 'DevOps',
         description: 'Docker, Mesos/Marathon, Kubernetes, CI/CD (Github/Gitlab)',
-        icons: ['devicon:docker', 'logos:mesos', 'devicon:kubernetes', 'devicon:github', 'devicon:gitlab']
+        icons: ['devicon:docker', 'logos:mesos', 'devicon:kubernetes', 'skill-icons:github-light', 'devicon:gitlab']
     },
     {
         id: uid(),
@@ -71,7 +71,7 @@ const services = ref([
         icon: 'majesticons:presentation-chart-line',
         name: 'Data Visualization',
         description: 'Kibana, Jupyter/Pandas (Python)',
-        icons: ['devicon:kibana', 'devicon:jupyter', 'devicon:pandas', 'devicon:python']
+        icons: ['devicon:kibana', 'devicon:jupyter', 'simple-icons:geopandas', 'devicon:python']
     },
     {
         id: uid(),
