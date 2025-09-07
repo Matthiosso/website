@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, onBeforeMount } from 'vue';
+import { defineAsyncComponent } from 'vue';
+import { useSeoMeta } from '@unhead/vue';
 import img from '/logo/MC_1200x630.png';
 
 
@@ -20,26 +21,9 @@ const Services = defineAsyncComponent(() => import('@/components/layout/Services
 
 // This code is to dynamically add the meta property for url preview image because relative path is not allowed
 const imgUrl = new URL(img, import.meta.url).href
-const metaInfos = {
-  'og:image': imgUrl,
-  'twitter:image': imgUrl
-}
-
-onBeforeMount(() => {
-  for (const [property, content] of Object.entries(metaInfos)) {
-    // Delete old tag if exists
-    const existingMeta = document.querySelector(`meta[property="${property}"]`)
-    if (existingMeta) {
-      existingMeta.remove()
-    }
-
-    // Create new tag
-    const meta = document.createElement('meta')
-    meta.setAttribute('property', property)
-    meta.setAttribute('name', property)
-    meta.setAttribute('content', content)
-    document.head.appendChild(meta)
-  }
+useSeoMeta({
+  ogImage: imgUrl,
+  twitterImage: imgUrl,
 })
 
 </script>
