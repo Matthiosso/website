@@ -1,6 +1,6 @@
 <template>
     <button @click="onClick" class="relative overflow-hidden rounded-full bg-gray-700 w-[180px] 
-    h-[60px] text-lg font-semibold flex justify-center items-center transition-all duration-300">
+    h-[60px] text-lg font-semibold flex justify-center items-center transition-all duration-300 hover:scale-105">
         <div class="absolute inset-0 scale-[1.06] blur-lg transition-transform duration-300">
             <div
                 class="absolute top-1/2 left-1/2 transform -translate-x -translate-y w-[110%] h-[110%] rounded-full bg-gradient-to-r from-secondary via-middle-secondary to-primary animate-rotate">
