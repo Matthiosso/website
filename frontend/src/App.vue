@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue';
+import { defineAsyncComponent, onBeforeMount } from 'vue';
 import img from '/logo/MC_1200x630.png';
 
 
@@ -25,7 +25,7 @@ const metaInfos = {
   'twitter:image': imgUrl
 }
 
-onMounted(() => {
+onBeforeMount(() => {
   for (const [property, content] of Object.entries(metaInfos)) {
     // Delete old tag if exists
     const existingMeta = document.querySelector(`meta[property="${property}"]`)
