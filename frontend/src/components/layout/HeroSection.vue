@@ -4,7 +4,7 @@
         <SectionHeader />
         <main class="absolute grid lg:grid-cols-2 grid-cols-1 items-center p-2 lg:p-8">
             <header class="font-display text-center lg:text-left">
-                <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold">
+                <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold cursor typewriter-animation">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
                 <p class="text-lg max-w-xl mx-auto lg:mx-0 font-semibold italic">
