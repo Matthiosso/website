@@ -7,4 +7,9 @@ import AOS from 'aos'; // for nice css animations
 import 'aos/dist/aos.css';
 AOS.init({duration: 1000});
 
-createApp(App).use(createHead()).component('Icon', Icon).component('Countup', Countup).mount('#app')
+const app = createApp(App);
+const head = createHead();
+app.use(head);
+app.component('Icon', Icon)
+app.component('Countup', Countup)
+app.mount('#app')
