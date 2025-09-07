@@ -1,8 +1,8 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <div class="text-3xl font-bold w-[200px]"><a href="#"><img class="rounded-xl" src="/logo/MC.gif"
-                        alt="logo"></img></a>
+            <div class="text-3xl font-bold w-[200px]"><a href="#"><img class="rounded-xl hover:scale-120"
+                        src="/logo/MC.gif" alt="logo"></img></a>
             </div>
 
             <!-- Mobile Toggle Button -->
@@ -31,7 +31,8 @@
                         </a>
                     </li>
                 </ul>
-                <button @click="toggleDarkMode" :class="(isMenuOpen ? 'mt-20' : 'ml-20') + ' z-10 md:block'">
+                <button @click="toggleDarkMode"
+                    :class="(isMenuOpen ? 'mt-20' : 'ml-20') + ' z-10 md:block hover:scale-120'">
                     <!-- Show moon icon if dark mode is off, otherwise show sun icon -->
                     <Icon v-if="!isDarkMode" icon="line-md:moon-filled" class="text-5xl text-primary" />
                     <Icon v-else icon="line-md:sunny-outline" class="text-5xl text-secondary" />
