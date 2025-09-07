@@ -21,7 +21,7 @@ const Services = defineAsyncComponent(() => import('@/components/layout/Services
 
 // This code is to dynamically add the meta property for url preview
 const imgUrl = new URL(img, import.meta.url).href
-const title = 'Matthieu CLEMENT: My portfolio website'
+const title = 'Matthieu CLEMENT | My portfolio website'
 const description = "Hey, I'm Matthieu CLEMENT, a french developer. Here's my portfolio website. Looking for a full stack developer or technical consultant ? I'm your man 👨‍💻"
 
 useSeoMeta({
