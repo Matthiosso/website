@@ -9,7 +9,7 @@
 
 <script setup>
 import { defineAsyncComponent, onMounted } from 'vue';
-import img from '/logo/MC.png';
+import img from '/logo/MC_1200x630.png';
 
 
 const Navbar = defineAsyncComponent(() => import('@/components/layout/Navbar.vue'));
@@ -19,7 +19,6 @@ const Services = defineAsyncComponent(() => import('@/components/layout/Services
 
 
 // This code is to dynamically add the meta property for url preview image because relative path is not allowed
-console.log(import.meta);
 const imgUrl = new URL(img, import.meta.url).href
 const metaInfos = {
   'og:image': imgUrl,
