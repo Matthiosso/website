@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 import { useSeoMeta } from '@unhead/vue';
 import img from '/logo/MC_1200x630.png';
 
@@ -18,22 +18,23 @@ const HeroSection = defineAsyncComponent(() => import('@/components/layout/HeroS
 const Counter = defineAsyncComponent(() => import('@/components/layout/Counter.vue'));
 const Services = defineAsyncComponent(() => import('@/components/layout/Services.vue'));
 
-
 // This code is to dynamically add the meta property for url preview
-const imgUrl = new URL(img, import.meta.url).href
-const title = 'Matthieu CLEMENT | My portfolio website'
-const description = "Hey, I'm Matthieu CLEMENT, a french developer. Here's my portfolio website. Looking for a full stack developer or technical consultant ? I'm your man 👨‍💻"
+const metaInfos = ref({
+  imgUrl: new URL(img, import.meta.url).href,
+  title: 'Matthieu CLEMENT | My portfolio website',
+  description: "Hey, I'm Matthieu CLEMENT, a french developer. Here's my portfolio website. Looking for a full stack developer or technical consultant ? I'm your man 👨‍💻"
+})
 
 useSeoMeta({
   // Basic SEO
-  title: title,
-  description: description,
+  title: computed(() => metaInfos.value.title),
+  description: computed(() => metaInfos.value.description),
 
   // Open Graph
-  ogTitle: title,
-  ogDescription: description,
+  ogTitle: computed(() => metaInfos.value.title),
+  ogDescription: computed(() => metaInfos.value.description),
   ogImage: {
-    url: imgUrl,
+    url: computed(() => metaInfos.value.imgUrl),
     width: 1200,
     height: 600,
     alt: 'Logo',
@@ -44,10 +45,10 @@ useSeoMeta({
   ogLocale: 'en_US',
 
   // Twitter
-  twitterTitle: title,
-  twitterDescription: description,
+  twitterTitle: computed(() => metaInfos.value.title),
+  twitterDescription: computed(() => metaInfos.value.description),
   twitterImage: {
-    url: imgUrl,
+    url: computed(() => metaInfos.value.imgUrl),
     width: 1200,
     height: 600,
     alt: 'Logo',
