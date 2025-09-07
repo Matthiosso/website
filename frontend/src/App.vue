@@ -36,6 +36,7 @@ onBeforeMount(() => {
     // Create new tag
     const meta = document.createElement('meta')
     meta.setAttribute('property', property)
+    meta.setAttribute('name', property)
     meta.setAttribute('content', content)
     document.head.appendChild(meta)
   }
