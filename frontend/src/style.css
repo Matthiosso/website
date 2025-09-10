@@ -56,10 +56,10 @@
   .cursor{
       position: relative;
       width: 24em;
-      margin: 0 auto;
+      margin: 0 0 auto;
       border-right: 2px solid;
       font-size: 30px;
-      text-align: center;
+      text-align: left;
       white-space: nowrap;
       overflow: hidden;
       transform: translateY(-50%);    
