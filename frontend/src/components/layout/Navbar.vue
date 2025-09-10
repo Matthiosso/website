@@ -1,9 +1,9 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <div class="text-3xl font-bold w-[200px]"><a href="#"><img class="rounded-xl hover:scale-120"
-                        src="/logo/MC-playonce.gif" alt="logo"></img></a>
-            </div>
+            <a href="#">
+                <img class="w-[200px] rounded-xl hover:scale-120" src="/logo/MC-playonce.gif" alt="logo" />
+            </a>
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
