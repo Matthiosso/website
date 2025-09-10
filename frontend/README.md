@@ -18,3 +18,23 @@ npm run dev
 docker build -t frontend:prod .
 docker run --rm -p 8080:80 --name frontend_prod -d frontend:prod
 ```
+
+## Upgrade version
+
+### For patch
+
+```bash
+npm version patch
+```
+
+### For new minor version
+
+```bash
+npm version minor
+```
+
+### For new major version
+
+```bash
+npm version major
+```
