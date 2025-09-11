@@ -2,7 +2,7 @@
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
             <a href="#" :onclick="restartGif">
-                <img class="w-[200px] rounded-xl hover:scale-120" :src="gifLink" alt="logo" />
+                <img class="w-[200px] rounded-xl hover:scale-120" ref="logo-gif" :src="gifURL" alt="logo" />
             </a>
 
             <!-- Mobile Toggle Button -->
@@ -43,14 +43,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import config from '@/config';
 
 const isMenuOpen = ref(false);
 
-const gifLink = ref('/logo/MC-playonce.gif');
+const gifURL = '/logo/MC-playonce.gif';
+const gifElement = useTemplateRef('logo-gif');
 const restartGif = () => {
-    gifLink.value = '/logo/MC-playonce.gif?a=' + Math.random();
+    gifElement.value.src = gifURL;
 };
 
 const Menu = ref([
