@@ -19,8 +19,7 @@ services:
     image: frontend:0.0.1-SNAPSHOT
     build: ./frontend
     environment:
-      APP_PREFIX: ENV_
-      ENV_RESUME_URL: http://localhost:8081/api/download/resume
+      ENV_API_URL: http://localhost:8081/api
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
       ENV_GITHUB_URL: https://github.com/Matthiosso/website
     ports:

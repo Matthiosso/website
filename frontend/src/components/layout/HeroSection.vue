@@ -61,7 +61,7 @@ const LinkedInUrl = ref(config.linkedInUrl);
 const GithubUrl = ref(config.githubUrl);
 
 function downloadResume() {
-    window.open(config.downloadResumeUrl, '_blank');
+    window.open(config.downloadResumeAPIUrl, '_blank');
 }
 
 function openLinkedIn() {
