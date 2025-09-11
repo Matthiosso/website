@@ -24,6 +24,7 @@ public class FileDownloadServiceTest {
     public void testLoadFileAsResource() throws IOException {
         Resource res = fileDownloadService.loadFileAsResource();
         assertThat(res.exists());
+        assertThat(res.getFilename()).isNotNull();
         assertThat(res.getFilename().equals("fake-file.txt"));
         assertThat(res.getContentAsString(StandardCharsets.UTF_8).equals("Test"));
     }

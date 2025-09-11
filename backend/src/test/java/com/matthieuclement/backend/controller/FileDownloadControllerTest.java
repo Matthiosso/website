@@ -25,6 +25,7 @@ public class FileDownloadControllerTest {
     public void testGetResumeFile() throws Exception {
         ResponseEntity<Resource> response = template.getForEntity("/download/resume", Resource.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+        assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getFilename()).isEqualTo("fake-file.txt");
         assertThat(response.getBody().getContentAsString(StandardCharsets.UTF_8)).isEqualTo("Test");
     }
