@@ -55,10 +55,8 @@ spec:
       - name: website-frontend
         image: website-frontend:dev
         env:
-        - name: APP_PREFIX
-          value: ENV_
-        - name: ENV_RESUME_URL
-          value: https://dev.matthieuclement.com/api/download/resume
+        - name: ENV_API_URL
+          value: https://dev.matthieuclement.com/api
         - name: ENV_LINKEDIN_URL
           value: https://www.linkedin.com/in/matthieuclement2012/
         - name: ENV_GITHUB_URL

@@ -13,6 +13,7 @@ LABEL org.opencontainers.image.source=https://github.com/Matthiosso/website
 LABEL org.opencontainers.image.description="Portfolio Website Frontend using Vue.js and Vite"
 
 ENV ASSET_DIR=/usr/share/nginx/html
+ENV APP_PREFIX=ENV_
 COPY --from=build-stage /frontend/dist ${ASSET_DIR}
 COPY env.sh /docker-entrypoint.d/env.sh
 EXPOSE 80

@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "application.version",
+    "type": "java.lang.String",
+    "description": "Current application version according to pom.xml"
+  },
+  {
+    "name": "file.resume-filepath",
+    "type": "java.lang.String",
+    "description": "File path to the resume file"
+  }
+]}

@@ -1,9 +1,9 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <div class="text-3xl font-bold w-[200px]"><a href="#"><img class="rounded-xl hover:scale-120"
-                        src="/logo/MC-playonce.gif" alt="logo"></img></a>
-            </div>
+            <a href="#" :onclick="restartGif">
+                <img class="w-[200px] rounded-xl hover:scale-120" ref="logo-gif" :src="gifURL" alt="logo" />
+            </a>
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
@@ -43,10 +43,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import config from '@/config';
 
 const isMenuOpen = ref(false);
+
+const gifURL = '/logo/MC-playonce.gif';
+const gifElement = useTemplateRef('logo-gif');
+const restartGif = () => {
+    gifElement.value.src = gifURL;
+};
 
 const Menu = ref([
     { name: 'Who am I ?', href: '#whoami' },

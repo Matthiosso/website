@@ -4,6 +4,7 @@
     <HeroSection />
     <Counter />
     <Services />
+    <Footer />
   </div>
 </template>
 
@@ -17,6 +18,7 @@ const Navbar = defineAsyncComponent(() => import('@/components/layout/Navbar.vue
 const HeroSection = defineAsyncComponent(() => import('@/components/layout/HeroSection.vue'));
 const Counter = defineAsyncComponent(() => import('@/components/layout/Counter.vue'));
 const Services = defineAsyncComponent(() => import('@/components/layout/Services.vue'));
+const Footer = defineAsyncComponent(() => import('@/components/layout/Footer.vue'));
 
 // This code is to dynamically add the meta property for url preview
 const metaInfos = ref({

@@ -6,12 +6,12 @@ import java.nio.file.Paths;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import com.matthieuclement.backend.exception.FileDownloadException;
-import com.matthieuclement.backend.property.FileDownloadProperties;
 
 @Service
 public class FileDownloadService {
@@ -19,11 +19,8 @@ public class FileDownloadService {
 
     private final Path resumeFileLocationPath;
 
-    public FileDownloadService(FileDownloadProperties fileDownloadProperties) {
-
-        this.resumeFileLocationPath = Paths.get(fileDownloadProperties.getResumeFilepath())
-                .toAbsolutePath().normalize();
-
+    public FileDownloadService(@Value("${file.resume-filepath}") String resumeFilepath) {
+        this.resumeFileLocationPath = Paths.get(resumeFilepath).toAbsolutePath().normalize();
     }
 
     public Resource loadFileAsResource() throws FileDownloadException {
