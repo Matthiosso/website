@@ -21,7 +21,7 @@ public class SupervisionController {
         return ResponseEntity.ok("OK");
     }
 
-    @GetMapping("version")
+    @GetMapping("/version")
     public ResponseEntity<String> getVersion() {
         return ResponseEntity.ok(applicationVersion);
     }
