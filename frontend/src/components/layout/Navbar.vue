@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <img @click="restartGif" @touchend.prevent="restartGif" class="w-[200px] rounded-xl hover:scale-120"
+            <img @click="restartGif" @touchend.prevent="restartGif" class="w-[200px] rounded-xl hover:scale-[1.2]"
                 :src="gifURL" alt="logo-gif" />
 
             <!-- Mobile Toggle Button -->
@@ -48,8 +48,10 @@ import config from '@/config';
 const isMenuOpen = ref(false);
 
 const gifURL = ref('/logo/MC-playonce.gif');
+let counter = 0;
 const restartGif = () => {
-    gifURL.value = `/logo/MC-playonce.gif?a=${Math.random()}`; // Adding a random query param to force reload
+    counter++;
+    gifURL.value = `/logo/MC-playonce.gif?a=${counter}`; // Adding a random query param to force reload
 };
 
 const Menu = ref([
