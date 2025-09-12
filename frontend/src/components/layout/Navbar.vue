@@ -1,9 +1,8 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <button @click="restartGif" @touchend.prevent="restartGif">
-                <img class="w-[200px] rounded-xl hover:scale-120" ref="logo-gif" :src="gifURL" alt="logo" />
-            </button>
+            <img @click="restartGif" @touchend.prevent="restartGif" class="w-[200px] rounded-xl hover:scale-120"
+                ref="logo-gif" :src="gifURL" alt="logo" />
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
@@ -51,7 +50,7 @@ const isMenuOpen = ref(false);
 const gifURL = '/logo/MC-playonce.gif';
 const gifElement = useTemplateRef('logo-gif');
 const restartGif = () => {
-    gifElement.value.src = gifURL;
+    gifElement.value.src = gifURL + '?a=' + Math.random();
 };
 
 const Menu = ref([
