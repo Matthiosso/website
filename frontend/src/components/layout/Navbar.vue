@@ -1,8 +1,10 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <img @click="restartGif" @touchend.prevent="restartGif" class="w-[200px] rounded-xl hover:scale-[1.2]"
-                :src="gifURL" alt="logo-gif" />
+            <div class="w-[200px] h-[200px]">
+                <img :key="gifURL" @click="restartGif" @touchend.prevent="restartGif"
+                    class="rounded-xl hover:scale-[1.2]" :src="gifURL" alt="logo-gif" />
+            </div>
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
