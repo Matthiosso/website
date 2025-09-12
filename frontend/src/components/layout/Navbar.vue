@@ -50,9 +50,8 @@ const isMenuOpen = ref(false);
 const gifURL = ref('/logo/MC-playonce.gif');
 const gifKey = ref(0); // Key to force re-render the img element
 const restartGif = () => {
-    gifURL.value = '/logo/MC-playonce.gif?a=' + gifKey.value; // Clear the src to stop the current gif
+    gifURL.value = '/logo/MC-playonce.gif?a=' + gifKey.value; // Unique URL value to force reload
     gifKey.value += 1; // Increment the key to force re-render
-    console.log('Gif restarted', gifKey.value, gifURL.value);
 };
 
 const Menu = ref([
