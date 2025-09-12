@@ -52,6 +52,7 @@ spec:
       containers:
       - name: website-backend
         image: ghcr.io/matthiosso/website/backend:main
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /api/health
