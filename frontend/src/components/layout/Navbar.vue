@@ -1,9 +1,10 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <a href="#" :onclick="restartGif">
-                <img class="w-[200px] rounded-xl hover:scale-120" ref="logo-gif" :src="gifURL" alt="logo" />
-            </a>
+            <div class="w-[200px] h-[200px]">
+                <img :key="gifURL" @click="restartGif" @touchend.prevent="restartGif"
+                    class="rounded-xl hover:scale-[1.2]" :src="gifURL" alt="logo-gif" />
+            </div>
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
@@ -43,15 +44,15 @@
 </template>
 
 <script setup>
-import { ref, useTemplateRef } from 'vue';
+import { ref } from 'vue';
 import config from '@/config';
 
 const isMenuOpen = ref(false);
 
-const gifURL = '/logo/MC-playonce.gif';
-const gifElement = useTemplateRef('logo-gif');
+const gifURL = ref('/logo/MC-playonce.gif');
+let counter = 0;
 const restartGif = () => {
-    gifElement.value.src = gifURL;
+    gifURL.value = '/logo/MC-playonce.gif?a=' + counter++; // Unique URL value to force reload
 };
 
 const Menu = ref([
