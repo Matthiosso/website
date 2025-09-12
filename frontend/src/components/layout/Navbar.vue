@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <a href="#" :onclick="restartGif" v-on:touchstart="restartGif">
+            <a href="#" @click="restartGif" @touchend="restartGif">
                 <img class="w-[200px] rounded-xl hover:scale-120" ref="logo-gif" :src="gifURL" alt="logo" />
             </a>
 
