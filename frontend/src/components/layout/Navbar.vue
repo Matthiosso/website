@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, useTemplateRef } from 'vue';
+import { ref, useTemplateRef, getCurrentInstance } from 'vue';
 import config from '@/config';
 
 const isMenuOpen = ref(false);
@@ -52,7 +52,7 @@ const gifElement = useTemplateRef('logo-gif');
 const restartGif = () => {
     console.log('Restarting gif', gifURL, gifElement.value.src);
     gifElement.value.src = gifURL;
-    this.$forceUpdate();
+    getCurrentInstance().proxy.$forceUpdate();
 };
 
 const Menu = ref([
