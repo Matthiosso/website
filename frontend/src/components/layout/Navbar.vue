@@ -1,8 +1,8 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <img :key="componentKey" @click="restartGif" @touchend.prevent="restartGif"
-                class="w-[200px] rounded-xl hover:scale-120" ref="logo-gif" :src="gifURL" alt="logo" />
+            <img @click="restartGif" @touchend.prevent="restartGif" class="w-[200px] rounded-xl hover:scale-120"
+                :src="gifURL" alt="logo-gif" />
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
@@ -42,18 +42,14 @@
 </template>
 
 <script setup>
-import { ref, useTemplateRef } from 'vue';
+import { ref } from 'vue';
 import config from '@/config';
 
 const isMenuOpen = ref(false);
 
-const gifURL = '/logo/MC-playonce.gif';
-const gifElement = useTemplateRef('logo-gif');
-const componentKey = ref(0);
+const gifURL = ref('/logo/MC-playonce.gif');
 const restartGif = () => {
-    console.log('Restarting gif', gifURL, gifElement.value.src);
-    gifElement.value.src = gifURL;
-    componentKey.value += 1; // Force re-render if needed
+    gifURL.value = `/logo/MC-playonce.gif?a=${Math.random()}`; // Adding a random query param to force reload
 };
 
 const Menu = ref([
