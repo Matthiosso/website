@@ -53,6 +53,7 @@ spec:
       containers:
       - name: website-backend
         image: website-backend:dev
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /api/health
