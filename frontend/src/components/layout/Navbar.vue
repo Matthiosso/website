@@ -51,7 +51,8 @@ const gifURL = '/logo/MC-playonce.gif';
 const gifElement = useTemplateRef('logo-gif');
 const restartGif = () => {
     console.log('Restarting gif', gifURL, gifElement.value.src);
-    gifElement.value.src = gifURL + '?a=' + Math.random();
+    gifElement.value.src = gifURL;
+    this.$forceUpdate();
 };
 
 const Menu = ref([
