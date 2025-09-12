@@ -1,8 +1,8 @@
 <template>
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
-            <img @click="restartGif" @touchend.prevent="restartGif" class="w-[200px] rounded-xl hover:scale-[1.2]"
-                :src="gifURL" alt="logo-gif" />
+            <img :key="gifKey" @click="restartGif" @touchend.prevent="restartGif"
+                class="w-[200px] rounded-xl hover:scale-[1.2]" :src="gifURL" alt="logo-gif" />
 
             <!-- Mobile Toggle Button -->
             <div class="md:hidden z-30">
@@ -48,10 +48,11 @@ import config from '@/config';
 const isMenuOpen = ref(false);
 
 const gifURL = ref('/logo/MC-playonce.gif');
-let counter = 0;
+const gifKey = ref(0); // Key to force re-render the img element
 const restartGif = () => {
-    counter++;
-    gifURL.value = `/logo/MC-playonce.gif?a=${counter}`; // Adding a random query param to force reload
+    gifURL.value = '/logo/MC-playonce.gif?a=' + gifKey.value; // Clear the src to stop the current gif
+    gifKey.value += 1; // Increment the key to force re-render
+    console.log('Gif restarted', gifKey.value, gifURL.value);
 };
 
 const Menu = ref([
