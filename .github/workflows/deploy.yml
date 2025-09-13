@@ -60,6 +60,8 @@ jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
     needs: release-frontend
+    concurrency:
+      group: docker
     if: success()
     strategy:
       fail-fast: false
@@ -110,11 +112,11 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}
+            type=semver,pattern=v{{major}}.{{minor}}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,prefix={{branch}}-
-            type=raw,value=mytag-{{branch}}-{{sha}}
           labels: |
             org.opencontainers.image.created={{commit_date 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'}}
 
@@ -129,6 +131,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -145,6 +148,13 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+      
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.module }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
 
   prepare-work-folder:
     runs-on: ubuntu-latest
