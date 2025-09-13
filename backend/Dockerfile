@@ -10,12 +10,6 @@ RUN mvn install
 
 FROM openjdk:24-jdk-slim
 
-LABEL org.opencontainers.image.title="Portfolio Website Backend" \
-        org.opencontainers.image.authors="Matthiosso" \
-        org.opencontainers.image.source=https://github.com/Matthiosso/website \
-        org.opencontainers.image.url=https://github.com/Matthiosso/website \
-        org.opencontainers.image.description="Portfolio Website Backend using Java Spring and Maven"
-
 WORKDIR /app
 RUN apt-get update
 
