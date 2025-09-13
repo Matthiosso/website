@@ -24,7 +24,7 @@ jobs:
       MODULE_DIR: frontend
     defaults:
       run:
-        working-directory: './${{ env.MODULE_DIR }}'
+        working-directory: './frontend'
     permissions:
       contents: read
       packages: write
@@ -35,6 +35,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: '${{ env.MODULE_DIR }}'
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
