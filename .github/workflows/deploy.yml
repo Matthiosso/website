@@ -18,8 +18,49 @@ env:
 
 
 jobs:
+  release-frontend:
+    permissions:
+        contents: write
+    runs-on: ubuntu-latest # Runs on an Ubuntu runner
+
+    defaults:
+      run:
+        working-directory: 'frontend'
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.x" # Use the Node.js version required for your project
+
+      # Step 3: Cache Node.js modules to speed up future builds
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      # Step 4: Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Step 5: Run semantic-release
+      - name: Run Semantic Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
+
   build-and-push-image:
     runs-on: ubuntu-latest
+    needs: release-frontend
+    if: success()
     strategy:
       fail-fast: false
       matrix:
@@ -76,8 +117,15 @@ jobs:
           context: ./${{ matrix.module }}
           file: ./${{ matrix.module }}/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: |
+            # set latest tag for master branch
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            # dynamically set the branch name as a prefix
+            type=sha,prefix={{branch}}-
+            # dynamically set the branch name and sha as a custom tag
+            type=raw,value=mytag-{{branch}}-{{sha}}
+          labels: |
+            org.opencontainers.image.created={{commit_date 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'}}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
