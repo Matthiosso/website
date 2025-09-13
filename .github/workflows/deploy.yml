@@ -118,11 +118,12 @@ jobs:
           file: ./${{ matrix.module }}/Dockerfile
           push: true
           tags: |
-            # set latest tag for master branch
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-            # dynamically set the branch name as a prefix
             type=sha,prefix={{branch}}-
-            # dynamically set the branch name and sha as a custom tag
             type=raw,value=mytag-{{branch}}-{{sha}}
           labels: |
             org.opencontainers.image.created={{commit_date 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'}}
