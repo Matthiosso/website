@@ -60,7 +60,7 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
         with:
-          path: './${{env.MODULE_DIR}}/package.json'
+          path: './${{env.MODULE_DIR}}'
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
