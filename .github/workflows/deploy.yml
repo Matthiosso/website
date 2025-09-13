@@ -56,7 +56,7 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Provide the NPM token for authentication if publishing to npm
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the NPM token for authentication if publishing to npm
 
       # Step 6 : Publish the package to npm (if applicable)
       # - name: Publish to npm
