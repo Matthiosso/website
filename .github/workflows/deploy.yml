@@ -70,9 +70,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.MODULE_DIR }}
           tags: |
+            type=schedule
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern=v${{steps.package-version.outputs.current-version}}
+            type=raw,value=v${{steps.package-version.outputs.current-version}}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,prefix={{branch}}-
           labels: |
