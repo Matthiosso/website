@@ -93,8 +93,8 @@ jobs:
             type=sha,prefix={{branch}}-
           labels: |
             maintainer=${{ github.actor }}
-            org.opencontainers.image.title="Portfolio Website Frontend"
-            org.opencontainers.image.description="Portfolio Website Frontend using Vue.js and Vite"
+            org.opencontainers.image.title=Portfolio Website Frontend
+            org.opencontainers.image.description=Portfolio Website Frontend using Vue.js and Vite
             org.opencontainers.image.version=${{steps.package-version.outputs.current-version}}
 
       # Build and push Docker image with Buildx (don't push on PR)
@@ -197,8 +197,8 @@ jobs:
             type=sha,prefix={{branch}}-
           labels: |
             maintainer=${{ github.actor }}
-            org.opencontainers.image.title="Portfolio Website Backend"
-            org.opencontainers.image.description="Portfolio Website Backend using Java Spring and Maven"
+            org.opencontainers.image.title=Portfolio Website Backend
+            org.opencontainers.image.description=Portfolio Website Backend using Java Spring and Maven
             org.opencontainers.image.version=${{ steps.project.outputs.version }}
 
       # Build and push Docker image with Buildx (don't push on PR)
