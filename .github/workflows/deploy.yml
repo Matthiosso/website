@@ -56,12 +56,17 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the GitHub token for authentication
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Provide the NPM token for authentication if publishing to npm
+
+      # Step 6 : Publish the package to npm (if applicable)
+      # - name: Publish to npm
+      #   run: npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Provide the NPM
 
   build-and-push-image:
     runs-on: ubuntu-latest
     needs: release-frontend
-    concurrency:
-      group: docker
     if: success()
     strategy:
       fail-fast: false
