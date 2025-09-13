@@ -19,12 +19,14 @@ env:
 
 jobs:
   build-and-push-image-frontend:
+    name: Build and Push Frontend Image
     runs-on: ubuntu-latest
     env:
       MODULE_DIR: frontend
     defaults:
       run:
         working-directory: 'frontend'
+
     permissions:
       contents: read
       packages: write
@@ -35,8 +37,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: '${{ env.MODULE_DIR }}'
       
       # Only run the build if files in the Mobile/ directory changed
       - uses: dorny/paths-filter@v2
@@ -71,6 +71,8 @@ jobs:
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
+        with:
+          path: ./${{ env.MODULE_DIR }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -96,8 +98,8 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./${{ env.MODULE_DIR }}
+          file: ./${{ env.MODULE_DIR }}/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
