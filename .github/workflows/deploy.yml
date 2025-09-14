@@ -170,12 +170,12 @@ jobs:
         with:
           node-version: "lts/*"
       - name: Install semantic-release-maven
-        run: npm i semantic-release-maven
+        run: npm i semantic-release-maven -D
       - name: Release
         env:
           SERVER_USERNAME: ${{ github.repository_owner}}
           SERVER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: npx -b ${{ github.ref_name }} semantic-release
+        run: npx semantic-release
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
