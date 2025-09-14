@@ -50,20 +50,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-                <groupId>io.github.sam42r</groupId>
-                <artifactId>semver-maven-plugin</artifactId>
-                <version>1.4.0</version>
-				<configuration>
-                    <release>
-                        <publisher-name>GitHub</publisher-name>
-                        <publish>true</publish>
-                        <username>${env.GITHUB_USER}</username>
-                        <password>${env.GITHUB_TOKEN}</password>
-                    </release>
-					<gitDir>../.git</gitDir>
-              </configuration>
-            </plugin>
 		</plugins>
 	</build>
 
