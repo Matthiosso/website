@@ -5,9 +5,10 @@ export default {
             '@codedependant/semantic-release-docker', 
             {
                 dockerTags: ['latest', '{{version}}', '{{major}}-latest', '{{major}}.{{minor}}', '{{major}}.{{minor}}.{{patch}}'],
+                dockerImage: 'frontend',
                 dockerFile: 'Dockerfile',
                 dockerRegistry: 'ghcr.io',
-                dockerRepository: 'matthiosso/website/frontend',
+                dockerProject: 'matthiosso/website',
                 dockerPlatform: ['linux/amd64', 'linux/arm64'],
                 dockerBuildFlags: {
                     pull: null
