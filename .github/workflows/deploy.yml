@@ -175,7 +175,7 @@ jobs:
         env:
           SERVER_USERNAME: ${{ github.repository_owner}}
           SERVER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: npx semantic-release -r https://maven.pkg.github.com/matthiosso/website
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
