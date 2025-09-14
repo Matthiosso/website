@@ -53,7 +53,8 @@ spec:
     spec:
       containers:
       - name: website-frontend
-        image: website-frontend:dev
+        image: ghcr.io/matthiosso/website/frontend:dev
+        imagePullPolicy: Always
         env:
         - name: ENV_API_URL
           value: https://dev.matthieuclement.com/api
