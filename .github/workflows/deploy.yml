@@ -138,6 +138,7 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
   build-and-push-image-backend:
+    name: Build and Push Backend Image
     runs-on: ubuntu-latest
     env:
       MODULE_DIR: backend
@@ -174,7 +175,7 @@ jobs:
         env:
           SERVER_USERNAME: ${{ github.repository_owner}}
           SERVER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: npx -b ${{ github.ref_name }} semantic-release
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
