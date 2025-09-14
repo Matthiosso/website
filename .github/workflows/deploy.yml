@@ -61,6 +61,7 @@ jobs:
           DOCKER_REGISTRY_USER: ${{ github.actor }}
           DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           SRC_DIRECTORY: ./${{ env.MODULE_DIR }}
+          TARGET_PATH: ./${{ env.MODULE_DIR }}
         run: npx semantic-release
 
   build-and-push-image-backend:
