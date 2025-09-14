@@ -10,7 +10,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_REPO: ${{ github.repository }}
   # working folder on ssh server
   TMP_FOLDER: /tmp/github/${{ github.sha }}
   # Type of deployment
@@ -94,15 +94,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.MODULE_DIR }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.MODULE_DIR }}
           tags: |
             type=schedule
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern=v{{version}}
-            type=semver,pattern=v{{major}}
-            type=semver,pattern=v{{major}}.{{minor}}
-            type=raw,value=v${{steps.package-version.outputs.current-version}}
+            type=raw,value={{branch}}-v${{steps.package-version.outputs.current-version}}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,prefix={{branch}}-
           labels: |
@@ -199,14 +196,11 @@ jobs:
         id: meta
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.MODULE_DIR }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.MODULE_DIR }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern=v{{version}}
-            type=semver,pattern=v{{major}}
-            type=semver,pattern=v{{major}}.{{minor}}
-            type=raw,value=v${{ steps.project.outputs.version }}
+            type=raw,value={{branch}}-v${{ steps.project.outputs.version }}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=sha,prefix={{branch}}-
           labels: |
@@ -269,7 +263,10 @@ jobs:
   
   deploy:
     runs-on: ubuntu-latest
-    needs: prepare-work-folder
+    needs:
+      - build-and-push-image-frontend
+      - build-and-push-image-backend 
+      - prepare-work-folder 
     if: success()
     steps:
       - name: Deploy
