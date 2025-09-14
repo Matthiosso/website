@@ -60,7 +60,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           DOCKER_REGISTRY_USER: ${{ github.actor }}
           DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          SEMANTIC_RELEASE_DOCKER_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.MODULE_DIR }}
           SRC_DIRECTORY: ./${{ env.MODULE_DIR }}
         run: npx semantic-release
 
