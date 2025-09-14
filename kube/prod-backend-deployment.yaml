@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: data
         hostPath:
-          path: /home/${SERVER_USER}/data
+          path: /home/debian/data
       containers:
       - name: website-backend
         image: ghcr.io/matthiosso/website/backend:main

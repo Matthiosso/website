@@ -267,8 +267,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare-work-folder 
     if: success()
-    env:
-      SERVER_USER: ${{ secrets.SERVER_USER }}
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@v1
