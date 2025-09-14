@@ -3,3 +3,6 @@ Dockerfile*
 README.md
 .gitignore
 .env.development
+node_modules
+dist
+.husky
