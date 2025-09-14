@@ -63,6 +63,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+            <groupId>com.amashchenko.maven.plugin</groupId>
+            <artifactId>gitflow-maven-plugin</artifactId>
+            <version>1.13.0</version>
+            <configuration>
+                <pushRemote>false</pushRemote>
+				
+            </configuration>
+        </plugin>
 		</plugins>
 	</build>
 

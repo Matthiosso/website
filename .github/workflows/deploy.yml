@@ -164,18 +164,6 @@ jobs:
           filters: |
             ${{ env.MODULE_DIR }}:
               - '${{ env.MODULE_DIR }}/**'
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "lts/*"
-      - name: Install semantic-release-maven
-        run: npm i semantic-release-maven -D
-      - name: Release
-        env:
-          SERVER_USERNAME: ${{ github.repository_owner}}
-          SERVER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release -r https://maven.pkg.github.com/matthiosso/website
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
