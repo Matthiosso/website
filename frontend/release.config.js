@@ -6,6 +6,8 @@ export default {
             {
                 dockerTags: ['latest', '{{version}}', '{{major}}-latest', '{{major}}.{{minor}}', '{{major}}.{{minor}}.{{patch}}'],
                 dockerFile: 'Dockerfile',
+                dockerRegistry: 'ghcr.io',
+                dockerRepository: 'matthiosso/website/frontend',
                 dockerPlatform: ['linux/amd64', 'linux/arm64'],
                 dockerBuildFlags: {
                     pull: null
