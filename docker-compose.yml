@@ -9,7 +9,7 @@ services:
       RESUME_FILEPATH: /data/resume.pdf
       SERVER_PORT: 8080
     volumes:
-      - ./data:/data
+      - ./backend/data:/data
     ports:
       - 8081:8080
     networks:
