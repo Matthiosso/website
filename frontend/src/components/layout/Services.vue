@@ -4,7 +4,7 @@
         <div
             class="mt-20 py-8 xl:px-16 px-4 sm:py-16 grid grid-cols-1 gap-6 pt-10 sm:grid-cols-2 md:gap-10 md:pt-12 lg:grid-cols-3">
             <article class="px-[12px] mb-[24px]" v-for="element in services" :key="element.id">
-                <div class="mt-[30px] relative flex flex-col justify-center text-center rounder-[30px] border border-secondary bg-block"
+                <div class="mt-[30px] rounded-3xl relative flex flex-col justify-center text-center rounder-[30px] border border-secondary bg-block"
                     data-aos="fade-up" :data-aos-delay="element.id * 100">
                     <div class="mt-[-30px] flex justify-center relative">
                         <div class="mt-[-7px] p-[20px] relative rounded-[50%]">
@@ -71,7 +71,7 @@ const services = ref([
         icon: 'majesticons:presentation-chart-line',
         name: 'Data Visualization',
         description: 'Kibana, Jupyter/Pandas (Python)',
-        icons: ['devicon:kibana', 'devicon:jupyter', 'simple-icons:geopandas', 'devicon:python']
+        icons: ['devicon:kibana', 'devicon:jupyter-wordmark', 'simple-icons:geopandas', 'devicon:python']
     },
     {
         id: uid(),
