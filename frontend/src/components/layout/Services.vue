@@ -71,7 +71,7 @@ const services = ref([
         icon: 'majesticons:presentation-chart-line',
         name: 'Data Visualization',
         description: 'Kibana, Jupyter/Pandas (Python)',
-        icons: ['devicon:kibana', 'devicon:jupyter', 'simple-icons:geopandas', 'devicon:python']
+        icons: ['devicon:kibana', 'devicon:jupyter-wordmark', 'simple-icons:geopandas', 'devicon:python']
     },
     {
         id: uid(),
