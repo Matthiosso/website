@@ -1,10 +1,11 @@
 <template>
-    <section id="whoami" data-aos="zoom-in"
-        class="flex justify-center items-center min-h-screen dark:text-primary mt-20 lg:mt-0 mb-50 md:mb-0 lg:mb-0">
+    <section id="whoami" data-aos="zoom-in" class="dark:text-primary relative p-2 py-10 min-w-screen">
         <SectionHeader />
-        <main class="absolute grid lg:grid-cols-2 grid-cols-1 items-center p-2 lg:p-8">
-            <header class="font-display text-center lg:text-left">
-                <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold cursor typewriter-animation">
+
+        <main class="flex flex-wrap items-center justify-center">
+            <div class="font-display text-center lg:text-left min-w-1">
+                <h1
+                    class="text-4xl md:text-5xl lg:text-6xl font-bold text-left cursor typewriter-animation lg:mx-0 max-w-xl">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
                 <p class="text-lg max-w-xl mx-auto lg:mx-0 font-semibold italic">
@@ -38,16 +39,16 @@
                         <Icon icon="mdi:github" class="text-3xl" />
                     </a>
                 </div>
-            </header>
-            <aside class="container flex justify-center lg:justify-end mt-20 lg:mt-0 items-center flex-wrap">
+            </div>
+            <div class="flex justify-center lg:justify-end mt-20 lg:mt-0 items-center flex-wrap">
                 <figure
-                    class="card relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[280px] before:w-[300px] before:h-[300px]">
+                    class="relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[280px] before:w-[300px] before:h-[300px]">
                     <div
                         class="w-full h-full bg-cover rounded-full overflow-hidden dark:mask-radial-at-center dark:mask-radial-from-30% border-[10px] border-secondary">
                         <img src="@/assets/images/matthieu.png" alt="Matthieu Clement" class="max-w" loading="lazy" />
                     </div>
                 </figure>
-            </aside>
+            </div>
         </main>
     </section>
 </template>
@@ -70,13 +71,43 @@ function openLinkedIn() {
 
 </script>
 
-
 <style scoped>
-.container .card:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+/* Cursor */
+.cursor {
+    position: relative;
+    width: 24em;
+    margin: 0 0 auto;
+    border-right: 2px solid;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);
+}
+
+/* Animation */
+.typewriter-animation {
+    animation:
+        typewriter 3s steps(50) 1s 1 normal both,
+        blinkingCursor 500ms steps(50) normal infinite;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blinkingCursor {
+    from {
+        border-right-opacity: rgba(0, 0, 0, 0.75);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
 }
 </style>
