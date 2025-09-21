@@ -21,6 +21,10 @@ defineProps({
     onClick: {
         type: Function,
         default: () => { }
+    },
+    type: {
+        type: String,
+        default: 'button'
     }
 });
 
