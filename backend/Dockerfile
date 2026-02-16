@@ -8,7 +8,7 @@ COPY src src
 RUN mvn install
 
 
-FROM openjdk:24-jdk-slim
+FROM openjdk:26-ea-24-jdk-slim
 
 WORKDIR /app
 RUN apt-get update
