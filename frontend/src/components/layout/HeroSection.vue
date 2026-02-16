@@ -57,7 +57,7 @@ import Button from '@/components/UI/Button.vue';
 import { ref } from 'vue';
 import config from '@/config';
 import SectionHeader from '@/components/UI/SectionHeader.vue';
-const HireMe = ref('Hire me');
+const HireMe = ref('Work with me');
 const LinkedInUrl = ref(config.linkedInUrl);
 const GithubUrl = ref(config.githubUrl);
 
@@ -66,7 +66,7 @@ function downloadResume() {
 }
 
 function openLinkedIn() {
-    window.open(config.linkedInUrl, '_blank');
+    window.open(config.linkedInContactUrl, '_blank');
 }
 
 </script>
