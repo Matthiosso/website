@@ -16,7 +16,7 @@
 @layer theme {
   :root, :host {
     @variant dark {
-        --color-background: #080326; /* Background color */
+        --color-background: #0e0540; /* Background color */
         --color-primary: white; /* Primary text color, use https://colorhunt.co to change theme */
         --color-secondary: #FDFB52; /* Secondary text color */
         --color-accent: white; /* Text color for links */
