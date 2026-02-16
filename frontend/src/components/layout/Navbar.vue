@@ -58,7 +58,7 @@ const restartGif = () => {
 const Menu = ref([
     { name: 'Who am I ?', href: '#whoami' },
     { name: 'My Services', href: '#services' },
-    { name: 'Contact', href: config.linkedInContactUrl, external: true },
+    { name: 'Contact', href: '#contact' },
 ]);
 
 const scrollToSection = (href) => {
