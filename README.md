@@ -22,3 +22,4 @@ Then go to :
 
 * [Backend](http://localhost:8081/health)
 * [Frontend](http://localhost:8080)
+* [Mail server](http://localhost:8025)
