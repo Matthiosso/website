@@ -29,6 +29,7 @@ services:
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
       ENV_GITHUB_URL: https://github.com/Matthiosso/website
       ENV_GTAG_ID: G-XXXXXXXXXX
+      ENV_FRONTEND_URL: http://localhost:8080
     ports:
       - 8080:80
     depends_on:

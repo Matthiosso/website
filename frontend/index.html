@@ -5,6 +5,15 @@
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="5f335f2d-787d-4881-8d9d-c2aca143aedf" type="text/javascript" async></script>
     <script data-cookieconsent="ignore">    window.dataLayer = window.dataLayer || [];    function gtag() {        dataLayer.push(arguments);    }    gtag("consent", "default", {        ad_personalization: "denied",        ad_storage: "denied",        ad_user_data: "denied",        analytics_storage: "denied",        functionality_storage: "denied",        personalization_storage: "denied",        security_storage: "granted",        wait_for_update: 500,    });    gtag("set", "ads_data_redaction", true);    gtag("set", "url_passthrough", false);</script>  
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GTAG_ID%"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', `%VITE_GTAG_ID%`);
+    </script>
     <meta charset="UTF-8" />
 
     <!-- FIXME: For url previews in social media - doubling App.vue work because the rendering of url previews doesn't seem to work everywhere -->
@@ -15,12 +24,12 @@
     <meta property="og:description" content="Hey, I'm Matthieu CLEMENT, a french developer. Here's my portfolio website. Looking for a full stack developer or technical consultant ? I'm your man 👨‍💻" />
     <meta name="twitter:description" content="Hey, I'm Matthieu CLEMENT, a french developer. Here's my portfolio website. Looking for a full stack developer or technical consultant ? I'm your man 👨‍💻" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="og:image" content="https://www.matthieuclement.com/logo/MC_1200x630.png">
+    <meta property="og:image" content="%VITE_FRONTEND_URL%/logo/MC_1200x630.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="600">
     <meta property="og:image:alt" content="Logo">
     <meta property="og:image:type" content="image/png">
-    <meta name="twitter:image" content="https://www.matthieuclement.com/logo/MC_1200x630.png">
+    <meta name="twitter:image" content="%VITE_FRONTEND_URL%/logo/MC_1200x630.png">
     <meta name="twitter:image:width" content="1200">
     <meta name="twitter:image:height" content="600">
     <meta name="twitter:image:alt" content="Logo">
