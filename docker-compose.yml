@@ -3,11 +3,17 @@ services:
   backend:
     image: backend:0.0.1-SNAPSHOT
     container_name: website-backend_container
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
     environment:
       PREFIX_PATH: /api
       RESUME_FILEPATH: /data/resume.pdf
       SERVER_PORT: 8080
+      MAIL_HOST: mailserver
+      MAIL_PORT: 1025
+      MAIL_USERNAME: contact@example.com
+      FRONTEND_URL: http://localhost:8080
     volumes:
       - ./backend/data:/data
     ports:
@@ -22,13 +28,22 @@ services:
       ENV_API_URL: http://localhost:8081/api
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
       ENV_GITHUB_URL: https://github.com/Matthiosso/website
+      ENV_GTAG_ID: G-XXXXXXXXXX
     ports:
       - 8080:80
     depends_on:
       - backend
     networks:
       - mynetwork
-
+  
+  mailserver: # Mock SMTP server for testing email sending in dev environment (Go to http://localhost:8025 to see the web interface)
+    image: mailhog/mailhog:latest
+    container_name: mailserver-container
+    ports:
+      - "1025:1025" # SMTP port
+      - "8025:8025" # Web interface port
+    networks:
+      - mynetwork
 
 networks:
   mynetwork:

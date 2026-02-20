@@ -11,10 +11,12 @@
                         v-model:value="subject" />
                     <Input id="message" label="Message" type="textarea" row="6" placeholder="Leave a comment..."
                         v-model:value="message" />
-                    <p v-if="errorMessage" class="mt-2 text-secondary">{{ errorMessage }}</p>
+                    <p v-if="formMessage.message"
+                        :class="formMessage.isError ? 'mt-2 text-red-500' : 'mt-2 text-secondary'">{{
+                            formMessage.message }}</p>
                 </div>
                 <div class="flex justify-between">
-                    <Button label="Send" type="submit" />
+                    <Button label="Send" type="submit" :isDisabled="isLoading" />
                 </div>
             </form>
         </div>
@@ -30,28 +32,108 @@ import config from '@/config';
 import { ref } from 'vue';
 
 const SendMailURL = ref(config.sendMailAPIUrl);
-const errorMessage = ref('');
+const formMessage = ref({
+    message: '',
+    isError: false
+});
 const email = ref('');
 const subject = ref('');
 const message = ref('');
+const userAgent = ref('');
+const gaClientId = ref('');
+const isLoading = ref(false);
+
+const getUserAgent = () => {
+    if (typeof window !== 'undefined') {
+        return window.navigator.userAgent;
+    } else {
+        console.error('Window object is not defined (e.g., during SSR)');
+        return '';
+    }
+};
+
+const getGaClientId = () => {
+    const name = "_ga=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            // Returns the full cookie value, e.g., GA1.1.40030803.167153367
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+const clearForm = () => {
+    email.value = '';
+    subject.value = '';
+    message.value = '';
+    isLoading.value = false;
+};
+
 
 const checkForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.value)) {
-        errorMessage.value = 'Invalid email address';
-    } else {
-        errorMessage.value = '';
+        formMessage.value = {
+            message: 'Invalid email address',
+            isError: true
+        };
+        return;
     }
 
     if (subject.value.trim() === '' || message.value.trim() === '') {
-        errorMessage.value = 'Subject and message cannot be empty';
-    } else {
-        errorMessage.value = '';
+        formMessage.value = {
+            message: 'Subject and message cannot be empty',
+            isError: true
+        };
+        return;
     }
 
-    //TODO: Implement actual sending of email through backend
-    console.log(`Form submitted to ${SendMailURL.value}\nemail=${email.value}, subject=${subject.value}, value=${message.value}`);
-
+    userAgent.value = getUserAgent();
+    gaClientId.value = getGaClientId();
+    isLoading.value = true;
+    fetch(SendMailURL.value, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            subject: subject.value,
+            message: message.value,
+            userInfo: {
+                userAgent: userAgent.value || '',
+                gaClientId: gaClientId.value || '',
+                userEmail: email.value || ''
+            }
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            formMessage.value = {
+                message: data || 'Message sent successfully!',
+                isError: false
+            };
+            clearForm();
+        })
+        .catch((error) => {
+            formMessage.value = {
+                message: 'Failed to send message : ' + (error.message || 'Unknown error'),
+                isError: true
+            };
+            console.error('Error:', error);
+            isLoading.value = false;
+        });
 };
 
 </script>

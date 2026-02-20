@@ -8,5 +8,20 @@
     "name": "file.resume-filepath",
     "type": "java.lang.String",
     "description": "File path to the resume file"
+  },
+  {
+    "name": "contact.email",
+    "type": "java.lang.String",
+    "description": "Mail to address for contact form submissions"
+  },
+  {
+    "name": "contact.prefix",
+    "type": "java.lang.String",
+    "description": "A prefix to add to the subject of contact form emails"
+  },
+  {
+    "name": "settings.cors_origins",
+    "type": "java.lang.String",
+    "description": "Comma-separated list of allowed CORS origins (e.g. https://example.com,https://www.example.com)"
   }
 ]}

@@ -62,6 +62,8 @@ spec:
           value: https://www.linkedin.com/in/matthieuclement2012/
         - name: ENV_GITHUB_URL
           value: https://github.com/Matthiosso/website
+        - name: ENV_GTAG_ID
+          value: ${DEV_GTAG_ID}
         #image: hashicorp/http-echo
           #args:
           #- "-text=Hello Kubernetes!"
