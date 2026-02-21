@@ -23,7 +23,7 @@
                 </p>
 
                 <div class="mt-6 flex justify-center lg:justify-start">
-                    <Button :label="HireMe" :onClick="openLinkedIn" />
+                    <Button :label="HireMe" :onClick="openContact" />
                     <button :onClick="downloadResume"
                         class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2
                         border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
@@ -61,12 +61,15 @@ const HireMe = ref('Work with me');
 const LinkedInUrl = ref(config.linkedInUrl);
 const GithubUrl = ref(config.githubUrl);
 
-function downloadResume() {
+const downloadResume = () => {
     window.open(config.downloadResumeAPIUrl, '_blank');
 }
 
-function openLinkedIn() {
-    window.open(config.linkedInContactUrl, '_blank');
+const openContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 </script>

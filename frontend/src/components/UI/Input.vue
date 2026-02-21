@@ -7,6 +7,7 @@
             class="shadow-sm text-white text-sm rounded-lg block w-full p-2.5 focus:ring-secondary-500 focus:border-secondary-500 border border-secondary bg-block" />
         <textarea v-else :id="id" :placeholder="placeholder" :rows="rows" v-model="value"
             class="shadow-sm text-white text-sm rounded-lg block w-full p-2.5 focus:ring-secondary-500 focus:border-secondary-500 border border-secondary bg-block"></textarea>
+        <small v-if="error" class="mt-2 text-red-500 text-sm">{{ error }}</small>
     </div>
 </template>
 
@@ -35,6 +36,7 @@ defineProps({
 });
 
 const value = defineModel('value');
+const error = defineModel('error');
 </script>
 
 <style></style>

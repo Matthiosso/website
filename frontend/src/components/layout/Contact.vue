@@ -3,20 +3,26 @@
         <SectionHeader title="Contact Me" />
 
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-            <form class="space-y-8" @submit.prevent="checkForm">
+            <form class="space-y-8" @submit.prevent="submitForm">
                 <div>
                     <Input id="email" label="Your email" type="email" placeholder="email@example.com"
-                        v-model:value="email" />
+                        v-model:value="fields.email.value" v-model:error="fields.email.error" />
                     <Input id="subject" label="Subject" type="text" placeholder="Let me know how I can help you"
-                        v-model:value="subject" />
+                        v-model:value="fields.subject.value" v-model:error="fields.subject.error" />
                     <Input id="message" label="Message" type="textarea" row="6" placeholder="Leave a comment..."
-                        v-model:value="message" />
-                    <p v-if="formMessage.message"
-                        :class="formMessage.isError ? 'mt-2 text-red-500' : 'mt-2 text-secondary'">{{
-                            formMessage.message }}</p>
+                        v-model:value="fields.message.value" v-model:error="fields.message.error" />
+
                 </div>
-                <div class="flex justify-between">
-                    <Button label="Send" type="submit" :isDisabled="isLoading" />
+                <div v-if="isLoading">
+                    <Icon icon="line-md:loading-loop" class="text-3xl mt-2 text-secondary animate-spin" />
+                </div>
+                <div class="flex flex-col" v-else>
+                    <div class="flex-1"><Button label="Send" type="submit" /></div>
+                    <div class="flex-1">
+                        <p v-if="formMessage.message"
+                            :class="formMessage.isError ? 'mt-2 text-red-500' : 'mt-2 text-secondary'">{{
+                                formMessage.message }}</p>
+                    </div>
                 </div>
             </form>
         </div>
@@ -36,9 +42,57 @@ const formMessage = ref({
     message: '',
     isError: false
 });
-const email = ref('');
-const subject = ref('');
-const message = ref('');
+const fields = ref({
+    email: {
+        value: '',
+        error: ''
+    },
+    subject: {
+        value: '',
+        error: ''
+    },
+    message: {
+        value: '',
+        error: ''
+    }
+});
+const validateEmail = (value) => {
+    if (value.trim() === '') {
+        fields.value.email.error = 'Email cannot be empty';
+        return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+        fields.value.email.error = 'Invalid email address';
+        return false;
+    }
+    fields.value.email.error = '';
+    return true;
+};
+const validateSubject = (value) => {
+    if (value.trim() === '') {
+        fields.value.subject.error = 'Subject cannot be empty';
+        return false;
+    }
+    if (value.length > 70) {
+        fields.value.subject.error = 'Subject cannot exceed 70 characters';
+        return false;
+    }
+    fields.value.subject.error = '';
+    return true;
+};
+const validateMessage = (value) => {
+    if (value.trim() === '') {
+        fields.value.message.error = 'Message cannot be empty';
+        return false;
+    }
+    if (value.length > 1000) {
+        fields.value.message.error = 'Message cannot exceed 1000 characters';
+        return false;
+    }
+    fields.value.message.error = '';
+    return true;
+};
 const userAgent = ref('');
 const gaClientId = ref('');
 const isLoading = ref(false);
@@ -70,33 +124,29 @@ const getGaClientId = () => {
 }
 
 const clearForm = () => {
-    email.value = '';
-    subject.value = '';
-    message.value = '';
+    fields.value.email.value = '';
+    fields.value.email.error = '';
+    fields.value.subject.value = '';
+    fields.value.subject.error = '';
+    fields.value.message.value = '';
+    fields.value.message.error = '';
     isLoading.value = false;
 };
 
+const validateForm = () => {
+    const validityEmail = validateEmail(fields.value.email.value);
+    const validitySubject = validateSubject(fields.value.subject.value);
+    const validityMessage = validateMessage(fields.value.message.value);
+    return validityEmail && validitySubject && validityMessage;
+};
 
-const checkForm = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.value)) {
-        formMessage.value = {
-            message: 'Invalid email address',
-            isError: true
-        };
+const submitForm = () => {
+    if (!validateForm()) {
         return;
     }
-
-    if (subject.value.trim() === '' || message.value.trim() === '') {
-        formMessage.value = {
-            message: 'Subject and message cannot be empty',
-            isError: true
-        };
-        return;
-    }
-
     userAgent.value = getUserAgent();
     gaClientId.value = getGaClientId();
+
     isLoading.value = true;
     fetch(SendMailURL.value, {
         method: 'POST',
@@ -112,30 +162,35 @@ const checkForm = () => {
                 userEmail: email.value || ''
             }
         })
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            formMessage.value = {
-                message: data || 'Message sent successfully!',
-                isError: false
-            };
-            clearForm();
-        })
-        .catch((error) => {
-            formMessage.value = {
-                message: 'Failed to send message : ' + (error.message || 'Unknown error'),
-                isError: true
-            };
-            console.error('Error:', error);
-            isLoading.value = false;
-        });
+    }).then(response => {
+        if (!response.ok) {
+            formMessage.value.isError = true;
+        }
+        return response.text();
+    }).then(data => {
+        if (formMessage.value.isError) {
+            formMessage.value.message = 'Failed to send message : ' + data;
+            return;
+        }
+        formMessage.value = {
+            message: data || 'Message sent successfully!',
+            isError: false
+        };
+        clearForm();
+    }).catch((error) => {
+        let errorMessage = error.message || 'Unknown error';
+        if (errorMessage.includes('Failed to fetch')) {
+            errorMessage = 'Network error. The backend server may be unreachable or the request was blocked.';
+        }
+        formMessage.value = {
+            message: 'Failed to send message : ' + errorMessage,
+            isError: true
+        };
+        console.error('Error:', error);
+    }).finally(() => {
+        isLoading.value = false;
+    });
+
 };
 
 </script>
-
-<style></style>

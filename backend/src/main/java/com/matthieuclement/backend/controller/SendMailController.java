@@ -48,13 +48,13 @@ public class SendMailController {
             return ResponseEntity.status(500).body("Email authentication failed. Please check server configuration.");
         } catch (MailParseException e) {
             logger.error("Failed to parse email from {}: {}", userMessage.getUserInfo(), e.getMessage());
-            return ResponseEntity.status(400).body("Failed to parse email. Please check the email format.");
+            return ResponseEntity.status(400).body("Failed to parse email. Please check server configuration.");
         } catch (MailException e) {
             logger.error("General mail error when sending email from {}: {}", userMessage.getUserInfo(),
                     e.getMessage());
-            return ResponseEntity.status(500).body("An error occurred while sending email. Please try again later.");
+            return ResponseEntity.status(500).body("An error occurred while sending message. Please try again later.");
         }
-        return ResponseEntity.ok("Email sent successfully.");
+        return ResponseEntity.ok("Message sent successfully.");
     }
 
 }
