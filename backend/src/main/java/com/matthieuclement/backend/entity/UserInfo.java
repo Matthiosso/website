@@ -2,9 +2,14 @@ package com.matthieuclement.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class UserInfo {
 
-    @JsonProperty(value = "userEmail", required = true)
+    @JsonProperty(value = "userEmail")
+    @NotBlank(message = "User email is required")
+    @Email(message = "Invalid email format")
     private String userEmail;
 
     @JsonProperty(value = "userAgent", required = true)
