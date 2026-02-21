@@ -15,7 +15,7 @@ public class UserMessage {
 
     @JsonProperty(value = "message")
     @NotBlank(message = "Message is required")
-    @Size(max = 500, message = "Message must be less than 500 characters")
+    @Size(max = 1000, message = "Message must be less than 1000 characters")
     private String message;
 
     @JsonProperty(value = "userInfo")
