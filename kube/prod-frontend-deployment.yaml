@@ -67,6 +67,10 @@ spec:
           value: ${PROD_GTAG_ID}
         - name: ENV_FRONTEND_URL
           value: https://${PROD_SERVER_HOSTNAME}
+        - name: ENV_PLAUSIBLE_URL
+          value: ${PLAUSIBLE_HOSTNAME}
+        - name: ENV_PLAUSIBLE_SECRET_KEY
+          value: ${PLAUSIBLE_SECRET_KEY}
         ports:
         - containerPort: 80
       imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb

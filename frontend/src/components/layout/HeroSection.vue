@@ -57,11 +57,15 @@ import Button from '@/components/UI/Button.vue';
 import { ref } from 'vue';
 import config from '@/config';
 import SectionHeader from '@/components/UI/SectionHeader.vue';
+import { usePlausible } from 'v-plausible/vue';
+const { trackEvent } = usePlausible()
 const HireMe = ref('Work with me');
 const LinkedInUrl = ref(config.linkedInUrl);
 const GithubUrl = ref(config.githubUrl);
 
+
 const downloadResume = () => {
+    trackEvent('download_resume');
     window.open(config.downloadResumeAPIUrl, '_blank');
 }
 

@@ -36,6 +36,8 @@ import Input from '@/components/UI/Input.vue';
 import Button from '@/components/UI/Button.vue';
 import config from '@/config';
 import { ref } from 'vue';
+import { usePlausible } from 'v-plausible/vue';
+const { trackEvent } = usePlausible()
 
 const SendMailURL = ref(config.sendMailAPIUrl);
 const formMessage = ref({
@@ -141,6 +143,11 @@ const validateForm = () => {
 };
 
 const submitForm = () => {
+    trackEvent('contact_form_submission', {
+        email: fields.value.email.value,
+        subject: fields.value.subject.value,
+        messageLength: fields.value.message.value.length
+    });
     if (!validateForm()) {
         return;
     }

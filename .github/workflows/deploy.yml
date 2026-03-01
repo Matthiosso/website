@@ -301,6 +301,8 @@ jobs:
       MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
       DEV_SERVER_HOSTNAME: ${{ secrets.DEV_SERVER_HOSTNAME }}
       PROD_SERVER_HOSTNAME: ${{ secrets.PROD_SERVER_HOSTNAME }}
+      PLAUSIBLE_HOSTNAME: ${{ secrets.PLAUSIBLE_HOSTNAME }}
+      PLAUSIBLE_SECRET_KEY: ${{ secrets.PLAUSIBLE_SECRET_KEY }}
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@v1
