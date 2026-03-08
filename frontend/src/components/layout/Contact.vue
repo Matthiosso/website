@@ -14,6 +14,8 @@
                         v-model:value="fields.message.value" v-model:error="fields.message.error" />
 
                 </div>
+                <div ref="captchaWidget"></div>
+
                 <div v-if="isLoading">
                     <Icon icon="line-md:loading-loop" class="text-3xl mt-2 text-secondary animate-spin" />
                 </div>
@@ -39,7 +41,18 @@ import SectionHeader from '@/components/UI/SectionHeader.vue';
 import Input from '@/components/UI/Input.vue';
 import Button from '@/components/UI/Button.vue';
 import config from '@/config';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+
+const captchaWidget = ref(null);
+
+onMounted(async () => {
+    const { FriendlyCaptchaSDK } = await import('https://cdn.jsdelivr.net/npm/@friendlycaptcha/sdk@0.1.36/sdk.min.js');
+    const sdk = new FriendlyCaptchaSDK();
+    sdk.createWidget({
+        element: captchaWidget.value,
+        sitekey: config.friendlyCaptchaSitekey
+    });
+});
 
 const SendMailURL = ref(config.sendMailAPIUrl);
 const formMessage = ref({
@@ -58,10 +71,13 @@ const fields = ref({
     message: {
         value: '',
         error: ''
-    }
+    },
+    captcha: ''
 });
+
+
 const validateEmail = (value) => {
-    if (value.trim() === '') {
+    if (value?.trim() === '') {
         fields.value.email.error = 'Email cannot be empty';
         return false;
     }
@@ -74,7 +90,7 @@ const validateEmail = (value) => {
     return true;
 };
 const validateSubject = (value) => {
-    if (value.trim() === '') {
+    if (value?.trim() === '') {
         fields.value.subject.error = 'Subject cannot be empty';
         return false;
     }
@@ -86,7 +102,7 @@ const validateSubject = (value) => {
     return true;
 };
 const validateMessage = (value) => {
-    if (value.trim() === '') {
+    if (value?.trim() === '') {
         fields.value.message.error = 'Message cannot be empty';
         return false;
     }
@@ -116,14 +132,29 @@ const clearForm = () => {
     fields.value.subject.error = '';
     fields.value.message.value = '';
     fields.value.message.error = '';
+    fields.value.captcha = '';
     isLoading.value = false;
+};
+
+const validateCaptcha = (captchaInput) => {
+    fields.value.captcha = captchaInput?.value;
+
+    if (!fields.value.captcha || fields.value.captcha === '.UNFINISHED' || fields.value.captcha === '.ERROR') {
+        formMessage.value = {
+            message: 'Failed to send message : Impossible to valid captcha',
+            isError: true
+        };
+        return false;
+    }
+    return true;
 };
 
 const validateForm = () => {
     const validityEmail = validateEmail(fields.value.email.value);
     const validitySubject = validateSubject(fields.value.subject.value);
     const validityMessage = validateMessage(fields.value.message.value);
-    return validityEmail && validitySubject && validityMessage;
+    const validityCaptcha = validateCaptcha(captchaWidget.value?.querySelector('input[name="frc-captcha-response"]'));
+    return validityEmail && validitySubject && validityMessage && validityCaptcha;
 };
 
 const submitForm = () => {
@@ -139,12 +170,13 @@ const submitForm = () => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            subject: subject.value,
-            message: message.value,
+            subject: fields.value.subject.value,
+            message: fields.value.message.value,
             userInfo: {
                 userAgent: userAgent.value || '',
-                userEmail: email.value || ''
-            }
+                userEmail: fields.value.email.value || '',
+            },
+            captchaResponse: fields.value.captcha || '',
         })
     }).then(response => {
         if (!response.ok) {

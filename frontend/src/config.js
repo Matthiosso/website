@@ -4,4 +4,5 @@ export default {
     downloadResumeAPIUrl : import.meta.env.VITE_API_URL + '/download/resume',
     versionAPIUrl : import.meta.env.VITE_API_URL + '/version',
     sendMailAPIUrl : import.meta.env.VITE_API_URL + '/mail/send',
+    friendlyCaptchaSitekey : import.meta.env.VITE_FRIENDLY_CAPTCHA_SITE_KEY
 };

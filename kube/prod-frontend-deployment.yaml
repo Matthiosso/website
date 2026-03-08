@@ -69,6 +69,8 @@ spec:
           value: https://${PROD_SERVER_HOSTNAME}/stats
         - name: ENV_UMAMI_WEBSITE_ID
           value: ${UMAMI_PROD_ID}
+        - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY
+          value: ${FRIENDLY_CAPTCHA_SITE_KEY}
         ports:
         - containerPort: 80
       imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb

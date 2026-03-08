@@ -72,13 +72,6 @@ const openContact = () => {
     }
 }
 
-document.fonts.ready.then(() => {
-    const el = document.querySelector('p') // change selector as needed
-    const font = getComputedStyle(el).fontFamily
-    console.log('Resolved font:', font)
-    console.log('Cabin loaded:', document.fonts.check(`12px ${font}`))
-});
-
 </script>
 
 <style scoped>

@@ -18,6 +18,9 @@ public class UserMessage {
     @Size(max = 1000, message = "Message must be less than 1000 characters")
     private String message;
 
+    @JsonProperty(value = "captchaResponse")
+    private String captchaResponse;
+
     @JsonProperty(value = "userInfo")
     @Valid
     private UserInfo userInfo;
@@ -44,6 +47,14 @@ public class UserMessage {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public String getCaptchaResponse() {
+        return captchaResponse;
+    }
+
+    public void setCaptchaResponse(String captchaResponse) {
+        this.captchaResponse = captchaResponse;
     }
 
     @Override

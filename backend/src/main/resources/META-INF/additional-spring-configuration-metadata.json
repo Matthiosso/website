@@ -23,5 +23,15 @@
     "name": "settings.cors_origins",
     "type": "java.lang.String",
     "description": "Comma-separated list of allowed CORS origins (e.g. https://example.com,https://www.example.com)"
+  },
+  {
+    "name": "friendlycaptcha.api-key",
+    "type": "java.lang.String",
+    "description": "An API Key to prove the application has the rights to check response from Captcha server."
+  },
+  {
+    "name": "friendlycaptcha.site-key",
+    "type": "java.lang.String",
+    "description": "The website key for the Captcha server."
   }
 ]}
