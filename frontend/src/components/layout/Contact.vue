@@ -97,7 +97,6 @@ const validateMessage = (value) => {
     return true;
 };
 const userAgent = ref('');
-const gaClientId = ref('');
 const isLoading = ref(false);
 
 const getUserAgent = () => {
@@ -108,23 +107,6 @@ const getUserAgent = () => {
         return '';
     }
 };
-
-const getGaClientId = () => {
-    const name = "_ga=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            // Returns the full cookie value, e.g., GA1.1.40030803.167153367
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 
 const clearForm = () => {
     fields.value.email.value = '';
@@ -148,7 +130,6 @@ const submitForm = () => {
         return;
     }
     userAgent.value = getUserAgent();
-    gaClientId.value = getGaClientId();
 
     isLoading.value = true;
     fetch(SendMailURL.value, {
@@ -161,7 +142,6 @@ const submitForm = () => {
             message: message.value,
             userInfo: {
                 userAgent: userAgent.value || '',
-                gaClientId: gaClientId.value || '',
                 userEmail: email.value || ''
             }
         })

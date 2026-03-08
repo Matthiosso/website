@@ -15,9 +15,6 @@ public class UserInfo {
     @JsonProperty(value = "userAgent", required = true)
     private String userAgent;
 
-    @JsonProperty(value = "gaClientId", required = true)
-    private String googleClientId;
-
     public String getUserEmail() {
         return userEmail;
     }
@@ -34,20 +31,11 @@ public class UserInfo {
         this.userAgent = userAgent;
     }
 
-    public String getGoogleClientId() {
-        return googleClientId;
-    }
-
-    public void setGoogleClientId(String googleClientId) {
-        this.googleClientId = googleClientId;
-    }
-
     @Override
     public String toString() {
         return "UserInfo{" +
                 "userAgent='" + userAgent + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", googleClientId='" + googleClientId + '\'' +
                 '}';
     }
 }
