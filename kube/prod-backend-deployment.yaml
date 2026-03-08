@@ -80,7 +80,7 @@ spec:
         - name: ENV_FRIENDLY_CAPTCHA_API_KEY
           value: ${PROD_FRIENDLY_CAPTCHA_API_KEY}
         - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY
-          value: ${FRIENDLY_CAPTCHA_SITE_KEY}
+          value: ${PROD_FRIENDLY_CAPTCHA_SITE_KEY}
         ports:
         - containerPort: 8080
       imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb

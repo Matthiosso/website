@@ -81,6 +81,6 @@ spec:
         - name: ENV_FRIENDLY_CAPTCHA_API_KEY
           value: ${DEV_FRIENDLY_CAPTCHA_API_KEY}
         - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY
-          value: ${FRIENDLY_CAPTCHA_SITE_KEY}
+          value: ${DEV_FRIENDLY_CAPTCHA_SITE_KEY}
         ports:
         - containerPort: 8080

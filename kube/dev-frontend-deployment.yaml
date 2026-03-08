@@ -69,7 +69,7 @@ spec:
         - name: ENV_UMAMI_WEBSITE_ID
           value: ${UMAMI_DEV_ID}
         - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY
-          value: ${FRIENDLY_CAPTCHA_SITE_KEY}
+          value: ${DEV_FRIENDLY_CAPTCHA_SITE_KEY}
         #image: hashicorp/http-echo
           #args:
           #- "-text=Hello Kubernetes!"
