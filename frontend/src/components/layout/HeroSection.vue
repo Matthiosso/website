@@ -8,34 +8,34 @@
                     class="text-4xl md:text-5xl lg:text-6xl font-bold text-left cursor typewriter-animation lg:mx-0 max-w-xl">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
-                <p class="text-lg max-w-xl mx-auto lg:mx-0 font-semibold italic">
-                    Thriving beyond comfort zones defines my approach to engineering and life. My journey evolved
-                    from full-stack development to strategic
-                    defense operations, driven by curiosity to understand the human stories behind technical
-                    requirements. Whether coordinating crisis teams, managing international partnerships, or
-                    debugging complex systems, I excel where pressure meets precision.
-                    <br />My adaptability isn't just a
-                    skill—it's a philosophy. Just as I conquered my fear of heights through rock climbing, I embrace
-                    challenges that drive growth. Now, preparing for fatherhood and relocation to the United States,
-                    I'm
-                    seeking a company that values what I bring: technical expertise, strategic vision, and the
-                    commitment to build bridges between what is and what could be.
-                </p>
+                <div class="space-y-4 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    <p>I love building bridges. Connecting systems using APIs. Connecting people using shared passion.
+                        Connecting machine ability to human needs.</p>
+                    <p>For 8 years at the French Ministry of Defense, I've shipped mission-critical systems, coordinated
+                        hundreds of projects, and led teams through high-stakes operations, focusing on making the world
+                        a safer place.</p>
+                    <p>I believe efficient systems run on trust, transparency, and acknowledging our human biases. I am
+                        just one piece of a larger mechanism. Together we go far beyond what we can reach on our own.
+                    </p>
+                    <p>In times of AI transformation where our reference points are shifting, we need people willing to
+                        find and share clarity. That's my motto: study and share. Make the team bigger than the
+                        individual, by giving each person space to bring their brick to the building.</p>
+                    <p>Let's start building together!</p>
+                </div>
 
-                <div class="mt-6 flex justify-center lg:justify-start">
+                <div class="mt-6 flex flex-col items-center lg:flex-row lg:justify-start gap-2">
                     <Button :label="HireMe" :onClick="openContact" />
-                    <button data-umami-event="download_resume" :onClick="downloadResume"
-                        class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2
-                        border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                    <button data-umami-event="download_resume" :onClick="downloadResume" class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full border-2
+    border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="line-md:download-loop" class="text-3xl" />
                         <span class="ml-1">Resume</span>
                     </button>
                     <a :href="LinkedInUrl"
-                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:linkedin" class="text-3xl" />
                     </a>
                     <a :href="GithubUrl"
-                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full ml-2 border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:github" class="text-3xl" />
                     </a>
                 </div>
@@ -57,7 +57,7 @@ import Button from '@/components/UI/Button.vue';
 import { ref } from 'vue';
 import config from '@/config';
 import SectionHeader from '@/components/UI/SectionHeader.vue';
-const HireMe = ref('Work with me');
+const HireMe = ref('Build with me');
 const LinkedInUrl = ref(config.linkedInUrl);
 const GithubUrl = ref(config.githubUrl);
 
@@ -71,6 +71,13 @@ const openContact = () => {
         contactSection.scrollIntoView({ behavior: 'smooth' });
     }
 }
+
+document.fonts.ready.then(() => {
+    const el = document.querySelector('p') // change selector as needed
+    const font = getComputedStyle(el).fontFamily
+    console.log('Resolved font:', font)
+    console.log('Cabin loaded:', document.fonts.check(`12px ${font}`))
+});
 
 </script>
 

@@ -7,9 +7,10 @@
                 <div>
                     <Input id="email" label="Your email" type="email" placeholder="email@example.com"
                         v-model:value="fields.email.value" v-model:error="fields.email.error" />
-                    <Input id="subject" label="Subject" type="text" placeholder="Let me know how I can help you"
-                        v-model:value="fields.subject.value" v-model:error="fields.subject.error" />
-                    <Input id="message" label="Message" type="textarea" row="6" placeholder="Leave a comment..."
+                    <Input id="subject" label="Subject" type="text"
+                        placeholder="Let me know what we should build together !" v-model:value="fields.subject.value"
+                        v-model:error="fields.subject.error" />
+                    <Input id="message" label="Message" type="textarea" row="6" placeholder="Write your message here"
                         v-model:value="fields.message.value" v-model:error="fields.message.error" />
 
                 </div>
