@@ -158,6 +158,7 @@ const validateForm = () => {
 };
 
 const submitForm = () => {
+    formMessage.value.isError = false;
     if (!validateForm()) {
         return;
     }
