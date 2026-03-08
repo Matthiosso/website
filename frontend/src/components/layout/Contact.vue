@@ -17,7 +17,10 @@
                     <Icon icon="line-md:loading-loop" class="text-3xl mt-2 text-secondary animate-spin" />
                 </div>
                 <div class="flex flex-col" v-else>
-                    <div class="flex-1"><Button label="Send" type="submit" /></div>
+                    <div class="flex-1"><Button label="Send" type="submit" data-umami-event="submit_contact_form"
+                            :data-umami-event-email="fields.email.value"
+                            :data-umami-event-subject="fields.subject.value" />
+                    </div>
                     <div class="flex-1">
                         <p v-if="formMessage.message"
                             :class="formMessage.isError ? 'mt-2 text-red-500' : 'mt-2 text-secondary'">{{

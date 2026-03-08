@@ -293,14 +293,16 @@ jobs:
     needs: prepare-work-folder 
     if: success()
     env:
-      DEV_GTAG_ID: ${{ secrets.DEV_GTAG_ID }}
-      PROD_GTAG_ID: ${{ secrets.PROD_GTAG_ID }}
       MAIL_HOST: ${{ secrets.MAIL_HOST }}
       MAIL_PORT: ${{ secrets.MAIL_PORT }}
       MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
       MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
       DEV_SERVER_HOSTNAME: ${{ secrets.DEV_SERVER_HOSTNAME }}
       PROD_SERVER_HOSTNAME: ${{ secrets.PROD_SERVER_HOSTNAME }}
+      UMAMI_POSTGRES_PASSWORD: ${{ secrets.UMAMI_POSTGRES_PASSWORD }}
+      UMAMI_APP_SECRET: ${{ secrets.UMAMI_APP_SECRET }}
+      UMAMI_DEV_ID: ${{ secrets.UMAMI_DEV_ID }}
+      UMAMI_PROD_ID: ${{ secrets.UMAMI_PROD_ID }}
     steps:
       - name: Deploy
         uses: appleboy/ssh-action@v1
@@ -308,7 +310,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: DEV_GTAG_ID,PROD_GTAG_ID,MAIL_HOST,MAIL_PORT,MAIL_USERNAME,MAIL_PASSWORD,DEV_SERVER_HOSTNAME,PROD_SERVER_HOSTNAME
+          envs: MAIL_HOST,MAIL_PORT,MAIL_USERNAME,MAIL_PASSWORD,DEV_SERVER_HOSTNAME,PROD_SERVER_HOSTNAME,UMAMI_POSTGRES_PASSWORD,UMAMI_APP_SECRET,UMAMI_DEV_ID,UMAMI_PROD_ID
           script: |
             set -e
             cd ${{ env.TMP_FOLDER}}

@@ -4,5 +4,4 @@ export default {
     downloadResumeAPIUrl : import.meta.env.VITE_API_URL + '/download/resume',
     versionAPIUrl : import.meta.env.VITE_API_URL + '/version',
     sendMailAPIUrl : import.meta.env.VITE_API_URL + '/mail/send',
-    gtagId : import.meta.env.VITE_GTAG_ID,
 };

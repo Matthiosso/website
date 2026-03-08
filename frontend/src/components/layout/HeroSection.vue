@@ -24,7 +24,7 @@
 
                 <div class="mt-6 flex justify-center lg:justify-start">
                     <Button :label="HireMe" :onClick="openContact" />
-                    <button :onClick="downloadResume"
+                    <button data-umami-event="download_resume" :onClick="downloadResume"
                         class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full ml-2 border-2
                         border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="line-md:download-loop" class="text-3xl" />

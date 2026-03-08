@@ -63,10 +63,12 @@ spec:
           value: https://www.linkedin.com/in/matthieuclement2012/
         - name: ENV_GITHUB_URL
           value: https://github.com/Matthiosso/website
-        - name: ENV_GTAG_ID
-          value: ${PROD_GTAG_ID}
         - name: ENV_FRONTEND_URL
           value: https://${PROD_SERVER_HOSTNAME}
+        - name: ENV_UMAMI_URL
+          value: https://${PROD_SERVER_HOSTNAME}/stats
+        - name: ENV_UMAMI_WEBSITE_ID
+          value: ${UMAMI_PROD_ID}
         ports:
         - containerPort: 80
       imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb

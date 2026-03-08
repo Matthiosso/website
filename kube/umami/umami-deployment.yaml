@@ -1,0 +1,77 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: umami-nginx
+  namespace: umami
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ${PROD_SERVER_HOSTNAME}
+      http:
+        paths:
+          - path: /stats
+            pathType: Prefix
+            backend:
+              service:
+                name: umami-service
+                port:
+                  number: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: umami-service
+  namespace: umami
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    app: umami-svc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: umami-svc
+  namespace: umami
+spec:
+  spec:
+  revisionHistoryLimit: 1 # Default is 10, 1 allows to only keep one previous replicaset in case of need to rollback
+  selector:
+    matchLabels:
+      app: umami-svc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: umami-svc
+    spec:
+      containers:
+      - name: umami-svc
+        image: ghcr.io/matthiosso/website/umami:path-stats # See README.md for instructions to build and push this image to GitHub Container Registry
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /stats/api/heartbeat
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: umami-secrets
+                key: POSTGRES_PASSWORD
+          - name: APP_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: umami-secrets
+                key: APP_SECRET
+          - name: DATABASE_URL
+            value: "postgresql://umami:$(POSTGRES_PASSWORD)@postgres:5432/umami"
+        ports:
+          - containerPort: 3000
+      imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb
+      - name: dockerconfigjson-github-com
