@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=TASA+Explorer:wght@400..800&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@font-face { font-family: 'Cabin'; src: url('@/assets/fonts/Cabin-VariableFont_wdth,wght.woff2') format('woff2 supports variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Cabin'; src: url('@/assets/fonts/Cabin-Italic-VariableFont_wdth,wght.woff2') format('woff2 supports variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
 
 @theme {
     --color-background: white; /* Background color */
@@ -10,7 +12,7 @@
     --color-accent: black; /* Text color for links */
     --color-block: #474747b2; /*  Background color for blocks */
     --color-middle-secondary: #FB9A45; /* middle of secondary and dark secondary according to https://meyerweb.com/eric/tools/color-blend/#F93838:FDFB52:1:hex */
-    --font-display: "Roboto", "Arial", sans-serif; 
+    --font-display: "Cabin", "Arial", sans-serif; 
 }
 
 @layer theme {
