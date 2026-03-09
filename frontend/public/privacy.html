@@ -1,209 +1,251 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── Your theme variables (light) ── */
     :root {
-      --bg: #f5f2ee;
-      --ink: #1c1a17;
-      --muted: #7a7570;
-      --accent: #c4622d;
-      --rule: #d9d4cc;
-      --serif: 'Fraunces', Georgia, serif;
-      --mono: 'DM Mono', monospace;
+      --color-background: white;
+      --color-primary: #080326;
+      --color-secondary: #f93838;
+      --color-accent: black;
+      --color-block: #f0f0f0;
+      --color-rule: #e2e2e2;
+      --color-muted: #6b6b6b;
+      --font-display: "Cabin", "Arial", sans-serif;
     }
 
-    html { font-size: 17px; scroll-behavior: smooth; }
+    /* ── Dark mode via .dark class (mirrors your @custom-variant dark) ── */
+    .dark {
+      --color-background: #0e0540;
+      --color-primary: white;
+      --color-secondary: #FDFB52;
+      --color-accent: white;
+      --color-block: #2c2c2c;
+      --color-rule: #2a2a4a;
+      --color-muted: #9999bb;
+    }
+
+    /* ── Fallback: system dark mode for visitors without the .dark class ── */
+    @media (prefers-color-scheme: dark) {
+      :root:not(.light) {
+        --color-background: #0e0540;
+        --color-primary: white;
+        --color-secondary: #FDFB52;
+        --color-accent: white;
+        --color-block: #2c2c2c;
+        --color-rule: #2a2a4a;
+        --color-muted: #9999bb;
+      }
+    }
+
+    /* ── Cabin font (Google Fonts fallback — replace with local @font-face if preferred) ── */
+    @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+
+    html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--serif);
-      font-weight: 300;
+      background-color: var(--color-background);
+      color: var(--color-primary);
+      font-family: var(--font-display);
       line-height: 1.75;
       min-height: 100vh;
       padding: 0 1.5rem;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    /* Layout */
     .wrapper {
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 5rem 0 8rem;
+      padding: 4rem 0 8rem;
     }
 
-    /* Header */
+    /* ── Back link ── */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--color-secondary);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: gap 0.2s;
+    }
+    .back:hover { gap: 0.7rem; }
+
+    /* ── Header ── */
     header {
-      margin-bottom: 4rem;
+      margin-bottom: 3.5rem;
       padding-bottom: 2.5rem;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid var(--color-rule);
     }
 
     .label {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--color-secondary);
       display: block;
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.9rem;
     }
 
     h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.4rem, 6vw, 3.6rem);
-      font-weight: 300;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 700;
       line-height: 1.1;
       letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 1.2rem;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
     }
 
-    h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
+    h1 span { color: var(--color-secondary); }
 
     .meta {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.04em;
+      font-size: 0.78rem;
+      color: var(--color-muted);
     }
 
-    /* Sections */
+    /* ── Sections ── */
     section {
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid var(--rule);
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--color-rule);
       opacity: 0;
-      transform: translateY(18px);
-      animation: fadeUp 0.5s ease forwards;
+      transform: translateY(14px);
+      animation: fadeUp 0.4s ease forwards;
     }
 
     section:last-child { border-bottom: none; }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    section:nth-child(1)  { animation-delay: 0.05s; }
-    section:nth-child(2)  { animation-delay: 0.10s; }
-    section:nth-child(3)  { animation-delay: 0.15s; }
-    section:nth-child(4)  { animation-delay: 0.20s; }
-    section:nth-child(5)  { animation-delay: 0.25s; }
-    section:nth-child(6)  { animation-delay: 0.30s; }
-    section:nth-child(7)  { animation-delay: 0.35s; }
-    section:nth-child(8)  { animation-delay: 0.40s; }
-    section:nth-child(9)  { animation-delay: 0.45s; }
-    section:nth-child(10) { animation-delay: 0.50s; }
+    section:nth-child(1)  { animation-delay: 0.04s; }
+    section:nth-child(2)  { animation-delay: 0.08s; }
+    section:nth-child(3)  { animation-delay: 0.12s; }
+    section:nth-child(4)  { animation-delay: 0.16s; }
+    section:nth-child(5)  { animation-delay: 0.20s; }
+    section:nth-child(6)  { animation-delay: 0.24s; }
+    section:nth-child(7)  { animation-delay: 0.28s; }
+    section:nth-child(8)  { animation-delay: 0.32s; }
+    section:nth-child(9)  { animation-delay: 0.36s; }
+    section:nth-child(10) { animation-delay: 0.40s; }
+    section:nth-child(11) { animation-delay: 0.44s; }
 
     h2 {
-      font-family: var(--mono);
       font-size: 0.68rem;
-      font-weight: 400;
-      letter-spacing: 0.14em;
+      font-weight: 700;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.2rem;
+      color: var(--color-secondary);
+      margin-bottom: 1rem;
     }
 
     h3 {
-      font-family: var(--serif);
-      font-size: 1.05rem;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--ink);
-      margin: 1.8rem 0 0.6rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin: 1.6rem 0 0.5rem;
     }
 
     p {
-      margin-bottom: 1rem;
-      color: var(--ink);
+      font-size: 0.96rem;
+      color: var(--color-primary);
+      margin-bottom: 0.85rem;
     }
 
     p:last-child { margin-bottom: 0; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
 
+    /* ── Lists ── */
     ul {
       list-style: none;
-      margin: 0.8rem 0 1rem;
+      margin: 0.7rem 0 0.85rem;
       padding: 0;
+      background: var(--color-block);
+      border-radius: 6px;
+      overflow: hidden;
     }
 
     ul li {
-      padding: 0.4rem 0 0.4rem 1.4rem;
+      padding: 0.5rem 1rem 0.5rem 2.1rem;
       position: relative;
-      border-top: 1px solid var(--rule);
-      font-size: 0.95rem;
+      font-size: 0.93rem;
+      color: var(--color-primary);
+      border-bottom: 1px solid var(--color-rule);
     }
 
-    ul li:last-child { border-bottom: 1px solid var(--rule); }
+    ul li:last-child { border-bottom: none; }
 
     ul li::before {
-      content: '—';
+      content: '→';
       position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 0.8rem;
+      left: 0.75rem;
+      color: var(--color-secondary);
+      font-size: 0.78rem;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    /* Tag badge */
+    /* ── Tags ── */
     .tag {
       display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: transparent;
-      border: 1px solid var(--rule);
-      color: var(--muted);
-      padding: 0.15rem 0.55rem;
-      border-radius: 2px;
-      margin-right: 0.4rem;
+      border: 1px solid var(--color-rule);
+      color: var(--color-muted);
+      padding: 0.1rem 0.45rem;
+      border-radius: 3px;
+      margin-left: 0.35rem;
       vertical-align: middle;
+      position: relative;
+      top: -1px;
     }
 
-    .tag.green { border-color: #8ab58a; color: #5a7a5a; }
-    .tag.orange { border-color: var(--accent); color: var(--accent); }
+    .tag.green { border-color: #4caf7d; color: #4caf7d; }
 
-    /* Footer */
+    /* ── Links ── */
+    a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; transition: color 0.15s; }
+    a:hover { color: var(--color-secondary); }
+
+    /* ── Footer ── */
     footer {
       margin-top: 5rem;
       padding-top: 2rem;
-      border-top: 1px solid var(--rule);
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.06em;
+      border-top: 1px solid var(--color-rule);
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
 
-    a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-    a:hover { color: var(--ink); }
-
     @media (max-width: 500px) {
       body { padding: 0 1rem; }
-      .wrapper { padding: 3rem 0 5rem; }
+      .wrapper { padding: 2.5rem 0 5rem; }
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
 
+    <a href="/" class="back">&#8592; Back to site</a>
+
     <header>
       <span class="label">Legal</span>
-      <h1>Privacy <em>Policy</em></h1>
+      <h1>Privacy <span>Policy</span></h1>
       <p class="meta">Last updated: <span id="date"></span> &nbsp;·&nbsp; Governed by GDPR &amp; CCPA</p>
     </header>
 
@@ -217,18 +259,18 @@
 
       <section>
         <h2>01 — Data Controller</h2>
-        <p>The data controller is the site owner, an individual based in Tourcoing, France. For any privacy-related questions, please use the contact form on this site.</p>
+        <p>The data controller is the site owner, an individual based in Paris, France. For any privacy-related questions, please use the contact form on this site.</p>
       </section>
 
       <section>
         <h2>02 — Data Collected &amp; Why</h2>
 
-        <h3>Analytics — Umami <span class="tag green">Cookie-free</span></h3>
-        <p>This site uses <a href="https://umami.is" target="_blank" rel="noopener">Umami</a>, a privacy-focused, open-source analytics tool. Umami does not use cookies and does not collect personally identifiable information. The data collected includes:</p>
+        <h3>Analytics — Umami <span class="tag green">Cookie-free</span><span class="tag green">Self-hosted</span></h3>
+        <p>This site uses <a href="https://umami.is" target="_blank" rel="noopener">Umami</a>, a privacy-focused, open-source analytics tool, hosted on my own server. No data is sent to any third party. Umami does not use cookies and does not collect personally identifiable information. The data collected includes:</p>
         <ul>
           <li>Page views and referrer URLs</li>
           <li>Browser type and operating system (derived from the user agent)</li>
-          <li>Country of origin (derived from IP address — the IP itself is not stored)</li>
+          <li>Country, region and city of origin (derived from IP address — the IP itself is not stored)</li>
           <li>Device type (desktop, tablet, mobile)</li>
         </ul>
         <p>Legal basis under GDPR: <em>legitimate interest</em> (Article 6(1)(f)).</p>
@@ -240,7 +282,8 @@
           <li>Used solely to respond to your inquiry</li>
           <li>Retained only in my email inbox for as long as needed to handle your request</li>
         </ul>
-        <p>Legal basis under GDPR: <em>legitimate interest</em> in responding to messages (Article 6(1)(f)).</p>
+        <p>The contact form is protected by <a href="https://friendlycaptcha.com" target="_blank" rel="noopener">Friendly Captcha</a>, a privacy-respecting CAPTCHA service that verifies you are a human without tracking you or using cookies. When you load the contact form, your browser makes a request to Friendly Captcha's servers, which may involve your IP address. Friendly Captcha is GDPR-compliant and does not build user profiles. You can read their privacy policy at <a href="https://friendlycaptcha.com/legal/privacy-end-users/" target="_blank" rel="noopener">friendlycaptcha.com/legal/privacy-end-users</a>.</p>
+        <p>Legal basis under GDPR: <em>legitimate interest</em> in responding to messages and protecting this site from spam (Article 6(1)(f)).</p>
 
         <h3>Server-Side User Agent Logging <span class="tag">Temporary</span></h3>
         <p>My backend server temporarily logs user agent strings for debugging purposes. This data is:</p>
@@ -259,12 +302,12 @@
 
       <section>
         <h2>04 — Third-Party Services</h2>
-        <p>The only third-party service used on this site is Umami Analytics. No data is shared with advertising networks or data brokers.</p>
+        <p>The only third-party service used on this site is <a href="https://friendlycaptcha.com" target="_blank" rel="noopener">Friendly Captcha</a>, used to protect the contact form from spam. No data is shared with advertising networks or data brokers. Umami Analytics is self-hosted and does not involve any third party.</p>
       </section>
 
       <section>
         <h2>05 — Data Transfers</h2>
-        <p>If Umami is hosted outside the European Economic Area (EEA), data transfers are subject to appropriate safeguards as required by GDPR Chapter V. No other data is transferred internationally.</p>
+        <p>Friendly Captcha is operated by Friendly Captcha GmbH, based in Germany (EU). Data processed by Friendly Captcha remains within the EEA. No other data is transferred internationally.</p>
       </section>
 
       <section>
@@ -294,7 +337,13 @@
       </section>
 
       <section>
-        <h2>10 — Contact</h2>
+        <h2>10 — Open Source</h2>
+        <p>The full source code of this website is publicly available on <a href="https://github.com/Matthiosso/website" target="_blank" rel="noopener">GitHub</a>. You are welcome to inspect it to verify exactly what data is collected, how the contact form works, and how the backend handles requests. Transparency is a core principle of this project.</p>
+        <p>Note that GitHub itself may collect data when you visit the repository, subject to <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">GitHub's own privacy policy</a>.</p>
+      </section>
+
+      <section>
+        <h2>11 — Contact</h2>
         <p>For any questions or requests related to this Privacy Policy, please use the contact form available on this site.</p>
       </section>
 
@@ -302,15 +351,26 @@
 
     <footer>
       <span>&#169; <span id="year"></span> — All rights reserved</span>
-      <span>France · EU · GDPR compliant</span>
+      <span>Paris · France · EU · GDPR compliant</span>
     </footer>
 
   </div>
 
   <script>
+    // ── Dates ──
     const d = new Date();
     document.getElementById('date').textContent = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     document.getElementById('year').textContent = d.getFullYear();
+
+    // ── Dark mode sync ──
+    // Reads the same localStorage key your Vue app uses to persist the theme.
+    // Replace 'theme' with whatever key your app actually uses if different.
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else if (stored === 'light') {
+      document.documentElement.classList.add('light');
+    }
   </script>
 </body>
 </html>
