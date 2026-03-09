@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server : { port: 8080 },
   plugins: [vue(), tailwindcss()],
   resolve: {
     alias: {

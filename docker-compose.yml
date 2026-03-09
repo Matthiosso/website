@@ -14,8 +14,8 @@ services:
       MAIL_PORT: 1025
       MAIL_USERNAME: contact@example.com
       FRONTEND_URL: http://localhost:8080
-      FRIENDLY_CAPTCHA_API_KEY: XXXXXXX # Replace with API key -> https://app.friendlycaptcha.eu/
-      FRIENDLY_CAPTCHA_SITE_KEY: XXXXXXX # Replace with site key -> https://app.friendlycaptcha.eu/
+      FRIENDLY_CAPTCHA_API_KEY: ${FRIENDLY_CAPTCHA_API_KEY}
+      FRIENDLY_CAPTCHA_SITE_KEY: ${FRIENDLY_CAPTCHA_SITE_KEY}
     volumes:
       - ./backend/data:/data
     ports:
@@ -35,7 +35,7 @@ services:
       ENV_FRONTEND_URL: http://localhost:8080
       ENV_UMAMI_URL: http://localhost:3000/stats
       ENV_UMAMI_WEBSITE_ID: 00000000-0000-0000-0000 # Replace with your actual Umami website ID (go to http://localhost:3000/stats, click on your website, and copy the ID from the URL)
-      ENV_FRIENDLY_CAPTCHA_SITE_KEY: XXXXXXXXXX # Replace with site key -> https://app.friendlycaptcha.eu/
+      ENV_FRIENDLY_CAPTCHA_SITE_KEY: ${FRIENDLY_CAPTCHA_SITE_KEY}
     ports:
       - 8080:80
     depends_on:

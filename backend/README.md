@@ -9,7 +9,7 @@ Following this [tutorial](https://spring.io/guides/gs/spring-boot).
 ```bash
 cd backend
 mvn clean install
-mvn spring-boot:run
+mvn spring-boot:run -Plocal
 ```
 
 ### Run with docker
