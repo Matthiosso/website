@@ -13,7 +13,7 @@ You can check out the [live demo here](https://matthieuclement.com).
 ## Run
 
 ```bash
-docker-compose down
+docker-compose down -v
 docker-compose build --no-cache
 docker-compose up --force-recreate --no-deps
 ```
