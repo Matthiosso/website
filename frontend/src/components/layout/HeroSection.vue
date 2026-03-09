@@ -1,5 +1,5 @@
 <template>
-    <section id="whoami" data-aos="zoom-in" class="dark:text-primary relative p-2 py-10 min-w-screen">
+    <section id="whoami" data-aos="zoom-in" class="dark:text-primary relative p-2 py-10">
         <SectionHeader />
 
         <main class="flex flex-wrap items-center justify-center">
@@ -8,7 +8,7 @@
                     class="text-4xl md:text-5xl lg:text-6xl font-bold text-left cursor typewriter-animation lg:mx-0 max-w-xl">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
-                <div class="space-y-4 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                <div class="space-y-4 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 my-4">
                     <p>I love building bridges. Connecting systems using APIs. Connecting people using shared passion.
                         Connecting machine ability to human needs.</p>
                     <p>For 8 years at the French Ministry of Defense, I've shipped mission-critical systems, coordinated
@@ -84,7 +84,7 @@ const openContact = () => {
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%); */
 }
 
 /* Animation */

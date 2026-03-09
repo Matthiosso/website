@@ -1,13 +1,13 @@
 <template>
     <button @click="onClick" class="relative overflow-hidden rounded-full bg-gray-700 w-[180px] 
     h-[60px] text-lg font-semibold flex justify-center items-center transition-all duration-300 hover:scale-105"
-        :disabled="isDisabled">
+        :disabled="isDisabled" :type="type">
         <div v-if="isDisabled" class="absolute inset-0 bg-gray-400 opacity-50 cursor-not-allowed rounded-full">
         </div>
         <div v-else>
             <div class="absolute inset-0 scale-[1.06] blur-lg transition-transform duration-300">
                 <div
-                    class="absolute top-1/2 left-1/2 transform -translate-x -translate-y w-[110%] h-[110%] rounded-full bg-gradient-to-r from-secondary via-middle-secondary to-primary animate-rotate">
+                    class="absolute top-1/2 left-1/2 transform w-[110%] h-[110%] rounded-full bg-gradient-to-r from-secondary via-middle-secondary to-primary animate-rotate">
                 </div>
             </div>
             <div class="relative w-[156px] h-[45px] flex justify-center items-center rounded-full 

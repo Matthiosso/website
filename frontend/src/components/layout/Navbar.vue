@@ -25,7 +25,7 @@
                 ``
             ]">
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
-                    <li v-for="item in Menu" key="item.name">
+                    <li v-for="item in Menu" :key="item.name">
                         <a :href="item.href" @click="scrollToSection(item.href)"
                             class="block transition ease-linear text-2xl md:text-lg lg:text-xl font-bold">
                             {{ item.name }}

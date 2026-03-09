@@ -19,7 +19,7 @@
                         <h3 class="uppercase text-base light-stroke-text">
                             {{ element.name }}
                         </h3>
-                        <p class="text-[14px] leading-[20px] text-white tracking-[0.03.rem]">
+                        <p class="text-[14px] leading-[20px] text-white tracking-[0.03rem]">
                             {{ element.description }}
                         </p>
                         <template v-for="icon in element.icons" :key="icon">
