@@ -1,5 +1,5 @@
 <template>
-    <section id="services" class="relative text-white mt-32">
+    <section id="services" class="relative text-white mt-8 lg:mt-24">
         <SectionHeader title="My Services" />
         <div
             class="py-8 xl:px-16 px-4 sm:py-16 grid grid-cols-1 gap-6 pt-10 sm:grid-cols-2 md:gap-10 md:pt-12 lg:grid-cols-3">

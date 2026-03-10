@@ -2,7 +2,7 @@
     <section id="whoami" data-aos="zoom-in" class="dark:text-primary relative p-2 py-10">
         <SectionHeader />
 
-        <main class="flex flex-wrap items-center justify-center">
+        <main class="flex flex-col-reverse lg:flex-row items-center justify-center">
             <div class="font-display text-center lg:text-left min-w-1">
                 <h1
                     class="text-4xl md:text-5xl lg:text-6xl font-bold text-left cursor typewriter-animation lg:mx-0 max-w-xl">
@@ -40,7 +40,7 @@
                     </a>
                 </div>
             </div>
-            <div class="flex justify-center lg:justify-end mt-20 lg:mt-0 items-center flex-wrap">
+            <div class="flex justify-center lg:justify-end lg:mt-0 items-center flex-wrap">
                 <figure
                     class="relative m-[30px] md:w-[420px] md:h-[420px] md:before:w-[450px] md:before:h-[450px] w-[280px] h-[280px] before:w-[300px] before:h-[300px]">
                     <div
