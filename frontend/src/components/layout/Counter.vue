@@ -1,5 +1,5 @@
 <template>
-    <section class="mt-20 lg:mt-0 w-full relative text-white flex justify-center">
+    <section class="mt-8 w-full relative text-white flex justify-center">
         <ul ref="statsSection"
             class="relative z-1 p-6 mx-auto w-11/12 lg:mx-0 rounded-3xl border bg-block shadow-lg md:divide-x grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12 border-secondary divide-secondary">
             <li class="text-center" v-for="element in numbers" :key="element.title">
@@ -25,17 +25,17 @@ const statsSection = ref(null);
 const hasIntersected = ref(false);
 
 onMounted(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-            hasIntersected.value = true;
-            observer.disconnect(); // Stop observing once it has intersected
-        }
-    },
-        { threshold: 0.5 } // Trigger when 50% of the section is visible
-    );
+    setTimeout(() => {
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                hasIntersected.value = true;
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
 
-    if (statsSection.value) {
-        observer.observe(statsSection.value);
-    }
+        if (statsSection.value) {
+            observer.observe(statsSection.value);
+        }
+    }, 500);
 });
 </script>

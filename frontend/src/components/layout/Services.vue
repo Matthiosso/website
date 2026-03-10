@@ -1,8 +1,8 @@
 <template>
-    <section id="services" class="relative text-white mt-32">
+    <section id="services" class="relative text-white mt-8 lg:mt-24">
         <SectionHeader title="My Services" />
         <div
-            class="mt-20 py-8 xl:px-16 px-4 sm:py-16 grid grid-cols-1 gap-6 pt-10 sm:grid-cols-2 md:gap-10 md:pt-12 lg:grid-cols-3">
+            class="py-8 xl:px-16 px-4 sm:py-16 grid grid-cols-1 gap-6 pt-10 sm:grid-cols-2 md:gap-10 md:pt-12 lg:grid-cols-3">
             <article class="px-[12px] mb-[24px]" v-for="element in services" :key="element.id">
                 <div class="mt-[30px] rounded-3xl relative flex flex-col justify-center text-center rounder-[30px] border border-secondary bg-block"
                     data-aos="fade-up" :data-aos-delay="element.id * 100">
@@ -19,7 +19,7 @@
                         <h3 class="uppercase text-base light-stroke-text">
                             {{ element.name }}
                         </h3>
-                        <p class="text-[14px] leading-[20px] text-white tracking-[0.03.rem]">
+                        <p class="text-[14px] leading-[20px] text-white tracking-[0.03rem]">
                             {{ element.description }}
                         </p>
                         <template v-for="icon in element.icons" :key="icon">

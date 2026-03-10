@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: dev.matthieuclement.com
+    - host: ${DEV_SERVER_HOSTNAME}
       http:
         paths:
         - path: /
@@ -57,11 +57,19 @@ spec:
         imagePullPolicy: Always
         env:
         - name: ENV_API_URL
-          value: https://dev.matthieuclement.com/api
+          value: https://${DEV_SERVER_HOSTNAME}/api
         - name: ENV_LINKEDIN_URL
           value: https://www.linkedin.com/in/matthieuclement2012/
         - name: ENV_GITHUB_URL
           value: https://github.com/Matthiosso/website
+        - name: ENV_FRONTEND_URL
+          value: https://${DEV_SERVER_HOSTNAME}
+        - name: ENV_UMAMI_URL
+          value: https://${PROD_SERVER_HOSTNAME}/stats
+        - name: ENV_UMAMI_WEBSITE_ID
+          value: ${UMAMI_DEV_ID}
+        - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY
+          value: ${DEV_FRIENDLY_CAPTCHA_SITE_KEY}
         #image: hashicorp/http-echo
           #args:
           #- "-text=Hello Kubernetes!"

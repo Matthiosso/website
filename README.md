@@ -13,7 +13,7 @@ You can check out the [live demo here](https://matthieuclement.com).
 ## Run
 
 ```bash
-docker-compose down
+docker-compose down -v
 docker-compose build --no-cache
 docker-compose up --force-recreate --no-deps
 ```
@@ -22,3 +22,5 @@ Then go to :
 
 * [Backend](http://localhost:8081/health)
 * [Frontend](http://localhost:8080)
+* [Mail server](http://localhost:8025)
+* [Umami](http://localhost:3000/stats)

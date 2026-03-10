@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: www.matthieuclement.com
+    - host: ${PROD_SERVER_HOSTNAME}
       http:
         paths:
         - path: /api
@@ -67,6 +67,20 @@ spec:
           value: /data/CV_Matthieu_CLEMENT_English.pdf
         - name: SERVER_PORT
           value: "8080"
+        - name: MAIL_HOST
+          value: ${MAIL_HOST}
+        - name: MAIL_PORT
+          value: ${MAIL_PORT}
+        - name: MAIL_USERNAME
+          value: ${MAIL_USERNAME}
+        - name: MAIL_PASSWORD
+          value: ${MAIL_PASSWORD}
+        - name: FRONTEND_URL
+          value: https://${PROD_SERVER_HOSTNAME}
+        - name: FRIENDLY_CAPTCHA_API_KEY
+          value: ${PROD_FRIENDLY_CAPTCHA_API_KEY}
+        - name: FRIENDLY_CAPTCHA_SITE_KEY
+          value: ${PROD_FRIENDLY_CAPTCHA_SITE_KEY}
         ports:
         - containerPort: 8080
       imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb

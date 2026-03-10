@@ -8,7 +8,7 @@
     </header>
 
     <!-- Title -->
-    <h2 v-if="title" class="text-4xl md:text-5xl lg:tex-6xl font-bold text-center stroke-text" data-aos="fade-up">
+    <h2 v-if="title" class="text-4xl md:text-5xl lg:text-6xl font-bold text-center stroke-text" data-aos="fade-up">
         {{ title }}</h2>
 
 </template>

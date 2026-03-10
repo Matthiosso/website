@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: dev.matthieuclement.com
+    - host: ${DEV_SERVER_HOSTNAME}
       http:
         paths:
         - path: /api
@@ -68,5 +68,19 @@ spec:
           value: /data/CV_Matthieu_CLEMENT_English.pdf
         - name: SERVER_PORT
           value: "8080"
+        - name: MAIL_HOST
+          value: ${MAIL_HOST}
+        - name: MAIL_PORT
+          value: ${MAIL_PORT}
+        - name: MAIL_USERNAME
+          value: ${MAIL_USERNAME}
+        - name: MAIL_PASSWORD
+          value: ${MAIL_PASSWORD}
+        - name: FRONTEND_URL
+          value: https://${DEV_SERVER_HOSTNAME}
+        - name: FRIENDLY_CAPTCHA_API_KEY
+          value: ${DEV_FRIENDLY_CAPTCHA_API_KEY}
+        - name: FRIENDLY_CAPTCHA_SITE_KEY
+          value: ${DEV_FRIENDLY_CAPTCHA_SITE_KEY}
         ports:
         - containerPort: 8080

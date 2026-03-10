@@ -3,15 +3,25 @@ services:
   backend:
     image: backend:0.0.1-SNAPSHOT
     container_name: website-backend_container
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
     environment:
       PREFIX_PATH: /api
       RESUME_FILEPATH: /data/resume.pdf
       SERVER_PORT: 8080
+      MAIL_HOST: mailserver
+      MAIL_PORT: 1025
+      MAIL_USERNAME: contact@example.com
+      FRONTEND_URL: http://localhost:8080
+      FRIENDLY_CAPTCHA_API_KEY: ${FRIENDLY_CAPTCHA_API_KEY}
+      FRIENDLY_CAPTCHA_SITE_KEY: ${FRIENDLY_CAPTCHA_SITE_KEY}
     volumes:
       - ./backend/data:/data
     ports:
       - 8081:8080
+    depends_on:
+      - mailserver
     networks:
       - mynetwork
 
@@ -22,13 +32,68 @@ services:
       ENV_API_URL: http://localhost:8081/api
       ENV_LINKEDIN_URL: https://www.linkedin.com/in/matthieuclement2012/
       ENV_GITHUB_URL: https://github.com/Matthiosso/website
+      ENV_FRONTEND_URL: http://localhost:8080
+      ENV_UMAMI_URL: http://localhost:3000/stats
+      ENV_UMAMI_WEBSITE_ID: 00000000-0000-0000-0000 # Replace with your actual Umami website ID (go to http://localhost:3000/stats, click on your website, and copy the ID from the URL)
+      ENV_FRIENDLY_CAPTCHA_SITE_KEY: ${FRIENDLY_CAPTCHA_SITE_KEY}
     ports:
       - 8080:80
     depends_on:
       - backend
     networks:
       - mynetwork
+  
+  mailserver: # Mock SMTP server for testing email sending in dev environment (Go to http://localhost:8025 to see the web interface)
+    image: mailhog/mailhog:latest
+    container_name: mailserver-container
+    ports:
+      - "1025:1025" # SMTP port
+      - "8025:8025" # Web interface port
+    networks:
+      - mynetwork
 
+# --- Umami Analytics ---
+
+  umami:
+    image: ghcr.io/matthiosso/website/umami:path-stats
+    container_name: umami_container
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://umami:umami_password@umami_db:5432/umami
+      POSTGRES_PASSWORD: umami_password
+      APP_SECRET: "replace-me-with-a-random-string" # You should replace this with a strong random value in production, you can generate one with `openssl rand -base64 32`
+      LOG_QUERY: 1 # Enable query logging for debugging purposes, can be set to "false" in production
+    depends_on:
+      umami_db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/stats/api/heartbeat"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - mynetwork
+
+  umami_db:
+    image: postgres:16-alpine
+    container_name: umami-db_container
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami_password
+    volumes:
+      - umami_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mynetwork
+
+volumes:
+  umami_db_data:
 
 networks:
   mynetwork:

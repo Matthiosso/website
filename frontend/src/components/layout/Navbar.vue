@@ -1,6 +1,6 @@
 <template>
     <header>
-        <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 mb-50 md:mb-0 lg:mb-0">
+        <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 m-auto">
             <div class="w-[200px] h-[200px]">
                 <img :key="gifURL" @click="restartGif" @touchend.prevent="restartGif"
                     class="rounded-xl hover:scale-[1.2]" :src="gifURL" alt="logo-gif" />
@@ -25,7 +25,7 @@
                 ``
             ]">
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
-                    <li v-for="item in Menu" key="item.name">
+                    <li v-for="item in Menu" :key="item.name">
                         <a :href="item.href" @click="scrollToSection(item.href)"
                             class="block transition ease-linear text-2xl md:text-lg lg:text-xl font-bold">
                             {{ item.name }}
@@ -58,7 +58,7 @@ const restartGif = () => {
 const Menu = ref([
     { name: 'Who am I ?', href: '#whoami' },
     { name: 'My Services', href: '#services' },
-    { name: 'Contact', href: config.linkedInContactUrl, external: true },
+    { name: 'Contact', href: '#contact' },
 ]);
 
 const scrollToSection = (href) => {

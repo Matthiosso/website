@@ -15,4 +15,4 @@ RUN apt-get update
 
 COPY --from=0 /build/target/*.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=container", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=local-container", "/app/app.jar"]
