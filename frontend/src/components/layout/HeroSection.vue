@@ -24,17 +24,17 @@
                 </div>
 
                 <div class="mt-6 flex flex-col items-center lg:flex-row lg:justify-start gap-2">
-                    <Button :label="HireMe" :onClick="openContact" />
+                    <Button :label="HireMe" :onClick="openContact" data-umami-event="hire_me" />
                     <button data-umami-event="download_resume" :onClick="downloadResume" class="font-semibold text-lg w-[10rem] h-[55px] text-secondary rounded-full border-2
     border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="line-md:download-loop" class="text-3xl" />
                         <span class="ml-1">Resume</span>
                     </button>
-                    <a :href="LinkedInUrl"
+                    <a :href="LinkedInUrl" data-umami-event="linkedin"
                         class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:linkedin" class="text-3xl" />
                     </a>
-                    <a :href="GithubUrl"
+                    <a :href="GithubUrl" data-umami-event="github"
                         class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:github" class="text-3xl" />
                     </a>

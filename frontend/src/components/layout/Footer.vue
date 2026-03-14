@@ -9,7 +9,8 @@
                 (Version : <span class="badge">{{ backendVersion }}</span>)
             </p>
             <p class="mt-3 text-sm not-italic">
-                <a href="/privacy.html" class="hover:text-secondary underline underline-offset-2">Privacy Policy</a>
+                <a href="/privacy.html" class="hover:text-secondary underline underline-offset-2"
+                    data-umami-event="privacy_policy">Privacy Policy</a>
             </p>
         </div>
     </footer>

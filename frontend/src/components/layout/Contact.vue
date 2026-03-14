@@ -4,9 +4,9 @@
             <div v-show="isOpen"
                 class="absolute bottom-18 right-0 w-[340px] sm:w-[380px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden mb-2">
                 <div class="bg-secondary px-4 py-3 flex justify-between items-center">
-                    <h3 class="font-semibold text-lg text-black">Send a message</h3>
+                    <h3 class="font-semibold text-lg text-white dark:text-black">Send a message</h3>
                     <button @click="isOpen = false"
-                        class="text-white hover:opacity-70 transition-opacity text-xl leading-none">
+                        class="text-white dark:text-black hover:opacity-70 transition-opacity text-xl leading-none">
                         <Icon icon="mdi:close" class="text-2xl" />
                     </button>
                 </div>
@@ -32,7 +32,7 @@
                         <button type="submit" data-umami-event="submit_contact_form"
                             :data-umami-event-email="fields.email.value"
                             :data-umami-event-subject="fields.subject.value"
-                            class="bg-secondary text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
+                            class="bg-secondary text-white dark:text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
                             Send
                             <Icon icon="mdi:send" class="text-lg" />
                         </button>

@@ -2,7 +2,7 @@
     <header>
         <div class="flex justify-between items-center p-8 lg:px-12 relative z-20 m-auto">
             <div class="w-[200px] h-[200px]">
-                <img :key="gifURL" @click="restartGif" @touchend.prevent="restartGif"
+                <img :key="gifURL" @click="restartGif" @touchend.prevent="restartGif" data-umami-event="logo_gif"
                     class="rounded-xl hover:scale-[1.2]" :src="gifURL" alt="logo-gif" />
             </div>
 
@@ -26,13 +26,15 @@
             ]">
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
                     <li v-for="item in Menu" :key="item.name">
-                        <a :href="item.href" @click.prevent="handleNavClick(item)"
+                        <a :href="item.href" @click.prevent="handleNavClick(item)" data-umami-event="navbar_link"
+                            :data-umami-event-link="item.name"
                             class="block transition ease-linear text-2xl md:text-lg lg:text-xl font-bold">
                             {{ item.name }}
                         </a>
                     </li>
                 </ul>
-                <button @click="toggleDarkMode"
+                <button @click="toggleDarkMode" data-umami-event="toggle_dark_mode"
+                    :data-umami-event-dark_mode="isDarkMode ? 'dark' : 'light'"
                     :class="(isMenuOpen ? 'mt-20' : 'ml-20') + ' z-10 md:block hover:scale-120'">
                     <!-- Show moon icon if dark mode is off, otherwise show sun icon -->
                     <Icon v-if="!isDarkMode" icon="line-md:moon-filled" class="text-5xl text-primary" />
@@ -45,7 +47,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import config from '@/config';
 
 const isMenuOpen = ref(false);
 
