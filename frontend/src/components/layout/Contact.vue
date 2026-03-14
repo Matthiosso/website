@@ -60,6 +60,7 @@ import Input from '@/components/UI/Input.vue';
 
 const isOpen = ref(false);
 const captchaWidget = ref(null);
+let captchaWidgetInstance = null;
 
 const handleOpenContact = () => {
     isOpen.value = true;
@@ -70,7 +71,7 @@ onMounted(async () => {
 
     const { FriendlyCaptchaSDK } = await import('https://cdn.jsdelivr.net/npm/@friendlycaptcha/sdk@0.1.36/sdk.min.js');
     const sdk = new FriendlyCaptchaSDK();
-    sdk.createWidget({
+    captchaWidgetInstance = sdk.createWidget({
         element: captchaWidget.value,
         sitekey: config.friendlyCaptchaSitekey
     });
@@ -78,6 +79,10 @@ onMounted(async () => {
 
 onUnmounted(() => {
     window.removeEventListener('open-contact', handleOpenContact);
+    if (captchaWidgetInstance) {
+        captchaWidgetInstance.destroy();
+        captchaWidgetInstance = null;
+    }
 });
 
 const SendMailURL = ref(config.sendMailAPIUrl);
@@ -152,6 +157,9 @@ const clearForm = () => {
     fields.value.message.error = '';
     fields.value.captcha = '';
     isLoading.value = false;
+    if (captchaWidgetInstance) {
+        captchaWidgetInstance.reset();
+    }
 };
 
 const validateCaptcha = (captchaInput) => {
