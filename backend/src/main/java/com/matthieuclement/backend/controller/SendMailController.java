@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.MailException;
-import org.springframework.mail.MailParseException;
-import org.springframework.mail.MailSendException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,30 +48,19 @@ public class SendMailController {
         }
 
         try {
-            sendMailService.sendMessage(userMessage.getUserInfo().getUserEmail(), userMessage.getSubject(),
+            sendMailService.sendMessage(
+                    userMessage.getUserInfo().getUserEmail(),
+                    userMessage.getSubject(),
                     userMessage.getMessage());
 
             logger.info("Email from {} sent successfully.", userMessage.getUserInfo());
+            return ResponseEntity.ok("Message sent successfully.");
 
-        } catch (MailSendException e) {
-            logger.error("Failed to send email from {}: {}", userMessage.getUserInfo(), e.getMessage());
-            return ResponseEntity.internalServerError().body("Failed to send email. Please try again later.");
-        } catch (MailAuthenticationException e) {
-            logger.error("Authentication failed when sending email from {}: {}", userMessage.getUserInfo(),
-                    e.getMessage());
-            return ResponseEntity.internalServerError()
-                    .body("Email authentication failed. Please check server configuration.");
-        } catch (MailParseException e) {
-            logger.error("Failed to parse email from {}: {}", userMessage.getUserInfo(), e.getMessage());
-            return ResponseEntity.internalServerError()
-                    .body("Failed to parse email. Please check server configuration.");
         } catch (MailException e) {
-            logger.error("General mail error when sending email from {}: {}", userMessage.getUserInfo(),
-                    e.getMessage());
+            logger.error("Failed to send email from {}.", userMessage.getUserInfo(), e);
             return ResponseEntity.internalServerError()
                     .body("An error occurred while sending message. Please try again later.");
         }
-        return ResponseEntity.ok("Message sent successfully.");
     }
 
 }

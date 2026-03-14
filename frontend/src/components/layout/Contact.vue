@@ -1,57 +1,88 @@
 <template>
-    <section class="mt-32" id="contact">
-        <SectionHeader title="Contact Me" />
+    <div class="fixed bottom-6 right-6 z-50">
+        <Transition name="contact-popup">
+            <div v-show="isOpen"
+                class="absolute bottom-18 right-0 w-[340px] sm:w-[380px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden mb-2">
+                <div class="bg-secondary px-4 py-3 flex justify-between items-center">
+                    <h3 class="font-semibold text-lg text-black">Send a message</h3>
+                    <button @click="isOpen = false"
+                        class="text-white hover:opacity-70 transition-opacity text-xl leading-none">
+                        <Icon icon="mdi:close" class="text-2xl" />
+                    </button>
+                </div>
 
-        <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-            <form class="space-y-8" @submit.prevent="submitForm">
-                <div>
-                    <Input id="email" label="Your email" type="email" placeholder="email@example.com"
+                <form class="p-4 space-y-3 text-gray-900 dark:text-primary" @submit.prevent="submitForm">
+                    <Input id="popup-email" label="Your email" type="email" placeholder="email@example.com"
                         v-model:value="fields.email.value" v-model:error="fields.email.error" />
-                    <Input id="subject" label="Subject" type="text"
-                        placeholder="Let me know what we should build together !" v-model:value="fields.subject.value"
+
+                    <Input id="popup-subject" label="Subject" type="text"
+                        placeholder="Tell me what we can build together!" v-model:value="fields.subject.value"
                         v-model:error="fields.subject.error" />
-                    <Input id="message" label="Message" type="textarea" row="6" placeholder="Write your message here"
-                        v-model:value="fields.message.value" v-model:error="fields.message.error" />
 
-                </div>
-                <div ref="captchaWidget"></div>
+                    <Input id="popup-message" label="Message" type="textarea" :rows="5"
+                        placeholder="Write your message here" v-model:value="fields.message.value"
+                        v-model:error="fields.message.error" />
 
-                <div v-if="isLoading">
-                    <Icon icon="line-md:loading-loop" class="text-3xl mt-2 text-secondary animate-spin" />
-                </div>
-                <div class="flex flex-col" v-else>
-                    <div class="flex-1"><Button label="Send" type="submit" data-umami-event="submit_contact_form"
+                    <div ref="captchaWidget" class="scale-[0.85] origin-left"></div>
+
+                    <div v-if="isLoading" class="flex justify-end">
+                        <Icon icon="line-md:loading-loop" class="text-2xl text-secondary animate-spin" />
+                    </div>
+                    <div v-else class="flex flex-col items-end gap-1">
+                        <button type="submit" data-umami-event="submit_contact_form"
                             :data-umami-event-email="fields.email.value"
-                            :data-umami-event-subject="fields.subject.value" />
-                    </div>
-                    <div class="flex-1">
+                            :data-umami-event-subject="fields.subject.value"
+                            class="bg-secondary text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
+                            Send
+                            <Icon icon="mdi:send" class="text-lg" />
+                        </button>
                         <p v-if="formMessage.message"
-                            :class="formMessage.isError ? 'mt-2 text-red-500' : 'mt-2 text-secondary'">{{
-                                formMessage.message }}</p>
+                            :class="formMessage.isError ? 'text-red-500 text-xs' : 'text-green-600 text-xs'">
+                            {{ formMessage.message }}
+                        </p>
                     </div>
-                </div>
-            </form>
-        </div>
-    </section>
+                </form>
+            </div>
+        </Transition>
 
+        <button @click="isOpen = !isOpen"
+            class="w-14 h-14 rounded-full bg-secondary text-white dark:text-black shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+            data-umami-event="toggle_contact_popup">
+            <Icon icon="mdi:email" class="text-2xl" />
+        </button>
+    </div>
 </template>
 
 <script setup>
-import SectionHeader from '@/components/UI/SectionHeader.vue';
-import Input from '@/components/UI/Input.vue';
-import Button from '@/components/UI/Button.vue';
 import config from '@/config';
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
+import Input from '@/components/UI/Input.vue';
 
+const isOpen = ref(false);
 const captchaWidget = ref(null);
+let captchaWidgetInstance = null;
+
+const handleOpenContact = () => {
+    isOpen.value = true;
+};
 
 onMounted(async () => {
+    window.addEventListener('open-contact', handleOpenContact);
+
     const { FriendlyCaptchaSDK } = await import('https://cdn.jsdelivr.net/npm/@friendlycaptcha/sdk@0.1.36/sdk.min.js');
     const sdk = new FriendlyCaptchaSDK();
-    sdk.createWidget({
+    captchaWidgetInstance = sdk.createWidget({
         element: captchaWidget.value,
         sitekey: config.friendlyCaptchaSitekey
     });
+});
+
+onUnmounted(() => {
+    window.removeEventListener('open-contact', handleOpenContact);
+    if (captchaWidgetInstance) {
+        captchaWidgetInstance.destroy();
+        captchaWidgetInstance = null;
+    }
 });
 
 const SendMailURL = ref(config.sendMailAPIUrl);
@@ -60,21 +91,11 @@ const formMessage = ref({
     isError: false
 });
 const fields = ref({
-    email: {
-        value: '',
-        error: ''
-    },
-    subject: {
-        value: '',
-        error: ''
-    },
-    message: {
-        value: '',
-        error: ''
-    },
+    email: { value: '', error: '' },
+    subject: { value: '', error: '' },
+    message: { value: '', error: '' },
     captcha: ''
 });
-
 
 const validateEmail = (value) => {
     if (value?.trim() === '') {
@@ -89,6 +110,7 @@ const validateEmail = (value) => {
     fields.value.email.error = '';
     return true;
 };
+
 const validateSubject = (value) => {
     if (value?.trim() === '') {
         fields.value.subject.error = 'Subject cannot be empty';
@@ -101,6 +123,7 @@ const validateSubject = (value) => {
     fields.value.subject.error = '';
     return true;
 };
+
 const validateMessage = (value) => {
     if (value?.trim() === '') {
         fields.value.message.error = 'Message cannot be empty';
@@ -113,16 +136,16 @@ const validateMessage = (value) => {
     fields.value.message.error = '';
     return true;
 };
+
 const userAgent = ref('');
 const isLoading = ref(false);
 
 const getUserAgent = () => {
     if (typeof window !== 'undefined') {
         return window.navigator.userAgent;
-    } else {
-        console.error('Window object is not defined (e.g., during SSR)');
-        return '';
     }
+    console.error('Window object is not defined (e.g., during SSR)');
+    return '';
 };
 
 const clearForm = () => {
@@ -134,6 +157,9 @@ const clearForm = () => {
     fields.value.message.error = '';
     fields.value.captcha = '';
     isLoading.value = false;
+    if (captchaWidgetInstance) {
+        captchaWidgetInstance.reset();
+    }
 };
 
 const validateCaptcha = (captchaInput) => {
@@ -194,6 +220,7 @@ const submitForm = () => {
             isError: false
         };
         clearForm();
+        isOpen.value = false;
     }).catch((error) => {
         let errorMessage = error.message || 'Unknown error';
         if (errorMessage.includes('Failed to fetch')) {
@@ -207,7 +234,18 @@ const submitForm = () => {
     }).finally(() => {
         isLoading.value = false;
     });
-
 };
-
 </script>
+
+<style scoped>
+.contact-popup-enter-active,
+.contact-popup-leave-active {
+    transition: all 0.25s ease;
+}
+
+.contact-popup-enter-from,
+.contact-popup-leave-to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+}
+</style>

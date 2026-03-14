@@ -26,7 +26,7 @@
             ]">
                 <ul class="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0">
                     <li v-for="item in Menu" :key="item.name">
-                        <a :href="item.href" @click="scrollToSection(item.href)"
+                        <a :href="item.href" @click.prevent="handleNavClick(item)"
                             class="block transition ease-linear text-2xl md:text-lg lg:text-xl font-bold">
                             {{ item.name }}
                         </a>
@@ -58,12 +58,16 @@ const restartGif = () => {
 const Menu = ref([
     { name: 'Who am I ?', href: '#whoami' },
     { name: 'My Services', href: '#services' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Contact', href: '#', action: 'open-contact' },
 ]);
 
-const scrollToSection = (href) => {
+const handleNavClick = (item) => {
     isMenuOpen.value = false;
-    const section = document.querySelector(href);
+    if (item.action === 'open-contact') {
+        window.dispatchEvent(new Event('open-contact'));
+        return;
+    }
+    const section = document.querySelector(item.href);
     if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
     }

@@ -66,10 +66,7 @@ const downloadResume = () => {
 }
 
 const openContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.dispatchEvent(new Event('open-contact'));
 }
 
 </script>
