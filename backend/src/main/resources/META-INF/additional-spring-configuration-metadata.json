@@ -15,9 +15,9 @@
     "description": "Mail to address for contact form submissions"
   },
   {
-    "name": "contact.prefix",
+    "name": "contact.url",
     "type": "java.lang.String",
-    "description": "A prefix to add to the subject of contact form emails"
+    "description": "The URL of the platform from which the contact form is submitted"
   },
   {
     "name": "settings.cors_origins",
