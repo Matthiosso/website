@@ -44,8 +44,9 @@
       }
     }
 
-    /* ── Cabin font (Google Fonts fallback — replace with local @font-face if preferred) ── */
-    @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+    /* ── Cabin font ── */
+    @font-face { font-family: 'Cabin'; src: url('@/assets/fonts/Cabin-VariableFont_wdth,wght.woff2') format('woff2 supports variations'); font-weight: 100 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Cabin'; src: url('@/assets/fonts/Cabin-Italic-VariableFont_wdth,wght.woff2') format('woff2 supports variations'); font-weight: 100 900; font-style: italic; font-display: swap; }
 
     html { font-size: 16px; scroll-behavior: smooth; }
 
