@@ -8,11 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.MailException;
+import org.springframework.mail.MailPreparationException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.util.HtmlUtils;
+
+import jakarta.mail.MessagingException;
 
 @Service
 public class EmailService {
@@ -58,11 +61,13 @@ public class EmailService {
 
             logger.info("Sending HTML email from {} with subject '{}'", fromEmail, subject);
             mailSender.send(mimeMessage);
-        } catch (Exception e) {
-            logger.error("Failed to compose or send HTML email", e);
-            throw new MailException("Failed to send email") {
-                private static final long serialVersionUID = 1L;
-            };
+
+        } catch (IOException e) {
+            logger.error("Failed to load HTML email template", e);
+            throw new MailPreparationException("Failed to load email template", e);
+        } catch (MessagingException e) {
+            logger.error("Failed to prepare MIME email message", e);
+            throw new MailPreparationException("Failed to prepare email message", e);
         }
     }
 }
