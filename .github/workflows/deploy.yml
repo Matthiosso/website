@@ -183,6 +183,14 @@ jobs:
             src:
               - '${{ env.MODULE_DIR }}/**'
       
+      - name: Set up JDK
+        if: steps.filter.outputs.src == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '24'
+          distribution: 'temurin'
+          cache: 'maven'
+
       - name: Extract Maven project version
         if: steps.filter.outputs.src == 'true'
         run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
