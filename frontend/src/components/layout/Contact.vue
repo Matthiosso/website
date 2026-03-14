@@ -46,7 +46,7 @@
         </Transition>
 
         <button @click="isOpen = !isOpen"
-            class="w-14 h-14 rounded-full bg-secondary text-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
+            class="w-14 h-14 rounded-full bg-secondary text-white dark:text-black shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-200"
             data-umami-event="toggle_contact_popup">
             <Icon icon="mdi:email" class="text-2xl" />
         </button>
