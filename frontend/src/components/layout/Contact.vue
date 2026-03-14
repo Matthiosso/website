@@ -2,41 +2,26 @@
     <div class="fixed bottom-6 right-6 z-50">
         <Transition name="contact-popup">
             <div v-show="isOpen"
-                class="absolute bottom-18 right-0 w-[340px] sm:w-[380px] bg-white rounded-xl shadow-2xl overflow-hidden mb-2">
+                class="absolute bottom-18 right-0 w-[340px] sm:w-[380px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl overflow-hidden mb-2">
                 <div class="bg-secondary px-4 py-3 flex justify-between items-center">
-                    <h3 class="font-semibold text-lg text-white">Envoyer un message</h3>
+                    <h3 class="font-semibold text-lg text-black">Send a message</h3>
                     <button @click="isOpen = false"
                         class="text-white hover:opacity-70 transition-opacity text-xl leading-none">
                         <Icon icon="mdi:close" class="text-2xl" />
                     </button>
                 </div>
 
-                <form class="p-4 space-y-3" @submit.prevent="submitForm">
-                    <div>
-                        <label for="popup-email"
-                            class="block text-sm font-medium text-gray-700 mb-1">Votre email</label>
-                        <input id="popup-email" type="email" v-model="fields.email.value"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary" />
-                        <small v-if="fields.email.error" class="text-red-500 text-xs">{{ fields.email.error }}</small>
-                    </div>
+                <form class="p-4 space-y-3 text-gray-900 dark:text-primary" @submit.prevent="submitForm">
+                    <Input id="popup-email" label="Your email" type="email" placeholder="email@example.com"
+                        v-model:value="fields.email.value" v-model:error="fields.email.error" />
 
-                    <div>
-                        <label for="popup-subject"
-                            class="block text-sm font-medium text-gray-700 mb-1">Objet</label>
-                        <input id="popup-subject" type="text" v-model="fields.subject.value"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary" />
-                        <small v-if="fields.subject.error" class="text-red-500 text-xs">{{ fields.subject.error
-                            }}</small>
-                    </div>
+                    <Input id="popup-subject" label="Subject" type="text"
+                        placeholder="Tell me what we can build together!" v-model:value="fields.subject.value"
+                        v-model:error="fields.subject.error" />
 
-                    <div>
-                        <label for="popup-message"
-                            class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                        <textarea id="popup-message" rows="5" v-model="fields.message.value"
-                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary resize-none"></textarea>
-                        <small v-if="fields.message.error" class="text-red-500 text-xs">{{ fields.message.error
-                            }}</small>
-                    </div>
+                    <Input id="popup-message" label="Message" type="textarea" :rows="5"
+                        placeholder="Write your message here" v-model:value="fields.message.value"
+                        v-model:error="fields.message.error" />
 
                     <div ref="captchaWidget" class="scale-[0.85] origin-left"></div>
 
@@ -47,8 +32,8 @@
                         <button type="submit" data-umami-event="submit_contact_form"
                             :data-umami-event-email="fields.email.value"
                             :data-umami-event-subject="fields.subject.value"
-                            class="bg-secondary text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
-                            Envoyer
+                            class="bg-secondary text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
+                            Send
                             <Icon icon="mdi:send" class="text-lg" />
                         </button>
                         <p v-if="formMessage.message"
@@ -71,6 +56,7 @@
 <script setup>
 import config from '@/config';
 import { onMounted, onUnmounted, ref } from 'vue';
+import Input from '@/components/UI/Input.vue';
 
 const isOpen = ref(false);
 const captchaWidget = ref(null);
@@ -226,6 +212,7 @@ const submitForm = () => {
             isError: false
         };
         clearForm();
+        isOpen.value = false;
     }).catch((error) => {
         let errorMessage = error.message || 'Unknown error';
         if (errorMessage.includes('Failed to fetch')) {
