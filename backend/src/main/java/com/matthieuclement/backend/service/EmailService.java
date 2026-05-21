@@ -16,6 +16,7 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 
 @Service
 public class EmailService {
@@ -52,12 +53,17 @@ public class EmailService {
                     .replace("{{message}}", safeMessage)
                     .replace("{{platformName}}", safePlatformName);
 
+            String textBody = String.format("You have received a new message from %s (%s):\n\nSubject: %s\n\n%s",
+                    safeFromEmail, safePlatformName, safeSubject, safeMessage);
+
             var mimeMessage = mailSender.createMimeMessage();
-            var helper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
+            var helper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_RELATED,
+                    StandardCharsets.UTF_8.name());
             helper.setTo(toEmail);
-            helper.setFrom(toEmail);
-            helper.setSubject("[" + safePlatformName + "] - " + safeSubject);
-            helper.setText(htmlBody, true);
+            helper.setFrom(new InternetAddress(toEmail, "Contact Form"));
+            helper.setReplyTo(safeFromEmail);
+            helper.setSubject("[Contact] - " + safeSubject);
+            helper.setText(textBody, htmlBody);
 
             logger.info("Sending HTML email from {} with subject '{}'", fromEmail, subject);
             mailSender.send(mimeMessage);
