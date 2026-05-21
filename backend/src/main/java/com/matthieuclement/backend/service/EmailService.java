@@ -57,7 +57,8 @@ public class EmailService {
                     safeFromEmail, safePlatformName, safeSubject, safeMessage);
 
             var mimeMessage = mailSender.createMimeMessage();
-            var helper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
+            var helper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_RELATED,
+                    StandardCharsets.UTF_8.name());
             helper.setTo(toEmail);
             helper.setFrom(new InternetAddress(toEmail, "Contact Form"));
             helper.setReplyTo(safeFromEmail);
