@@ -75,6 +75,8 @@ spec:
           value: ${MAIL_USERNAME}
         - name: MAIL_PASSWORD
           value: ${MAIL_PASSWORD}
+        - name: MAIL_FROM
+          value: ${MAIL_FROM}
         - name: FRONTEND_URL
           value: https://${PROD_SERVER_HOSTNAME}
         - name: FRIENDLY_CAPTCHA_API_KEY
