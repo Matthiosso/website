@@ -9,13 +9,14 @@ metadata:
   name: website-frontend-nginx
   namespace: dev
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - ${DEV_SERVER_HOSTNAME}
-      secretName: dev-matthieuclement-tls
+      secretName: dev-tls
   rules:
     - host: ${DEV_SERVER_HOSTNAME}
       http:
