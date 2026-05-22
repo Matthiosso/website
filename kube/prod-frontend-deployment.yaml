@@ -10,8 +10,13 @@ metadata:
   namespace: prod
   annotations:
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${PROD_SERVER_HOSTNAME}
+      secretName: prod-matthieuclement-tls
   rules:
     - host: ${PROD_SERVER_HOSTNAME}
       http:

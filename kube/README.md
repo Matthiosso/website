@@ -18,13 +18,26 @@ helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx
 # Import code
 git clone https://github.com/Matthiosso/website.git
 cd website
+
+# Install & deploy cert-manager
+helm install \
+  cert-manager oci://quay.io/jetstack/charts/cert-manager \
+  --version v1.20.2 \
+  --namespace cert-manager \
+  --create-namespace \
+  --set crds.enabled=true
+kubectl delete validatingwebhookconfiguration ingress-nginx-admission
+export CERT_MANAGER_EMAIL=<contact@example.com> # replace here by your real email
+envsubst < kubectl apply -f kube/cert-manager-issuer.yaml 
 ```
 
 ## Prod (with remote docker image from github)
 
+Make sure to declare all environment variables first
+
 ```bash
-kubectl apply -f kube/prod-frontend-deployment.yaml
-kubectl apply -f kube/prod-backend-deployment.yaml
+envsubst < kubectl apply -f kube/prod-frontend-deployment.yaml
+envsubst < kubectl apply -f kube/prod-backend-deployment.yaml
 ```
 
 ### Update deployment
