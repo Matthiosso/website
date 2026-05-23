@@ -1,12 +1,7 @@
 apiVersion: v1
-kind: ConfigMap
+kind: Namespace
 metadata:
-  name: ingress-nginx-controller
-  namespace: ingress-nginx
-data:
-  use-forwarded-headers: "true"
-  forwarded-for-header: "X-Forwarded-For"
-  compute-full-forwarded-for: "true"
+  name: umami
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -14,15 +9,18 @@ metadata:
   name: umami-nginx
   namespace: umami
   annotations:
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    nginx.ingress.kubernetes.io/forwarded-for-header: "x-forwarded-for"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${UMAMI_SERVER_HOSTNAME}
+      secretName: umami-tls
   rules:
-    - host: ${PROD_SERVER_HOSTNAME}
+    - host: ${UMAMI_SERVER_HOSTNAME}
       http:
         paths:
-          - path: /stats
+          - path: /
             pathType: Prefix
             backend:
               service:
@@ -48,7 +46,7 @@ metadata:
   name: umami-svc
   namespace: umami
 spec:
-  revisionHistoryLimit: 1 # Default is 10, 1 allows to only keep one previous replicaset in case of need to rollback
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: umami-svc
@@ -60,14 +58,22 @@ spec:
     spec:
       containers:
       - name: umami-svc
-        image: ghcr.io/matthiosso/website/umami:path-stats # See README.md for instructions to build and push this image to GitHub Container Registry
+        image: ghcr.io/umami-software/umami:3.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
-            path: /stats/api/heartbeat
+            path: /api/heartbeat
+            port: 3000
+          initialDelaySeconds: 120 # Increased initial delay to 120 seconds to give Umami more time in case of migration
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/heartbeat
             port: 3000
           initialDelaySeconds: 60
-          periodSeconds: 15
+          periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
         env:
@@ -85,7 +91,7 @@ spec:
             value: "postgresql://umami:$(POSTGRES_PASSWORD)@postgres:5432/umami"
           - name: CLIENT_IP_HEADER
             value: "x-forwarded-for"
+          - name: DISABLE_TELEMETRY
+            value: "1"
         ports:
           - containerPort: 3000
-      imagePullSecrets: # See https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb
-      - name: dockerconfigjson-github-com

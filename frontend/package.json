@@ -1,6 +1,6 @@
 {
   "name": "website-frontend",
-  "version": "1.7.1",
+  "version": "1.8.0-dev.5",
   "type": "module",
   "private": true,
   "scripts": {
