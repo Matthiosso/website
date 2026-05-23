@@ -1,0 +1,12 @@
+controller:
+  config:
+    use-forwarded-headers: "true"
+    forwarded-for-header: "X-Forwarded-For"
+    compute-full-forwarded-for: "true"
+    
+    allow-snippet-annotations: "false"
+    add-headers: "ingress-nginx/custom-headers"
+    
+    use-gzip: "true"
+    gzip-level: "6"
+    gzip-types: "application/atom+xml application/javascript application/x-javascript application/json application/rss+xml application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/svg+xml image/x-icon text/css text/javascript text/plain text/x-component"

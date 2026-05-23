@@ -1,6 +1,6 @@
 {
   "name": "website-frontend",
-  "version": "1.6.0",
+  "version": "1.7.0-dev.1",
   "type": "module",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
+    "@friendlycaptcha/sdk": "^1.0.0",
     "aos": "^2.3.4",
     "axios": "^1.11.0",
     "vue": "^3.5.18",

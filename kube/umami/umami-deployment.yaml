@@ -48,7 +48,6 @@ metadata:
   name: umami-svc
   namespace: umami
 spec:
-  spec:
   revisionHistoryLimit: 1 # Default is 10, 1 allows to only keep one previous replicaset in case of need to rollback
   selector:
     matchLabels:
