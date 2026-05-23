@@ -1,5 +1,7 @@
 # étape de build
 FROM node:lts-alpine AS build-stage
+ARG APP_VERSION
+ENV APP_VERSION=$APP_VERSION
 WORKDIR /frontend
 COPY ./package*.json ./
 RUN npm install

@@ -12,7 +12,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  define: { 
-    '__APP_VERSION__': JSON.stringify(process.env.npm_package_version)
+  define: {
+    '__APP_VERSION__': JSON.stringify(process.env.APP_VERSION || process.env.npm_package_version)
   }
 })
