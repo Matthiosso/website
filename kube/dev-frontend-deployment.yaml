@@ -72,7 +72,7 @@ spec:
         - name: ENV_FRONTEND_URL
           value: https://${DEV_SERVER_HOSTNAME}
         - name: ENV_UMAMI_URL
-          value: https://${PROD_SERVER_HOSTNAME}/stats
+          value: https://${UMAMI_SERVER_HOSTNAME}/stats
         - name: ENV_UMAMI_WEBSITE_ID
           value: ${UMAMI_DEV_ID}
         - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY
