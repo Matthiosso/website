@@ -42,6 +42,7 @@ public class EmailService {
 
     public void sendMessage(String fromEmail, String subject, String message) throws MailException {
         try {
+            String rawSubject = (subject == null ? "" : subject).replaceAll("[\r\n\t]", " ");
             String safeSubject = HtmlUtils.htmlEscape(subject == null ? "" : subject);
             String safeMessage = HtmlUtils.htmlEscape(message == null ? "" : message);
             String safeFromEmail = HtmlUtils.htmlEscape(fromEmail == null ? "" : fromEmail);
@@ -62,7 +63,7 @@ public class EmailService {
             helper.setTo(toEmail);
             helper.setFrom(new InternetAddress(toEmail, "Contact Form"));
             helper.setReplyTo(safeFromEmail);
-            helper.setSubject("[Contact] - " + safeSubject);
+            helper.setSubject("[Contact] - " + rawSubject);
             helper.setText(textBody, htmlBody);
 
             logger.info("Sending HTML email from {} with subject '{}'", fromEmail, subject);
