@@ -69,7 +69,7 @@ const handleOpenContact = () => {
 onMounted(async () => {
     window.addEventListener('open-contact', handleOpenContact);
 
-    const { FriendlyCaptchaSDK } = await import('https://cdn.jsdelivr.net/npm/@friendlycaptcha/sdk@0.1.36/sdk.min.js');
+    const { FriendlyCaptchaSDK } = await import('@friendlycaptcha/sdk');
     const sdk = new FriendlyCaptchaSDK();
     captchaWidgetInstance = sdk.createWidget({
         element: captchaWidget.value,
