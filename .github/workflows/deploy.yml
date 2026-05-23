@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v4
       
       # Only run the build if files in the Mobile/ directory changed
-      - uses: dorny/paths-filter@v2
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           base: ${{ github.ref_name }}
@@ -176,7 +176,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Only run the build if files in the Mobile/ directory changed
-      - uses: dorny/paths-filter@v2
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           base: ${{ github.ref_name }}
