@@ -295,6 +295,7 @@ jobs:
     needs:
       - detect-changes
       - prepare-work-folder
+    if: always() && needs.prepare-work-folder.result == 'success'
     env:
       MAIL_HOST: ${{ secrets.MAIL_HOST }}
       MAIL_PORT: ${{ secrets.MAIL_PORT }}

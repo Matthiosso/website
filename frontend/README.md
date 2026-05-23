@@ -2,7 +2,7 @@
 
 Following this [tutorial](https://www.youtube.com/watch?v=zo0oOsCqYzc)
 
-## Setup
+## Setup locally
 
 ```bash
 cd frontend
