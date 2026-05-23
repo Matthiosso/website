@@ -9,6 +9,7 @@ metadata:
   name: website-frontend-nginx
   namespace: prod
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
@@ -72,7 +73,7 @@ spec:
         - name: ENV_FRONTEND_URL
           value: https://${PROD_SERVER_HOSTNAME}
         - name: ENV_UMAMI_URL
-          value: https://${PROD_SERVER_HOSTNAME}/stats
+          value: https://${UMAMI_SERVER_HOSTNAME}
         - name: ENV_UMAMI_WEBSITE_ID
           value: ${UMAMI_PROD_ID}
         - name: ENV_FRIENDLY_CAPTCHA_SITE_KEY

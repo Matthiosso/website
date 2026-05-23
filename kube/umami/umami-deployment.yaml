@@ -14,15 +14,21 @@ metadata:
   name: umami-nginx
   namespace: umami
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
     nginx.ingress.kubernetes.io/forwarded-for-header: "x-forwarded-for"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${UMAMI_SERVER_HOSTNAME}
+      secretName: umami-tls
   rules:
-    - host: ${PROD_SERVER_HOSTNAME}
+    - host: ${UMAMI_SERVER_HOSTNAME}
       http:
         paths:
-          - path: /stats
+          - path: /
             pathType: Prefix
             backend:
               service:
@@ -60,11 +66,10 @@ spec:
     spec:
       containers:
       - name: umami-svc
-        image: ghcr.io/matthiosso/website/umami:path-stats # See README.md for instructions to build and push this image to GitHub Container Registry
-        imagePullPolicy: Always
+        image: ghcr.io/umami-software/umami:latest
         livenessProbe:
           httpGet:
-            path: /stats/api/heartbeat
+            path: /api/heartbeat
             port: 3000
           initialDelaySeconds: 60
           periodSeconds: 15
