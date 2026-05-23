@@ -4,8 +4,6 @@ Following this [tutorial](https://www.youtube.com/watch?v=zo0oOsCqYzc)
 
 ## Setup
 
-### With npm
-
 ```bash
 cd frontend
 npm install
