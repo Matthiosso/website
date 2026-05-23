@@ -1,10 +1,14 @@
-name: Build and push Back and Front
+name: Manual build and push Back and Front
 
 on:
-  push:
-    branches: [ "main", "dev" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+  workflow_dispatch:  # Manual trigger
+    inputs:
+      run_frontend:
+        description: 'Build and push frontend image (set to false to deploy without rebuilding)'
+        default: "true"
+      run_backend:
+        description: 'Build and push backend image (set to false to deploy without rebuilding)'
+        default: "true"
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -18,33 +22,11 @@ env:
 
 
 jobs:
-  detect-changes:
-    name: Detect Changed Paths
-    runs-on: ubuntu-latest
-    outputs:
-      frontend: ${{ steps.filter.outputs.frontend }}
-      backend: ${{ steps.filter.outputs.backend }}
-      kube: ${{ steps.filter.outputs.kube }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          base: ${{ github.ref_name }}
-          filters: |
-            frontend:
-              - 'frontend/**'
-            backend:
-              - 'backend/**'
-            kube:
-              - 'kube/**'
 
   build-and-push-image-frontend:
     name: Build and Push Frontend Image
     runs-on: ubuntu-latest
-    needs: detect-changes
-    if: needs.detect-changes.outputs.frontend == 'true'
+    if: github.event.inputs.run_frontend == 'true'
     env:
       MODULE_DIR: frontend
     defaults:
@@ -158,8 +140,7 @@ jobs:
   build-and-push-image-backend:
     name: Build and Push Backend Image
     runs-on: ubuntu-latest
-    needs: detect-changes
-    if: needs.detect-changes.outputs.backend == 'true'
+    if: github.event.inputs.run_backend == 'true'
     env:
       MODULE_DIR: backend
     defaults:
@@ -262,16 +243,10 @@ jobs:
     name: Prepare Work Folder
     runs-on: ubuntu-latest
     needs:
-      - detect-changes
       - build-and-push-image-frontend
       - build-and-push-image-backend
     if: |
-      always() && !failure() && !cancelled() &&
-      (
-        needs.detect-changes.outputs.frontend == 'true' ||
-        needs.detect-changes.outputs.backend == 'true' ||
-        needs.detect-changes.outputs.kube == 'true'
-      )
+      always() && !failure() && !cancelled()
     steps:
       - name: Create temp folder for deploying
         uses: appleboy/ssh-action@v1
@@ -293,7 +268,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     needs:
-      - detect-changes
       - prepare-work-folder
     if: needs.prepare-work-folder.result == 'success'
     env:
