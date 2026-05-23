@@ -13,7 +13,10 @@ helm version
 # Install & deploy ingress-nginx
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
-helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+helm install ingress-nginx ingress-nginx/ingress-nginx \
+  -n ingress-nginx --create-namespace \
+  -f kube/ingress-nginx/helm-values.yaml
+kubectl apply -f ./kube/ingress-nginx/custom-headers.yaml
 
 # Import code
 git clone https://github.com/Matthiosso/website.git
