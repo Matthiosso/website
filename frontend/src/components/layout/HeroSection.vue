@@ -8,19 +8,32 @@
                     class="text-4xl md:text-5xl lg:text-6xl font-bold text-left cursor typewriter-animation lg:mx-0 max-w-xl">
                     👋 Hi, I'm <span class="stroke-text">Matthieu</span>
                 </h1>
+                <p class="mt-2 text-xl md:text-2xl font-semibold text-secondary">
+                    Full-Stack Developer — Java/Spring · Vue.js · Kubernetes
+                </p>
+                <div class="mt-3 flex flex-wrap justify-center lg:justify-start gap-2">
+                    <span
+                        class="inline-flex items-center gap-1.5 rounded-full border border-secondary px-3 py-1 text-sm font-medium">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span
+                                class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500"></span>
+                        </span>
+                        Open to opportunities · Remote-friendly
+                    </span>
+                    <span
+                        class="inline-flex items-center gap-1.5 rounded-full border border-secondary px-3 py-1 text-sm font-medium">
+                        🇫🇷 Based in France
+                    </span>
+                </div>
                 <div class="space-y-4 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 my-4">
-                    <p>I love building bridges. Connecting systems using APIs. Connecting people using shared passion.
-                        Connecting machine ability to human needs.</p>
-                    <p>For 8 years at the French Ministry of Defense, I've shipped mission-critical systems, coordinated
-                        hundreds of projects, and led teams through high-stakes operations, focusing on making the world
-                        a safer place.</p>
-                    <p>I believe efficient systems run on trust, transparency, and acknowledging our human biases. I am
-                        just one piece of a larger mechanism. Together we go far beyond what we can reach on our own.
-                    </p>
-                    <p>In times of AI transformation where our reference points are shifting, we need people willing to
-                        find and share clarity. That's my motto: study and share. Make the team bigger than the
-                        individual, by giving each person space to bring their brick to the building.</p>
-                    <p>Let's start building together!</p>
+                    <p>For <strong>8 years at the French Ministry of Defense</strong>, I've shipped
+                        mission-critical systems, coordinated 150+ projects, and led teams through high-stakes
+                        operations — building software that has to work when it matters most.</p>
+                    <p>I build bridges: connecting systems through clean APIs, and connecting people through shared
+                        purpose. I believe great software runs on trust, transparency, and teams bigger than any single
+                        individual.</p>
+                    <p class="font-semibold">Let's build something together.</p>
                 </div>
 
                 <div class="mt-6 flex flex-col items-center lg:flex-row lg:justify-start gap-2">
@@ -107,6 +120,15 @@ const openContact = () => {
     }
 
     to {
+        border-right-color: transparent;
+    }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .typewriter-animation {
+        animation: none;
+        width: 100%;
         border-right-color: transparent;
     }
 }
