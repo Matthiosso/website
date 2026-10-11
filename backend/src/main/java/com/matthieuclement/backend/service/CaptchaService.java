@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import com.matthieuclement.backend.enums.VerifyResult;
@@ -25,6 +26,11 @@ public class CaptchaService {
     private final RestClient restClient = RestClient.create();
 
     public VerifyResult verify(String captchaResponse) {
+        if (captchaResponse == null || captchaResponse.isBlank()) {
+            logger.warn("Missing captcha response.");
+            return VerifyResult.REJECT;
+        }
+
         try {
             FrcVerifyRequest body = new FrcVerifyRequest(captchaResponse, sitekey);
 
@@ -36,14 +42,21 @@ public class CaptchaService {
                     .retrieve()
                     .body(FrcVerifyResponse.class);
 
-            if (response.success())
+            if (response != null && response.success())
                 return VerifyResult.ACCEPT;
             logger.warn("Invalid captcha : {}", response);
             return VerifyResult.REJECT;
 
+        } catch (HttpClientErrorException e) {
+            // 4xx: malformed/invalid captcha response or misconfigured API key.
+            // Never let the request through in that case.
+            logger.error("Friendly Captcha rejected verification request ({}): {}", e.getStatusCode(),
+                    e.getResponseBodyAsString());
+            return VerifyResult.REJECT;
+
         } catch (Exception e) {
-            // If FriendlyCaptcha is down, we let user pass according to recommandations in
-            // doc.
+            // If FriendlyCaptcha is down (5xx, network error), we let user pass according
+            // to recommandations in doc.
             logger.warn("Friendly Captcha verification failed: {}", e.getMessage());
             return VerifyResult.ACCEPT_FALLBACK;
         }
