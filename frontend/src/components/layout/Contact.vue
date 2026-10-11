@@ -30,8 +30,6 @@
                     </div>
                     <div v-else class="flex flex-col items-end gap-1">
                         <button type="submit" data-umami-event="submit_contact_form"
-                            :data-umami-event-email="fields.email.value"
-                            :data-umami-event-subject="fields.subject.value"
                             class="bg-secondary text-white dark:text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
                             Send
                             <Icon icon="mdi:send" class="text-lg" />
