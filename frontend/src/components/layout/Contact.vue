@@ -182,7 +182,10 @@ const validateForm = () => {
 };
 
 const submitForm = () => {
-    formMessage.value.isError = false;
+    formMessage.value = {
+        message: '',
+        isError: false
+    };
     if (!validateForm()) {
         return;
     }
@@ -218,7 +221,10 @@ const submitForm = () => {
             isError: false
         };
         clearForm();
-        isOpen.value = false;
+        // Leave the confirmation visible for a moment before closing the popup.
+        setTimeout(() => {
+            isOpen.value = false;
+        }, 3000);
     }).catch((error) => {
         let errorMessage = error.message || 'Unknown error';
         if (errorMessage.includes('Failed to fetch')) {
