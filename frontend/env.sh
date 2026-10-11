@@ -16,9 +16,9 @@ set -e
 
 # Check if the directory exists
 if [ ! -d "$ASSET_DIR" ]; then
-    # If not, display a warning message and skip to the next iteration
+    # If not, display a warning message and skip the replacement
     echo "Warning: directory '$ASSET_DIR' not found, skipping."
-    continue
+    exit 0
 fi
 
 # Display the current directory being scanned
@@ -29,7 +29,10 @@ env | grep "^${APP_PREFIX}" | while IFS='=' read -r key value; do
     # Display the variable being replaced
     echo "  • Replacing ${key} → ${value}"
 
+    # Escape characters that are special in a sed replacement (\, & and the | delimiter)
+    escaped_value=$(printf '%s' "$value" | sed -e 's/[\\&|]/\\&/g')
+
     # Use find and sed to replace the variable in all files within the directory
     find "$ASSET_DIR" -type f \
-        -exec sed -i "s|${key}|${value}|g" {} +
+        -exec sed -i "s|${key}|${escaped_value}|g" {} +
 done
