@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,10 +36,12 @@ public class SendMailController {
     @CrossOrigin(origins = "${settings.cors_origins}")
     @PostMapping("/send")
     public ResponseEntity<String> sendMail(@Valid @RequestBody UserMessage userMessage, BindingResult bindingResult) {
-        logger.info("Received mail send request : {}", userMessage);
+        logger.info("Received mail send request.");
 
         if (bindingResult.hasErrors()) {
-            logger.warn("Validation errors found in UserMessage: {}", bindingResult.getAllErrors());
+            // Only log field names: rejected values may contain personal data.
+            logger.warn("Validation errors found in UserMessage on fields: {}",
+                    bindingResult.getFieldErrors().stream().map(FieldError::getField).toList());
             return ResponseEntity.badRequest().body("Validation errors found in the submitted message.");
         }
 
@@ -53,11 +56,11 @@ public class SendMailController {
                     userMessage.getSubject(),
                     userMessage.getMessage());
 
-            logger.info("Email from {} sent successfully.", userMessage.getUserInfo());
+            logger.info("Email sent successfully.");
             return ResponseEntity.ok("Message sent successfully.");
 
         } catch (MailException e) {
-            logger.error("Failed to send email from {}.", userMessage.getUserInfo(), e);
+            logger.error("Failed to send email.", e);
             return ResponseEntity.internalServerError()
                     .body("An error occurred while sending message. Please try again later.");
         }

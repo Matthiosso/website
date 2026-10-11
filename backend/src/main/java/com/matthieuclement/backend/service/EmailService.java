@@ -71,7 +71,7 @@ public class EmailService {
             helper.setSubject("[Contact] - " + rawSubject);
             helper.setText(textBody, htmlBody);
 
-            logger.info("Sending HTML email from {} with subject '{}'", fromEmail, subject);
+            logger.info("Sending contact email.");
             mailSender.send(mimeMessage);
 
         } catch (IOException e) {
