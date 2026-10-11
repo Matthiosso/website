@@ -42,11 +42,16 @@ public class EmailService {
 
     public void sendMessage(String fromEmail, String subject, String message) throws MailException {
         try {
+            String rawFromEmail = fromEmail == null ? "" : fromEmail;
+            String rawMessage = message == null ? "" : message;
+            String rawPlatformName = platformName == null ? "" : platformName;
             String rawSubject = (subject == null ? "" : subject).replaceAll("[\r\n\t]", " ");
-            String safeSubject = HtmlUtils.htmlEscape(subject == null ? "" : subject);
-            String safeMessage = HtmlUtils.htmlEscape(message == null ? "" : message);
-            String safeFromEmail = HtmlUtils.htmlEscape(fromEmail == null ? "" : fromEmail);
-            String safePlatformName = HtmlUtils.htmlEscape(platformName == null ? "" : platformName);
+
+            // HTML-escaped values are only meant for the HTML template.
+            String safeSubject = HtmlUtils.htmlEscape(rawSubject);
+            String safeMessage = HtmlUtils.htmlEscape(rawMessage);
+            String safeFromEmail = HtmlUtils.htmlEscape(rawFromEmail);
+            String safePlatformName = HtmlUtils.htmlEscape(rawPlatformName);
 
             String template = loadTemplate();
             String htmlBody = template.replace("{{fromEmail}}", safeFromEmail)
@@ -55,14 +60,14 @@ public class EmailService {
                     .replace("{{platformName}}", safePlatformName);
 
             String textBody = String.format("You have received a new message from %s (%s):\n\nSubject: %s\n\n%s",
-                    safeFromEmail, safePlatformName, safeSubject, safeMessage);
+                    rawFromEmail, rawPlatformName, rawSubject, rawMessage);
 
             var mimeMessage = mailSender.createMimeMessage();
             var helper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_RELATED,
                     StandardCharsets.UTF_8.name());
             helper.setTo(toEmail);
             helper.setFrom(new InternetAddress(toEmail, "Contact Form"));
-            helper.setReplyTo(safeFromEmail);
+            helper.setReplyTo(rawFromEmail);
             helper.setSubject("[Contact] - " + rawSubject);
             helper.setText(textBody, htmlBody);
 
