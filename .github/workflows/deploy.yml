@@ -327,11 +327,12 @@ jobs:
             cd ${{ env.TMP_FOLDER}}
             envsubst < ./kube/${{ env.DEPLOY }}-frontend-deployment.yaml | sudo kubectl apply -f -
             envsubst < ./kube/${{ env.DEPLOY }}-backend-deployment.yaml | sudo kubectl apply -f -
-            # Only restart the deployments whose image was rebuilt
-            if [ "${{ needs.detect-changes.outputs.frontend }}" = "true" ]; then
+            # Restart a deployment when its image was rebuilt or the kube config changed
+            # (e.g. a ConfigMap/Secret change does not trigger a rollout on its own)
+            if [ "${{ needs.detect-changes.outputs.frontend }}" = "true" ] || [ "${{ needs.detect-changes.outputs.kube }}" = "true" ]; then
               sudo kubectl -n ${{ env.DEPLOY }} rollout restart deployment website-frontend
             fi
-            if [ "${{ needs.detect-changes.outputs.backend }}" = "true" ]; then
+            if [ "${{ needs.detect-changes.outputs.backend }}" = "true" ] || [ "${{ needs.detect-changes.outputs.kube }}" = "true" ]; then
               sudo kubectl -n ${{ env.DEPLOY }} rollout restart deployment website-backend
             fi
 
