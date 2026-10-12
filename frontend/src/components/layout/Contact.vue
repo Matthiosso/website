@@ -30,8 +30,6 @@
                     </div>
                     <div v-else class="flex flex-col items-end gap-1">
                         <button type="submit" data-umami-event="submit_contact_form"
-                            :data-umami-event-email="fields.email.value"
-                            :data-umami-event-subject="fields.subject.value"
                             class="bg-secondary text-white dark:text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
                             Send
                             <Icon icon="mdi:send" class="text-lg" />
@@ -184,7 +182,10 @@ const validateForm = () => {
 };
 
 const submitForm = () => {
-    formMessage.value.isError = false;
+    formMessage.value = {
+        message: '',
+        isError: false
+    };
     if (!validateForm()) {
         return;
     }
@@ -220,7 +221,10 @@ const submitForm = () => {
             isError: false
         };
         clearForm();
-        isOpen.value = false;
+        // Leave the confirmation visible for a moment before closing the popup.
+        setTimeout(() => {
+            isOpen.value = false;
+        }, 3000);
     }).catch((error) => {
         let errorMessage = error.message || 'Unknown error';
         if (errorMessage.includes('Failed to fetch')) {

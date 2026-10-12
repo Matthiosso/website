@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserMessage {
@@ -19,9 +20,11 @@ public class UserMessage {
     private String message;
 
     @JsonProperty(value = "captchaResponse")
+    @NotBlank(message = "Captcha response is required")
     private String captchaResponse;
 
     @JsonProperty(value = "userInfo")
+    @NotNull(message = "User info is required")
     @Valid
     private UserInfo userInfo;
 
@@ -59,9 +62,10 @@ public class UserMessage {
 
     @Override
     public String toString() {
+        // Do not expose user content: this object may end up in logs.
         return "UserMessage{" +
-                "subject='" + subject + '\'' +
-                ", message='" + message + '\'' +
+                "subjectLength=" + (subject == null ? 0 : subject.length()) +
+                ", messageLength=" + (message == null ? 0 : message.length()) +
                 ", userInfo=" + userInfo +
                 '}';
     }
