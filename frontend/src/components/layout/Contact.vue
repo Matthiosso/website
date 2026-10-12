@@ -53,12 +53,13 @@
 
 <script setup>
 import config from '@/config';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import Input from '@/components/UI/Input.vue';
 
 const isOpen = ref(false);
 const captchaWidget = ref(null);
 let captchaWidgetInstance = null;
+let closePopupTimeout = null;
 
 const handleOpenContact = () => {
     isOpen.value = true;
@@ -87,6 +88,17 @@ const SendMailURL = ref(config.sendMailAPIUrl);
 const formMessage = ref({
     message: '',
     isError: false
+});
+
+watch(isOpen, (open) => {
+    clearTimeout(closePopupTimeout);
+    if (!open) {
+        // Do not show a stale message the next time the popup is opened.
+        formMessage.value = {
+            message: '',
+            isError: false
+        };
+    }
 });
 const fields = ref({
     email: { value: '', error: '' },
@@ -222,7 +234,7 @@ const submitForm = () => {
         };
         clearForm();
         // Leave the confirmation visible for a moment before closing the popup.
-        setTimeout(() => {
+        closePopupTimeout = setTimeout(() => {
             isOpen.value = false;
         }, 3000);
     }).catch((error) => {
