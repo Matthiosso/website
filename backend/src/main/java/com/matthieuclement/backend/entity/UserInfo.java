@@ -33,9 +33,10 @@ public class UserInfo {
 
     @Override
     public String toString() {
+        // Do not expose the email address: this object may end up in logs.
         return "UserInfo{" +
                 "userAgent='" + userAgent + '\'' +
-                ", userEmail='" + userEmail + '\'' +
+                ", userEmail='***'" +
                 '}';
     }
 }

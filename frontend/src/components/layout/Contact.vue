@@ -30,8 +30,6 @@
                     </div>
                     <div v-else class="flex flex-col items-end gap-1">
                         <button type="submit" data-umami-event="submit_contact_form"
-                            :data-umami-event-email="fields.email.value"
-                            :data-umami-event-subject="fields.subject.value"
                             class="bg-secondary text-white dark:text-black px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:opacity-90 transition-opacity">
                             Send
                             <Icon icon="mdi:send" class="text-lg" />
@@ -55,12 +53,13 @@
 
 <script setup>
 import config from '@/config';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import Input from '@/components/UI/Input.vue';
 
 const isOpen = ref(false);
 const captchaWidget = ref(null);
 let captchaWidgetInstance = null;
+let closePopupTimeout = null;
 
 const handleOpenContact = () => {
     isOpen.value = true;
@@ -89,6 +88,17 @@ const SendMailURL = ref(config.sendMailAPIUrl);
 const formMessage = ref({
     message: '',
     isError: false
+});
+
+watch(isOpen, (open) => {
+    clearTimeout(closePopupTimeout);
+    if (!open) {
+        // Do not show a stale message the next time the popup is opened.
+        formMessage.value = {
+            message: '',
+            isError: false
+        };
+    }
 });
 const fields = ref({
     email: { value: '', error: '' },
@@ -184,7 +194,10 @@ const validateForm = () => {
 };
 
 const submitForm = () => {
-    formMessage.value.isError = false;
+    formMessage.value = {
+        message: '',
+        isError: false
+    };
     if (!validateForm()) {
         return;
     }
@@ -220,7 +233,10 @@ const submitForm = () => {
             isError: false
         };
         clearForm();
-        isOpen.value = false;
+        // Leave the confirmation visible for a moment before closing the popup.
+        closePopupTimeout = setTimeout(() => {
+            isOpen.value = false;
+        }, 3000);
     }).catch((error) => {
         let errorMessage = error.message || 'Unknown error';
         if (errorMessage.includes('Failed to fetch')) {
