@@ -16,9 +16,9 @@
 import { ref, onMounted } from 'vue';
 
 const numbers = ref([
-    { title: 'Projects', number: 150 },
-    { title: 'Teams worked with', number: 100 },
-    { title: 'Years', number: 8 },
+    { title: 'Years of experience', number: 8 },
+    { title: 'Projects delivered', number: 150 },
+    { title: 'Teams coordinated', number: 100 },
 ]);
 
 const statsSection = ref(null);
