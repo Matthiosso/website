@@ -10,7 +10,6 @@ metadata:
   namespace: prod
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
@@ -21,6 +20,63 @@ spec:
       secretName: prod-tls
   rules:
     - host: ${PROD_SERVER_HOSTNAME}
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: website-frontend-service
+              port:
+                number: 80
+---
+# Apex domain: serve /ads.txt directly (a crawler may not follow a redirect), and redirect
+# everything else to www. This replaces the from-to-www-redirect annotation, whose generated
+# Location always carries an explicit port (https://www.example.com:443/...).
+# Note: ingress-nginx drops that annotation's redirect server as soon as an Ingress declares
+# the apex host, hence the explicit redirect Ingress below.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-frontend-apex-ads
+  namespace: prod
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${SERVER_DOMAIN}
+      secretName: prod-tls
+  rules:
+    - host: ${SERVER_DOMAIN}
+      http:
+        paths:
+        - path: /ads.txt
+          pathType: Exact
+          backend:
+            service:
+              name: website-frontend-service
+              port:
+                number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: website-frontend-apex-redirect
+  namespace: prod
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/permanent-redirect: https://${PROD_SERVER_HOSTNAME}
+    nginx.ingress.kubernetes.io/permanent-redirect-code: "308"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - ${SERVER_DOMAIN}
+      secretName: prod-tls
+  rules:
+    - host: ${SERVER_DOMAIN}
       http:
         paths:
         - path: /

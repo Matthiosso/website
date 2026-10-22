@@ -38,6 +38,11 @@
                         class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
                         <Icon icon="mdi:github" class="text-3xl" />
                     </a>
+                    <a href="https://frenchgame.matthieuclement.com" target="_blank" rel="noopener"
+                        data-umami-event="game_link_hero" aria-label="Play my game"
+                        class="font-semibold text-lg w-[4rem] h-[55px] text-secondary rounded-full border-2 border-secondary hover:scale-105 bg-white dark:bg-transparent flex justify-center items-center">
+                        <Icon icon="mdi:gamepad-variant" class="text-3xl" />
+                    </a>
                 </div>
             </div>
             <div class="flex justify-center lg:justify-end lg:mt-0 items-center flex-wrap">

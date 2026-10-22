@@ -59,6 +59,7 @@ const restartGif = () => {
 const Menu = ref([
     { name: 'Who am I ?', href: '#whoami' },
     { name: 'My Services', href: '#services' },
+    { name: 'My Projects', href: '#projects' },
     { name: 'Contact', href: '#', action: 'open-contact' },
 ]);
 
