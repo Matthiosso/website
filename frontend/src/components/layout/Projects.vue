@@ -1,13 +1,13 @@
 <template>
-    <section id="projects" class="relative text-white">
+    <section id="projects" class="relative text-white -mt-8">
         <SectionHeader title="My Projects" small />
-        <div class="xl:px-16 px-4 pb-8 pt-10 flex justify-center">
+        <div class="xl:px-16 px-4 pb-16 pt-10 flex justify-center">
             <article class="px-[12px] w-full max-w-4xl" v-for="element in projects" :key="element.id">
                 <div class="rounded-3xl relative flex flex-col md:flex-row overflow-hidden border border-secondary bg-block"
                     data-aos="fade-up">
-                    <div class="md:w-1/2 flex items-center justify-center bg-background p-4">
+                    <div class="md:w-1/2 relative min-h-[260px] flex items-center justify-center bg-background">
                         <img v-if="element.image" :src="element.image" :alt="element.name"
-                            class="w-full rounded-xl" loading="lazy" />
+                            class="absolute inset-0 w-full h-full object-cover object-[85%_50%]" loading="lazy" />
                         <Icon v-else :icon="element.icon" class="h-[120px] w-[120px] text-secondary" />
                     </div>
                     <div class="md:w-1/2 p-[30px] flex flex-col justify-center text-center md:text-left">
@@ -17,9 +17,13 @@
                         <p class="text-[14px] leading-[20px] text-white tracking-[0.03rem]">
                             {{ element.description }}
                         </p>
+                        <p class="mt-2 text-[14px] leading-[20px] text-white tracking-[0.03rem]">
+                            {{ element.tech }}
+                        </p>
                         <div class="mt-2">
-                            <template v-for="icon in element.icons" :key="icon">
-                                <Icon :icon="icon" class="ml-1 mt-1 h-[35px] w-[35px] inline-block" />
+                            <template v-for="tool in element.icons" :key="tool.icon">
+                                <Icon :icon="tool.icon" :title="tool.label" :aria-label="tool.label"
+                                    class="ml-1 mt-1 h-[35px] w-[35px] inline-block" />
                             </template>
                         </div>
                         <div class="mt-4">
@@ -46,8 +50,16 @@ const projects = ref([
         icon: 'mdi:gamepad-variant',
         image: frenchGameImage,
         name: 'French Game',
-        description: 'A FR ↔ EN translation game with RPG progression (XP, combos, shop) and a kawaii dollhouse mini-game. Vanilla JS front, Node/Fastify API with SQLite cloud save, containerized and deployed on Kubernetes. Built with Claude Code.',
-        icons: ['devicon:javascript', 'devicon:nodejs', 'devicon:fastify', 'devicon:sqlite', 'devicon:docker', 'devicon:kubernetes'],
+        description: 'A FR ↔ EN translation game with RPG progression (XP, combos, shop) and a kawaii dollhouse mini-game.',
+        tech: 'Vanilla JS front, Node.js/Fastify API with SQLite cloud save, containerized and deployed on Kubernetes. Built with AI-assisted development (Claude Code).',
+        icons: [
+            { icon: 'devicon:javascript', label: 'JavaScript' },
+            { icon: 'devicon:nodejs', label: 'Node.js' },
+            { icon: 'devicon:fastify', label: 'Fastify' },
+            { icon: 'devicon:sqlite', label: 'SQLite' },
+            { icon: 'devicon:docker', label: 'Docker' },
+            { icon: 'devicon:kubernetes', label: 'Kubernetes' },
+        ],
         url: 'https://frenchgame.matthieuclement.com'
     },
 ])
