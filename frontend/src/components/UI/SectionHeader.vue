@@ -8,7 +8,8 @@
     </header>
 
     <!-- Title -->
-    <h2 v-if="title" class="text-4xl md:text-5xl lg:text-6xl font-bold text-center stroke-text" data-aos="fade-up">
+    <h2 v-if="title" :class="small ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-4xl md:text-5xl lg:text-6xl'"
+        class="font-bold text-center stroke-text" data-aos="fade-up">
         {{ title }}</h2>
 
 </template>
@@ -17,6 +18,10 @@ defineProps({
     title: {
         type: String,
         default: ''
+    },
+    small: {
+        type: Boolean,
+        default: false
     }
 });
 </script>
