@@ -5,12 +5,12 @@
             <article class="px-[12px] w-full max-w-4xl" v-for="element in projects" :key="element.id">
                 <div class="rounded-3xl relative flex flex-col md:flex-row overflow-hidden border border-secondary bg-block"
                     data-aos="fade-up">
-                    <div class="md:w-2/5 flex items-center justify-center bg-background p-8">
+                    <div class="md:w-1/2 flex items-center justify-center bg-background p-4">
                         <img v-if="element.image" :src="element.image" :alt="element.name"
                             class="w-full rounded-xl" loading="lazy" />
                         <Icon v-else :icon="element.icon" class="h-[120px] w-[120px] text-secondary" />
                     </div>
-                    <div class="md:w-3/5 p-[30px] flex flex-col justify-center text-center md:text-left">
+                    <div class="md:w-1/2 p-[30px] flex flex-col justify-center text-center md:text-left">
                         <h3 class="uppercase text-base light-stroke-text">
                             {{ element.name }}
                         </h3>
@@ -38,13 +38,13 @@
 <script setup>
 import { ref } from 'vue';
 import SectionHeader from '@/components/UI/SectionHeader.vue';
+import frenchGameImage from '@/assets/images/frenchgame.webp';
 
-// Set `image` to an imported screenshot to replace the icon placeholder.
 const projects = ref([
     {
         id: 1,
         icon: 'mdi:gamepad-variant',
-        image: null,
+        image: frenchGameImage,
         name: 'French Game',
         description: 'A FR ↔ EN translation game with RPG progression (XP, combos, shop) and a kawaii dollhouse mini-game. Vanilla JS front, Node/Fastify API with SQLite cloud save, containerized and deployed on Kubernetes. Built with Claude Code.',
         icons: ['devicon:javascript', 'devicon:nodejs', 'devicon:fastify', 'devicon:sqlite', 'devicon:docker', 'devicon:kubernetes'],
