@@ -5,9 +5,9 @@
             <article class="px-[12px] w-full max-w-4xl" v-for="element in projects" :key="element.id">
                 <div class="rounded-3xl relative flex flex-col md:flex-row overflow-hidden border border-secondary bg-block"
                     data-aos="fade-up">
-                    <div class="md:w-1/2 relative min-h-[260px] flex items-center justify-center bg-background">
+                    <div class="md:w-1/2 relative aspect-[4/3] md:aspect-auto md:min-h-[260px] flex items-center justify-center bg-background">
                         <img v-if="element.image" :src="element.image" :alt="element.name"
-                            class="absolute inset-0 w-full h-full object-cover object-[85%_50%]" loading="lazy" />
+                            class="absolute inset-0 w-full h-full object-cover object-center" loading="lazy" />
                         <Icon v-else :icon="element.icon" class="h-[120px] w-[120px] text-secondary" />
                     </div>
                     <div class="md:w-1/2 p-[30px] flex flex-col justify-center text-center md:text-left">
