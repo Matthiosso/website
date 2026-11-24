@@ -42,15 +42,15 @@
 <script setup>
 import { ref } from 'vue';
 import SectionHeader from '@/components/UI/SectionHeader.vue';
-import frenchGameImage from '@/assets/images/frenchgame.webp';
+import frenchNeuronImage from '@/assets/images/frenchneuron.webp';
 
 const projects = ref([
     {
         id: 1,
         icon: 'mdi:gamepad-variant',
-        image: frenchGameImage,
-        name: 'French Game',
-        description: 'A FR ↔ EN translation game with RPG progression (XP, combos, shop) and a kawaii dollhouse mini-game.',
+        image: frenchNeuronImage,
+        name: 'FrenchNeuron',
+        description: 'A FR ↔ EN translation game with RPG progression (XP, combos, shop) and a neural network that grows as the player progresses.',
         tech: 'Vanilla JS front, Node.js/Fastify API with SQLite cloud save, containerized and deployed on Kubernetes. Built with AI-assisted development (Claude Code).',
         icons: [
             { icon: 'devicon:javascript', label: 'JavaScript' },
