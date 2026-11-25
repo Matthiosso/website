@@ -30,36 +30,8 @@ spec:
               port:
                 number: 80
 ---
-# Apex domain: serve /ads.txt directly (a crawler may not follow a redirect), and redirect
-# everything else to www. This replaces the from-to-www-redirect annotation, whose generated
-# Location always carries an explicit port (https://www.example.com:443/...).
-# Note: ingress-nginx drops that annotation's redirect server as soon as an Ingress declares
-# the apex host, hence the explicit redirect Ingress below.
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: website-frontend-apex-ads
-  namespace: prod
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - ${SERVER_DOMAIN}
-      secretName: prod-tls
-  rules:
-    - host: ${SERVER_DOMAIN}
-      http:
-        paths:
-        - path: /ads.txt
-          pathType: Exact
-          backend:
-            service:
-              name: website-frontend-service
-              port:
-                number: 80
----
+# Apex domain: redirect everything to www. This replaces the from-to-www-redirect annotation,
+# whose generated Location always carries an explicit port (https://www.example.com:443/...).
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
